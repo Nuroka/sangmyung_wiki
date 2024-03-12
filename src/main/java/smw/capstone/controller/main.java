@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class main {
 
+    @RequestMapping("/?continue")
+    public String index(){
+        return "index";
+    }
+
 
 
 }
