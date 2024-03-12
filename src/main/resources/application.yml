@@ -1,0 +1,22 @@
+server:
+  port: 9090
+
+##DB Connection
+spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+
+logging.level:
+  org:
+    hibernate:
+      SQL: debug
+      type: trace
