@@ -17,6 +17,11 @@ public class Member {
     private String Email;
     private String ID;
     private String Password;
-    private Number Student_Id;
-    private boolean Admin_Type;
+    private int Student_Id;
+    private String Admin_Type;
+
+    public void setID(String id){
+    ID = id;
+    }
 }
+
