@@ -9,7 +9,8 @@ public class Comments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Comments_Id;
+    @Column(name = "Comments_Id")
+    private Long Id;
 
     @JoinColumn(name = "Member_Id", nullable = false)
     @ManyToOne

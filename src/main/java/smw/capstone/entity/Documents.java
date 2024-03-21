@@ -9,7 +9,8 @@ public class Documents {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Dcouments_Id;
+    @Column(name="Dcouments_Id")
+    private Long Id;
 
     @JoinColumn(name = "Member_Id", nullable = false)
     @ManyToOne

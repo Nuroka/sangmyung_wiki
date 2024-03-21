@@ -10,7 +10,8 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Board_Id;
+    @Column(name = "Board_Id")
+    private Long Id;
 
     @JoinColumn(name = "Member_Id", nullable = false)
     @ManyToOne
