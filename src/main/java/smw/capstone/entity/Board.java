@@ -23,4 +23,6 @@ public class Board {
 
     private LocalDate updateAt;
 
+    private String content;
+
 }
