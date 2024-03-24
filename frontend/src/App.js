@@ -1,9 +1,10 @@
 import CommunityPage from "./pages/CommunityPage";
+import Fileload from "./pages/Fileload";
 
 function App() {
   return (
     <>
-      <CommunityPage />
+      <Fileload />
     </>
   );
 }
