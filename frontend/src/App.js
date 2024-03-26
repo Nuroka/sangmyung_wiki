@@ -8,6 +8,7 @@ import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
 import Community from "./pages/Community";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "board",
         element: <Community />,
+      },
+      {
+        path: "user",
+        element: <Login />,
       },
     ],
   },

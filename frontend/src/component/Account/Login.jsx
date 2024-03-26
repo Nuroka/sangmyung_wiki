@@ -17,11 +17,17 @@ function Login() {
     console.log('Navigate to create account page');
   };
 
+  const handleForgotCredentials = () => {
+    // 아이디/비밀번호 찾기 페이지로 이동하는 로직
+    console.log('Navigate to forgot credentials page');
+  };
+
   return (
     <div>
       <h2>로그인</h2>
       <div>
-        <label htmlFor="userid">아이디:</label>
+        <label htmlFor="userid">Username</label>
+        <br />
         <input
           type="text"
           id="userid"
@@ -30,7 +36,8 @@ function Login() {
         />
       </div>
       <div>
-        <label htmlFor="password">비밀번호:</label>
+        <label htmlFor="password">Password</label>
+        <br />
         <input
           type="password"
           id="password"
@@ -46,6 +53,8 @@ function Login() {
           onChange={(e) => setRememberMe(e.target.checked)}
         />
         <label htmlFor="rememberMe">자동 로그인</label>
+        <span> </span>
+        <a href="#" onClick={handleForgotCredentials}>[아이디/비밀번호 찾기]</a> {/* 아이디/비밀번호 찾기 링크 */}
       </div>
       <div>
         <button onClick={handleCreateAccount}>계정 생성</button>
