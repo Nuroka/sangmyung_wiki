@@ -2,13 +2,13 @@ package smw.capstone.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+//@Entity
 public class DocFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JoinColumn(name = "Dcouments_Id")
+    @JoinColumn(name = "Id")
     @ManyToOne
     private Documents document;
 
