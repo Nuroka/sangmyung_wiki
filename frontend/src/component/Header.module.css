@@ -1,0 +1,24 @@
+.nav {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    margin-right: 43px;
+    line-height: 50px;
+    text-decoration-line: none;
+    color: inherit;
+    margin-top: -25px;
+    top: 50%;
+}
+.nav1 {
+    left: 40vw;
+}
+
+.nav2{
+    left: 50vw;
+}
+.nav3{
+    left: 60vw;
+}
+.nav4{
+    left: 70vw;
+}
