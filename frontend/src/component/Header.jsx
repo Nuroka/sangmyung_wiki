@@ -6,6 +6,7 @@ export default function Header() {
       <NavLink to="/">최근변경</NavLink>
       <NavLink to="/">랜덤문서</NavLink>
       <NavLink to="/board">커뮤니티</NavLink>
+      <NavLink to="/user">사용자 정보</NavLink>
     </>
   );
 }
