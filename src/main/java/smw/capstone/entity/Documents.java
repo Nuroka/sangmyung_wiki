@@ -1,10 +1,12 @@
 package smw.capstone.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
 public class Documents {
 
     @Id
