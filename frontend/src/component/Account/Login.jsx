@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from "./Login.module.css"
 
 function Login() {
   const [userid, setUserid] = useState('');
@@ -23,8 +24,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
+    <div className={styles.loginDiv}>
+      <h2 className={styles.loginTitle}>로그인</h2>
       <div>
         <label htmlFor="userid">Username</label>
         <br />
@@ -46,15 +47,15 @@ function Login() {
         />
       </div>
       <div>
-        <input
+        <input className={`${styles.rememberMe}` }
           type="checkbox"
           id="rememberMe"
           checked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
         />
-        <label htmlFor="rememberMe">자동 로그인</label>
-        <span> </span>
-        <a href="#" onClick={handleForgotCredentials}>[아이디/비밀번호 찾기]</a> {/* 아이디/비밀번호 찾기 링크 */}
+        <label className={styles.login} htmlFor="rememberMe">자동 로그인</label>
+        {/*<span> </span>*/}
+        <a className={styles.find} href="#" onClick={handleForgotCredentials}>[아이디/비밀번호 찾기]</a> {/* 아이디/비밀번호 찾기 링크 */}
       </div>
       <div>
         <button onClick={handleCreateAccount}>계정 생성</button>

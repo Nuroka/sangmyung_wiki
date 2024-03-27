@@ -1,0 +1,71 @@
+input {
+    width: 50%;
+    margin-top: 23px;
+    height: 2em;
+    border-radius: 10px;
+    border: none;
+    font-size: 2vmin;
+}
+
+input[type=checkbox] {
+    outline: none;
+    cursor: pointer;
+}
+.login {
+    width: auto;
+    font-size: 2vmin;
+    margin-left: 16px;
+    margin-top: 20px;
+}
+
+.rememberMe {
+    width: 1em;
+    height: 1em;
+    margin-left: 0;
+    border: none;
+    position: relative;
+    top: -3px;
+}
+
+.find{
+    margin-top: 23px;
+    font-size: 2vmin;
+    margin-left: 28%;
+}
+
+div {
+    margin-top: 23px;
+    height: auto;
+}
+
+a {
+    text-decoration-line: none;
+    color: inherit;
+    position: relative;
+    top: -5px;
+}
+.loginDiv {
+    margin-left: 36px;
+}
+
+.loginTitle {
+    margin-bottom: 39px;
+}
+
+button {
+    position: relative;
+    width: 8em;
+    height: 3em;
+    background: #004896;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    left: 28%;
+    margin-right: 9px;
+    font-size: 2vmin;
+}
+
+label[for="rememberMe"] {
+    position: relative;
+    top: -5px;
+}

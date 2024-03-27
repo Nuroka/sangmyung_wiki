@@ -25,6 +25,10 @@ const router = createBrowserRouter([
         path: "board",
         element: <Community />,
       },
+      {
+        path: "user",
+        element: <Login />,
+      },
     ],
   },
 ]);
