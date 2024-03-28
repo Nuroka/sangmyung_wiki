@@ -7,8 +7,9 @@ import RootLayout from "./layout/RootLayout";
 import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
+import LoginPage from "./pages/Login";
 import Community from "./pages/Community";
-import Login from "./pages/Login";
+import DocsRecent from "./pages/DocsRecent";
 
 const router = createBrowserRouter([
   {
@@ -25,15 +26,19 @@ const router = createBrowserRouter([
         path: "board",
         element: <Community />,
       },
+      {
+        path: "docs/edit",
+        element: <DocsRecent />,
+      },
     ],
   },
 ]);
 
 function App() {
   return (
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 
