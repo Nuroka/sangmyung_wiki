@@ -100,4 +100,13 @@ public class DocService {
                 .content(document.getContent())
                 .id(document.getId()).build();
     }
+
+    public DocsIdDTO getMyDocs(/*인증정보*/) {
+            Documents documents = docRepository.findByMember(/*인증된 멤버 객체*/);
+        DocsIdDTO dosIdDTO = new DocsIdDTO();
+        for (Documents document : documents) {
+            dosIdDTO.getDocsIdList().add(document.getId());
+        }
+        return dosIdDTO;
+    }
 }
