@@ -1,24 +1,60 @@
 .nav {
-    position: absolute;
-    display: inline-block;
-    text-align: center;
-    margin-right: 43px;
-    line-height: 50px;
-    text-decoration-line: none;
-    color: inherit;
-    margin-top: -25px;
-    top: 50%;
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  margin-right: 43px;
+  line-height: 50px;
+  text-decoration-line: none;
+  color: inherit;
+  margin-top: -25px;
+  top: 50%;
 }
 .nav1 {
-    left: 40vw;
+  left: 40vw;
 }
 
-.nav2{
-    left: 50vw;
+.nav2 {
+  left: 50vw;
 }
-.nav3{
-    left: 60vw;
+.nav3 {
+  left: 60vw;
 }
-.nav4{
-    left: 70vw;
+
+.logo {
+  position: absolute;
+  left: 3vw;
+  margin-top: -25px;
+  top: 50%;
+  /*display: inline-block;*/
+}
+
+.user {
+  position: absolute;
+  right: 0vw;
+  margin-top: -25px;
+  top: 50%;
+}
+
+.search {
+  position: absolute;
+  margin-top: -23px;
+  top: 50%;
+  right: 6vw;
+  width: 15%;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #efefef;
+}
+
+.searchIcon {
+  position: absolute;
+  margin-top: -19px;
+  top: 50%;
+  right: 7vw;
+}
+
+input {
+  padding-left: 21px;
+  font-family: "SUIT-Regular";
 }

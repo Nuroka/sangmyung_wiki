@@ -5,19 +5,12 @@ import Popular from "../component/Popular";
 import Recent from "../component/Recent";
 
 import styles from "./RootLayout.module.css";
-import logo from "../img/logo.png";
-import user from "../img/user.png";
-import search from "../img/search.png";
 
 function RootLayout() {
   return (
     <div className={styles.container}>
       <div className={styles.item}>
-        <img className={styles.logo} src={logo} alt="logo" />
         <Header />
-        <input className={styles.search} placeholder={"이곳에서 검색"}></input>
-        <img className={styles.searchIcon} src={search} alt="search" />
-        <img className={styles.user} src={user} alt="user" />
       </div>
       <div className={styles.item}>
         <Outlet />

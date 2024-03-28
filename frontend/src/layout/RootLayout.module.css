@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-family: "SUIT-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2") format("woff2");
   font-style: normal;
 }
 .container {
@@ -10,7 +10,7 @@
   grid-template-rows: 82px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   row-gap: 10px;
   column-gap: 20px;
-  font-family: 'SUIT-Regular';
+  font-family: "SUIT-Regular";
   font-weight: 700;
   font-size: 24px;
 }
@@ -21,7 +21,7 @@
   position: relative;
   grid-column: 1 / -1;
   grid-row: 1 / 2;
-  border-bottom: 3px solid #EDEDED;
+  border-bottom: 3px solid #ededed;
 }
 
 /* Outlet */
@@ -46,44 +46,4 @@
   grid-row: 6 / -1;
   border-radius: 20px;
   background: #cedbea;
-}
-
-.logo {
-  position: absolute;
-  left: 3vw;
-  margin-top: -25px;
-  top: 50%;
-  /*display: inline-block;*/
-}
-
-.user {
-  position: absolute;
-  right: 3vw;
-  margin-top: -25px;
-  top: 50%;
-}
-
-.search {
-  position: absolute;
-  margin-top: -23px;
-  top: 50%;
-  right: 6vw;
-  width: 15%;
-  height: 40px;
-  border-radius: 50px;
-  border: none;
-  background-color: #EFEFEF;
-}
-
-.searchIcon {
-  position: absolute;
-  margin-top: -19px;
-  top: 50%;
-  right: 7vw;
-}
-
-
-input {
-  padding-left: 21px;
-  font-family: 'SUIT-Regular';
 }
