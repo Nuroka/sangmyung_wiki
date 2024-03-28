@@ -8,8 +8,10 @@ import smw.capstone.DTO.*;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Documents;
 import smw.capstone.entity.Files;
+import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
+import smw.capstone.repository.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class DocService {
 
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
+    private final MemberRepository memberRepository;
 
         public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
         List<DocDTO> docDto = new ArrayList<>();
@@ -102,7 +105,8 @@ public class DocService {
     }
 
     public DocsIdDTO getMyDocs(/*인증정보*/) {
-            Documents documents = docRepository.findByMember(/*인증된 멤버 객체*/);
+        Member temp = memberRepository.findById(1L); //임시 데이터, 실행 오류 방지
+            List<Documents> documents = docRepository.findByMember(temp/*인증된 멤버 객체*/);
         DocsIdDTO dosIdDTO = new DocsIdDTO();
         for (Documents document : documents) {
             dosIdDTO.getDocsIdList().add(document.getId());
