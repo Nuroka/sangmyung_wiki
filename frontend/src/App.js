@@ -7,7 +7,7 @@ import RootLayout from "./layout/RootLayout";
 import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
-import LoginPage from "./pages/Login";
+import Login from "./pages/Login";
 import Community from "./pages/Community";
 import DocsRecent from "./pages/DocsRecent";
 

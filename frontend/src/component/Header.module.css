@@ -22,24 +22,25 @@
 .logo {
   position: absolute;
   left: 3vw;
-  margin-top: -25px;
-  top: 50%;
-  /*display: inline-block;*/
+  display: inline-block;
+  width: 13vw;
+  min-width: 100px;
 }
 
 .user {
   position: absolute;
-  right: 0vw;
-  margin-top: -25px;
-  top: 50%;
+  left: 93vw;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: -30px;
 }
 
 .search {
   position: absolute;
-  margin-top: -23px;
-  top: 50%;
+  margin: 0;
+  display: inline-block;
   right: 6vw;
-  width: 15%;
+  width: 15vw;
   height: 40px;
   border-radius: 50px;
   border: none;
@@ -48,12 +49,17 @@
 
 .searchIcon {
   position: absolute;
-  margin-top: -19px;
-  top: 50%;
+  display: inline-block;
   right: 7vw;
+  height: 25px;
+  margin-top: 6px;
 }
 
 input {
   padding-left: 21px;
   font-family: "SUIT-Regular";
+}
+
+input::placeholder {
+  font-size: 1vw;
 }
