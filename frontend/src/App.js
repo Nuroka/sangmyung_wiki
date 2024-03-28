@@ -30,6 +30,10 @@ const router = createBrowserRouter([
         path: "docs/edit",
         element: <DocsRecent />,
       },
+      {
+        path: "user",
+        element: <Login />,
+      },
     ],
   },
 ]);

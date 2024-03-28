@@ -12,7 +12,7 @@
   column-gap: 20px;
   font-family: "SUIT-Regular";
   font-weight: 700;
-  font-size: 24px;
+  font-size: 2.5vmin;
 }
 
 /* Header */
@@ -46,4 +46,48 @@
   grid-row: 6 / -1;
   border-radius: 20px;
   background: #cedbea;
+}
+
+.logo {
+  position: absolute;
+  left: 3vw;
+  display: inline-block;
+  width: 13vw;
+  min-width: 100px;
+}
+
+.user {
+  position: absolute;
+  left: 93vw;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.search {
+  position: absolute;
+  margin: 0;
+  display: inline-block;
+  right: 6vw;
+  width: 15vw;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #efefef;
+}
+
+.searchIcon {
+  position: absolute;
+  display: inline-block;
+  right: 7vw;
+  height: 25px;
+  margin-top: 6px;
+}
+
+input {
+  padding-left: 21px;
+  font-family: "SUIT-Regular";
+}
+
+input::placeholder {
+  font-size: 1vw;
 }
