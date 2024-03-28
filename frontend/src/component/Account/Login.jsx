@@ -54,7 +54,7 @@ function Login() {
         />
         <label htmlFor="rememberMe">자동 로그인</label>
         <span> </span>
-        <a href="#" onClick={handleForgotCredentials}>[아이디/비밀번호 찾기]</a> {/* 아이디/비밀번호 찾기 링크 */}
+        <a href="#" onClick={handleForgotCredentials}>[아이디/비밀번호 찾기]</a>
       </div>
       <div>
         <button onClick={handleCreateAccount}>계정 생성</button>
