@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,5 +27,8 @@ public class Documents {
     private LocalDate createAt;
 
     private LocalDate updateAt;
+
+    @OneToMany(mappedBy = "document", orphanRemoval = true)
+    private List<DocFile> docFileList = new ArrayList<DocFile>();
 
 }
