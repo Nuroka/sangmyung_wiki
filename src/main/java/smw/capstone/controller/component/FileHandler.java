@@ -1,10 +1,12 @@
 package smw.capstone.controller.component;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.entity.Files;
+import smw.capstone.repository.MemberRepository;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class FileHandler {
 
     public Files parseFileInfo(FileUploadDTO saveFiles, MultipartFile multipartFile) throws Exception {
@@ -75,7 +78,9 @@ public class FileHandler {
                         .Category(saveFiles.getCategory())
                         .Name(saveFiles.getFileName())
                         .License(saveFiles.getLicense())
-                        .Summary(saveFiles.getSummary()).build();
+                        .Summary(saveFiles.getSummary())
+//                        .member(memberRepository.findById(1L)) 나중에 회원정보 넣기
+                        .build();
                 file = new File(absolutePath + path + "/" + newFileName);
                 multipartFile.transferTo(file);
             }

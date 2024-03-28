@@ -24,11 +24,12 @@ public class DocService {
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
 
-    public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
+        public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
         List<DocDTO> docDto = new ArrayList<>();
 
         //doc id 리스트를 받아서 id별로 doc 내용과 파일 찾아주기
         for (Long docId : docsIdDTO.getDocsIdList()) {
+
             DocDTO responseDoc = new DocDTO();
             Optional<Documents> documents = docRepository.findById(docId);
             if (!documents.isPresent()) {

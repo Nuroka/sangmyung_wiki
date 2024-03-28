@@ -38,7 +38,6 @@ public class FileController {
             @Validated @RequestParam("file") MultipartFile file,
             @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO
     ) throws Exception {
-        System.out.println(fileUploadDTO);
         return ok().body(fileService.savefiles(fileUploadDTO, file));
     }
 
@@ -47,7 +46,7 @@ public class FileController {
      * TODO: 시큐리티 Authentication 객체 생성하면 api에 적용
      */
     @GetMapping("/docs")
-    public ResponseEntity<?> getDocs(DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
+    public ResponseEntity<?> getDocs(@RequestBody DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
         return ResponseEntity.ok().body(docService.getDoc(docsIdList));
     }
 

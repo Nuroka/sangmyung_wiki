@@ -10,9 +10,7 @@ import java.util.List;
 
 
 public interface DocFileRepository extends JpaRepository<DocFile, Long> {
-
-    @Query("select df from DocFile df where df.document = :docId")
-    List<DocFile> findByDocumentId(@Param("docId") Long docId);
+    List<DocFile> findByDocumentId(Long docId);
 
     List<DocFile> findByDocument(Documents documents);
 }
