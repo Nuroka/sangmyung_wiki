@@ -10,6 +10,10 @@ import Fileload from "./pages/Fileload";
 import Login from "./pages/Login";
 import Community from "./pages/Community";
 import DocsRecent from "./pages/DocsRecent";
+import BoardList from "./component/board/BoardList";
+import BoardDetail from "./component/board/BoardDetail";
+import BoardWrite from "./component/board/BoardWirte";
+import BoardUpdate from "./component/board/BoardUpdate";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +28,39 @@ const router = createBrowserRouter([
       },
       {
         path: "board",
-        element: <Community />,
+        element: (
+          <>
+            <Community /> 
+            <BoardList />
+          </>
+        ),
+      },
+      {
+        path: "board/:idx",
+        element: (
+          <>
+            <Community /> 
+            <BoardDetail />
+          </>
+        ),
+      },
+      {
+        path: "board/write",
+        element: (
+          <>
+            <Community /> 
+            <BoardWrite />
+          </>
+        ),
+      },
+      {
+        path: "board/Update/:idx",
+        element: (
+          <>
+            <Community /> 
+            <BoardUpdate />
+          </>
+        ),
       },
       {
         path: "docs/edit",

@@ -13,7 +13,7 @@ export default function FileUpload() {
       });
       const data = await response.json();
 
-      // 결과를 출력하거나 상태를 업데이트하는 코드를 추가할 수 있습니다.
+      // 결과를 출력하거나 상태를 업데이트하는 코드를 추가
       console.log(data);
     } catch (error) {
       console.error("에러:", error);
