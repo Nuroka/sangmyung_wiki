@@ -1,5 +1,6 @@
 package smw.capstone.service;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,8 @@ import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.MemberRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +25,10 @@ public class DocService {
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
     private final MemberRepository memberRepository;
+    private final FileService fileService;
+    private final DocFileService docFileService;
 
-        public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
+    public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
         List<DocDTO> docDto = new ArrayList<>();
 
         //doc id 리스트를 받아서 id별로 doc 내용과 파일 찾아주기
@@ -116,8 +117,35 @@ public class DocService {
 
     @Transactional
     public void deleteDoc(int id /*사용자 인증정보*/) {
-    Long docId = (long) id;
+            Long docId = (long) id;
             /*사용자 정보 확인 후 삭제 가능한 문서면 삭제*/
         docRepository.deleteById(docId);
     }
+
+    @Transactional
+    public ReqUpdateDocDTO updateDoc(ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
+        //사용자 정보 토대로 reqUpdateDocDoc.fileName 으로 filepath 찾고 반환
+        Optional<Documents> findDoc = docRepository.findById(reqUpdateDocDTO.getDocId());
+        List<String> fileNames = new ArrayList<>();
+        Documents updateDoc = null;
+        try {
+            updateDoc = findDoc.get();
+            docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName());
+            updateDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now()); //변경이 감지되면 바로 flush하나? test해보기
+
+            List<DocFile> docFileList = docFileRepository.findByDocument(updateDoc);
+            for (DocFile docFile : docFileList) {
+                fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
+            }
+        } catch (NullPointerException e) {
+            log.info("{} 해당 문서가 존재하지 않습니다.", reqUpdateDocDTO.getDocId(), e);
+        }
+
+        return ReqUpdateDocDTO.builder()
+                .docId(updateDoc.getId())
+                .content(updateDoc.getContent())
+                .fileName(fileNames)
+                .build();
+    }
+
 }

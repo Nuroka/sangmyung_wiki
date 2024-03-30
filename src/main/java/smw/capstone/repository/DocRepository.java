@@ -15,4 +15,7 @@ public interface DocRepository extends JpaRepository<Documents, Long> {
     public List<Documents> findByKeyword(@Param("keyword") String keyword);
 
     public List<Documents> findByMember(Member member);
+
+    public Documents findByIdAndMember(Long id, Member member);
+
 }

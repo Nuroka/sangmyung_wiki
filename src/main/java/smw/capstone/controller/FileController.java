@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.DocsIdDTO;
 import smw.capstone.DTO.FileUploadDTO;
+import smw.capstone.DTO.ReqUpdateDocDTO;
 import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
 
@@ -75,5 +76,17 @@ public class FileController {
     public ResponseEntity<?> deleteDoc(int id /*사용자 확인후 삭제 가능한 문서면 삭제*/) {
         docService.deleteDoc(id/*사용자 인증정보*/);
         return ResponseEntity.ok().body("문서가 삭제 되었습니다.");
+    }
+
+    /**
+     * 문서 만들기
+     */
+
+    /**
+     * 문서 편집
+     */
+    @PostMapping("/docs/edit")
+    public ResponseEntity<?> updateDoc(@RequestBody ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
+        return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO));
     }
 }
