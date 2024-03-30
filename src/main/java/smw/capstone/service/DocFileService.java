@@ -95,6 +95,10 @@ public class DocFileService {
         return docFileRepository.findByDocument(documents);
     }
 
+    public List<DocFile> findDocfileByDocId(Long docId) {
+        return docFileRepository.findByDocumentId(docId);
+    }
+
 
 }
 

@@ -148,4 +148,29 @@ public class DocService {
                 .build();
     }
 
+    public DocDTO showRandDoc() {
+        /*사용자가 볼 수 있는 문서인가 확인*/
+        List<Documents> documents = docRepository.findAll();
+
+        if (documents.isEmpty()) {
+            log.info("문서가 없습니다");
+            //나중에 예외 처리
+        }
+        int rand = (int) (Math.random() * documents.size() + 1);
+        Documents randDoc = docRepository.getReferenceById((long) rand);
+
+        ResponseDocDTO responseDocDTO = ResponseDocDTO.builder()
+                .id(randDoc.getId())
+                .title(randDoc.getTitle())
+                .createAt(randDoc.getCreateAt())
+                .updateAt(randDoc.getUpdateAt())
+                .memberId(randDoc.getMember().getId())
+                .content(randDoc.getContent())
+                .build();
+        List<FileDTO> fileDTOList = fileService.findFilesByDocId((long) rand);
+
+        return  DocDTO.builder()
+                .documents(responseDocDTO)
+                .fileDtoList(fileDTOList).build();
+    }
 }

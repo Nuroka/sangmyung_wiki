@@ -89,4 +89,12 @@ public class FileController {
     public ResponseEntity<?> updateDoc(@RequestBody ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
         return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO));
     }
+
+    /**
+     * 문서 추천
+     */
+    @GetMapping("/docs/recommend")
+    public ResponseEntity<?> recommendDoc(/*사용자 정보*/) {
+        return ResponseEntity.ok().body(docService.showRandDoc());
+    }
 }
