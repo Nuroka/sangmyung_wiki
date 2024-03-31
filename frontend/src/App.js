@@ -14,6 +14,7 @@ import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWirte";
 import BoardUpdate from "./component/board/BoardUpdate";
+import FindId from "./pages/FindId";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "user",
         element: <Login />,
+      },
+      {
+        path: "findId",
+        element: <FindId />,
       },
     ],
   },

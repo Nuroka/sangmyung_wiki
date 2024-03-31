@@ -8,7 +8,9 @@ import user from "../img/user.png";
 export default function Header() {
   return (
     <>
-      <img className={styles.logo} src={logo} alt="logo" />
+      <NavLink className={styles.logo} to="/">
+        <img src={logo} alt="logo" />
+      </NavLink>
       <NavLink className={`${styles.nav} ${styles.nav1}`} to="/">
         최근변경
       </NavLink>
@@ -20,7 +22,10 @@ export default function Header() {
       </NavLink>
       <input className={styles.search} placeholder={"이곳에서 검색"}></input>
       <img className={styles.searchIcon} src={search} alt="search" />
-      <NavLink className={`${styles.nav} ${styles.nav4} ${styles.user}`} to="/user">
+      <NavLink
+        className={`${styles.nav} ${styles.nav4} ${styles.user}`}
+        to="/user"
+      >
         <img src={user} alt="user" />
       </NavLink>
     </>
