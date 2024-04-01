@@ -33,4 +33,13 @@ public class BoardController {
     public ResponseEntity<List<BoardDTO>> getAllBoard(/*사용자 정보*/) {
         return ResponseEntity.ok().body(boardService.getAllBoard());
     }
+
+    /**
+     * 게시물 삭제
+     */
+    @PostMapping
+    public ResponseEntity<String> delBoard(int boardId /*사용자 정보*/) {
+        boardService.deleteBoard(boardId);
+        return ResponseEntity.ok().body("게시물이 삭제되었습니다.");
+    }
 }

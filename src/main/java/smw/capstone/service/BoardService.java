@@ -5,6 +5,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import smw.capstone.DTO.BoardDTO;
 import smw.capstone.DTO.BoardUploadDTO;
+import smw.capstone.common.exception.BusinessException;
+import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.Board;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.BoardRepository;
@@ -13,6 +15,7 @@ import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +48,14 @@ public class BoardService {
                     .memberName(temp.getID()).build());
         }
         return responseBoardDTO;
+    }
+
+    public void deleteBoard(int boardId/*사용자 정보*/) {
+        Member temp = memberRepository.findById(1L); //임시 데이터
+        //멤버가 작성한 글이 맞으면 게시물 삭제
+        Optional<Board> byMemberAndId = boardRepository.findByMemberAndId(temp, (long) boardId);
+        byMemberAndId.orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+
+        boardRepository.delete(byMemberAndId.get());
     }
 }

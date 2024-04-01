@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum CustomErrorCode{
 
     //클라이언트에게 보낼 에러코드 정의
-    TEST(HttpStatus.BAD_REQUEST, "커스텀 에러 테스트"),
+    NOT_EXIST_BOARD(HttpStatus.BAD_REQUEST, "게시물이 없습니다."),
     ;
 
     private final HttpStatus status;
