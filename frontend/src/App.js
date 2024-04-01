@@ -15,6 +15,8 @@ import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWirte";
 import BoardUpdate from "./component/board/BoardUpdate";
 import FindId from "./pages/FindId";
+import MyPage from "./pages/MyPage";
+import UpdatePw from "./pages/UpdatePw";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
         path: "board",
         element: (
           <>
-            <Community /> 
+            <Community />
             <BoardList />
           </>
         ),
@@ -40,7 +42,7 @@ const router = createBrowserRouter([
         path: "board/:idx",
         element: (
           <>
-            <Community /> 
+            <Community />
             <BoardDetail />
           </>
         ),
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         path: "board/write",
         element: (
           <>
-            <Community /> 
+            <Community />
             <BoardWrite />
           </>
         ),
@@ -58,7 +60,7 @@ const router = createBrowserRouter([
         path: "board/Update/:idx",
         element: (
           <>
-            <Community /> 
+            <Community />
             <BoardUpdate />
           </>
         ),
@@ -74,6 +76,14 @@ const router = createBrowserRouter([
       {
         path: "findId",
         element: <FindId />,
+      },
+      {
+        path: "mypage",
+        element: <MyPage />,
+      },
+      {
+        path: "member/update",
+        element: <UpdatePw />,
       },
     ],
   },

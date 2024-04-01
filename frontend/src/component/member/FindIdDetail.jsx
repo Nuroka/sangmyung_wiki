@@ -5,6 +5,10 @@ import { defaultInstance } from "../../util/api";
 import FindInstruction from "./FindInstruction";
 import FindIdForm from "./FindIdForm";
 
+/**
+ * todo validation
+ */
+
 export default function FindIdDetail() {
   const url = "/findID"
 
@@ -12,7 +16,7 @@ export default function FindIdDetail() {
     email: "",
     student_Id: "",
   });
-  
+
   const [submitted, setSubmitted] = useState(false);
 
   const { mutate, isPending, isError, error } = useMutation({
