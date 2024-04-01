@@ -23,5 +23,13 @@ public class Member {
     public void setID(String id){
     ID = id;
     }
+
+    public String getID() {
+        return this.ID;
+    }
+
+    public Long getId() {
+        return this.getId();
+    }
 }
 

@@ -20,8 +20,9 @@ public class BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
-    private Member temp = memberRepository.findById(1L); //임시 데이터
     public void saveBoard(BoardUploadDTO boardUploadDTO /*사용자 정보*/) {
+
+        Member temp = memberRepository.findById(1L); //임시 데이터
         boardRepository.save(Board.builder()
                 .content(boardUploadDTO.getContent())
                 .title(boardUploadDTO.getBoardTitle())
@@ -32,7 +33,8 @@ public class BoardService {
     }
 
     public List<BoardDTO> getAllBoard(/*사용자정보*/) {
-        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "create_at"));
+        Member temp = memberRepository.findById(1L); //임시 데이터
+        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createAt"));
         List<BoardDTO> responseBoardDTO = new ArrayList<>();
         for (Board board : boardList) {
             responseBoardDTO.add(BoardDTO.builder()
