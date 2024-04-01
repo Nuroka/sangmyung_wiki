@@ -26,4 +26,11 @@ public class BoardController {
         return ResponseEntity.ok().body("커뮤니티에 글이 등록되었습니다.");
     }
 
+    /**
+     * 전체 게시물 보기
+     */
+    @GetMapping
+    public ResponseEntity<List<BoardDTO>> getAllBoard(/*사용자 정보*/) {
+        return ResponseEntity.ok().body(boardService.getAllBoard());
+    }
 }

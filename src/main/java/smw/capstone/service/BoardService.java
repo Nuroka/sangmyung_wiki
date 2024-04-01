@@ -31,4 +31,17 @@ public class BoardService {
                 .build());
     }
 
+    public List<BoardDTO> getAllBoard(/*사용자정보*/) {
+        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "create_at"));
+        List<BoardDTO> responseBoardDTO = new ArrayList<>();
+        for (Board board : boardList) {
+            responseBoardDTO.add(BoardDTO.builder()
+                    .boardId(board.getId())
+                    .boardTitle(board.getTitle())
+                    .createAt(board.getCreateAt())
+                    .updateAt(board.getUpdateAt())
+                    .memberName(temp.getID()).build());
+        }
+        return responseBoardDTO;
+    }
 }
