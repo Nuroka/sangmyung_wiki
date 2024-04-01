@@ -1,4 +1,4 @@
-package smw.capstone.controller.component;
+package smw.capstone.common.component;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -6,13 +6,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.entity.Files;
-import smw.capstone.repository.MemberRepository;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -35,7 +32,6 @@ public class FileHandler {
 
         //resources/img 에 파일 저장
         String absolutePath = new File("").getAbsolutePath() + "\\src\\main\\resources\\static\\";
-        System.out.println(absolutePath);
 
         //경로를 지정
         String path = "img/" + current_date;
@@ -70,7 +66,7 @@ public class FileHandler {
                 //각 이름이 겹치면 안되므로 uuid
                 UUID uuid = UUID.randomUUID();
                 String newFileName = saveFiles.getFileName() + uuid.toString() + originalFileExtension;
-                if (new File(path + "/" + newFileName).exists()) {
+                while (new File(path + "/" + newFileName).exists()) {
                     newFileName = saveFiles.getFileName() + UUID.randomUUID().toString() + originalFileExtension;
                 }
                 files = Files.builder()

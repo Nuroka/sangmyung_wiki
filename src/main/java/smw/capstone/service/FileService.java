@@ -8,12 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.FileDTO;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.DTO.ResponseFilePathDTO;
-import smw.capstone.controller.component.FileHandler;
+import smw.capstone.common.component.FileHandler;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Files;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
-import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.FileRepository;
 
 import java.util.ArrayList;
