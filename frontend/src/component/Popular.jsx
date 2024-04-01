@@ -27,8 +27,8 @@ export default function Popular() {
       <div>
         {data && (
           <ul>
-            {data.map((popular) => (
-              <li key={popular}>{popular}</li>
+            {data.map((popular, index) => (
+              <li key={index}>{popular}</li>
             ))}
           </ul>
         )}

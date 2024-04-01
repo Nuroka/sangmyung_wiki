@@ -1,39 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchRecent } from "../util/recentAPI";
+import { defaultInstance } from "../util/api";
 
 export default function Recent() {
+  const url = "/recent";
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["/recent"],
-    queryFn: () => fetchRecent(),
-    staleTime: 30000,
+    queryFn: async () => {
+      try {
+        const response = await defaultInstance.get(url);
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        // error handling
+      }
+    },
+    staleTime: 1000,
     keepPreviousData: true,
   });
-
-  let content;
-
-  if (isLoading) {
-    content = <p>Loading..</p>;
-  }
-
-  if (isError) {
-    content = <p>{error}</p>;
-  }
-
-  if (data) {
-    content = (
-      <ul>
-        {data.map((recent) => (
-          <li key={recent}>{recent}</li>
-        ))}
-      </ul>
-    );
-  }
 
   return (
     <>
       <p>최근 변경</p>
-      {content}
+      {isLoading ? (
+        <p>로딩 중..</p>
+      ) : (
+        <>
+          {isError && <p>{error.message}</p>}
+          {
+            <ul>
+              {data.map((recent, index) => (
+                <li key={index}>{recent}</li>
+              ))}
+            </ul>
+          }
+        </>
+      )}
     </>
   );
 }
