@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
 import Login from "./pages/Login";
 import Community from "./pages/Community";
-import DocsRecent from "./pages/DocsRecent";
+import RecentUpdated from "./pages/RecentUpdated";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWirte";
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       },
       {
         path: "docs/edit",
-        element: <DocsRecent />,
+        element: <RecentUpdated />,
       },
       {
         path: "user",

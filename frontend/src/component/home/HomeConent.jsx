@@ -18,6 +18,8 @@ export default function HomeContent() {
       <br></br>
       <NavLink to="/member/update">비밀번호 변경 페이지</NavLink>
       <br></br>
+      <NavLink to="/docs/edit">최근 변경 내역</NavLink>
+      <br></br>
       <NavLink to="/error">오류 페이지</NavLink>
     </div>
   );
