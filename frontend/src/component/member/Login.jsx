@@ -48,8 +48,8 @@ function Login() {
         <NavLink to="/findID">[아이디/비밀번호 찾기]</NavLink>
       </div>
       <div>
-        <button onClick={handleCreateAccount}>
-          <NavLink to="createEmail">계정 생성</NavLink>
+        <button>
+          <NavLink to="/createEmail">계정 생성</NavLink>
         </button>
         <button onClick={handleLogin}>로그인</button>
       </div>
