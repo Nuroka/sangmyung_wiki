@@ -42,4 +42,12 @@ public class BoardController {
         boardService.deleteBoard(boardId);
         return ResponseEntity.ok().body("게시물이 삭제되었습니다.");
     }
+
+    /**
+     * 게시물 하나 가져오기
+     */
+    @GetMapping("/one")
+    public ResponseEntity<BoardDTO> getOneBoard(Long id/*사용자 정보*/) {
+        return ResponseEntity.ok().body(boardService.getOneBoard(id));
+    }
 }

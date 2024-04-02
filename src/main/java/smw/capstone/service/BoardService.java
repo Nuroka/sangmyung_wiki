@@ -58,4 +58,16 @@ public class BoardService {
 
         boardRepository.delete(byMemberAndId.get());
     }
+
+    public BoardDTO getOneBoard(Long boardId) {
+        Optional<Board> board = boardRepository.findById(boardId);
+        board.orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_BOARD));
+        return BoardDTO.builder()
+                .boardId(board.get().getId())
+                .memberName(board.get().getMember().getID())
+                .updateAt(board.get().getUpdateAt())
+                .boardTitle(board.get().getTitle())
+                .content(board.get().getContent())
+                .createAt(board.get().getCreateAt()).build();
+    }
 }
