@@ -3,7 +3,7 @@ import React from 'react';
 const ConfirmEmail = ({ email }) => {
   return (
     <div>
-      <h1>계정 만들기</h1>
+      <h2>계정 만들기</h2>
       <p>
         이메일({email}) 로 계정 생성 이메일 인증 메일을 전송했습니다.<br />
         메일함에 도착한 메일을 통해 계정 생성을 계속 진행해 주시기 바랍니다.</p>

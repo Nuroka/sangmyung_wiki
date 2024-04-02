@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function CreateAccountEmail() {
     return (
         <div style={{ textAlign: 'left' }}>
-            <h1><b>계정 만들기</b></h1>
+            <h2><b>계정 만들기</b></h2>
             <label htmlFor="email">이메일</label><br />
             <input type="email" id="email" name="email" /><br /><br />
             <p>이메일 허용 목록이 활성화 되어 있습니다. 이메일 허용 목록에 존재하는 메일만 사용할 수 있습니다.</p>

@@ -22,7 +22,7 @@ const CreateAccountId = () => {
 
   return (
     <div>
-      <h1>계정 만들기</h1>
+      <h2>계정 만들기</h2>
       <div>
         <label htmlFor="userIdInput">사용자 ID</label><br />
         <input
