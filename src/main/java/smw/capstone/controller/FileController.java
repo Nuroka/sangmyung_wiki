@@ -1,23 +1,16 @@
 package smw.capstone.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.DocsIdDTO;
 import smw.capstone.DTO.FileUploadDTO;
-import smw.capstone.entity.Files;
+import smw.capstone.DTO.ReqUpdateDocDTO;
 import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
-
-import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -38,7 +31,6 @@ public class FileController {
             @Validated @RequestParam("file") MultipartFile file,
             @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO
     ) throws Exception {
-        System.out.println(fileUploadDTO);
         return ok().body(fileService.savefiles(fileUploadDTO, file));
     }
 
@@ -47,7 +39,7 @@ public class FileController {
      * TODO: 시큐리티 Authentication 객체 생성하면 api에 적용
      */
     @GetMapping("/docs")
-    public ResponseEntity<?> getDocs(DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
+    public ResponseEntity<?> getDocs(@RequestBody DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
         return ResponseEntity.ok().body(docService.getDoc(docsIdList));
     }
 
@@ -69,5 +61,40 @@ public class FileController {
         return ResponseEntity.ok().body(docService.findAll());
     }
 
+    /**
+     * 내 문서 가져오기
+     */
+    @GetMapping("/my-docs")
+    public ResponseEntity<?> getMyDocs(/*토큰 구현 되면 추가*/) {
+        return ResponseEntity.ok().body(docService.getMyDocs(/*인증정보*/));
+    }
 
+    /**
+     * 문서 삭제
+     */
+    @PostMapping("/docs")
+    public ResponseEntity<?> deleteDoc(int id /*사용자 확인후 삭제 가능한 문서면 삭제*/) {
+        docService.deleteDoc(id/*사용자 인증정보*/);
+        return ResponseEntity.ok().body("문서가 삭제 되었습니다.");
+    }
+
+    /**
+     * 문서 만들기
+     */
+
+    /**
+     * 문서 편집
+     */
+    @PostMapping("/docs/edit")
+    public ResponseEntity<?> updateDoc(@RequestBody ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
+        return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO));
+    }
+
+    /**
+     * 문서 추천
+     */
+    @GetMapping("/docs/recommend")
+    public ResponseEntity<?> recommendDoc(/*사용자 정보*/) {
+        return ResponseEntity.ok().body(docService.showRandDoc());
+    }
 }
