@@ -17,16 +17,12 @@ public class MemberRepository {
     @Transactional
     public void save(Member member) { em.persist(member);}
 
-    public Member findById(Long id) {
-        return em.find(Member.class, id);
-    }
-
     public void remove(Member member) {
         em.remove(em.contains(member) ? member : em.merge(member));
     }
 
-    public Member findByID(String id){
-        return em.createQuery("select m from Member m where m.id=:id", Member.class).setParameter("id", id).getSingleResult();
+    public Member findByID(String username){
+        return em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getSingleResult();
     }
 
     @Transactional

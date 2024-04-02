@@ -15,13 +15,10 @@ public class Member {
     @Column(name = "Member_Id")
     private Long Id;
     private String Email;
-    private String ID;
+    private String Username;
     private String Password;
-    private int Student_Id;
+    private int Student_Code;
     private String Admin_Type;
 
-    public void setID(String id){
-    ID = id;
-    }
 }
 
