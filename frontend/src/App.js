@@ -17,6 +17,8 @@ import BoardUpdate from "./component/board/BoardUpdate";
 import FindId from "./pages/FindId";
 import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
+import CreateAccountEmailPage from "./pages/CreateAccountEmail";
+import CreateAccountIdPage from "./pages/CreateAccountid";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ const router = createBrowserRouter([
       {
         path: "member/update",
         element: <UpdatePw />,
+      },
+      {
+        path: "createEmail",
+        element: <CreateAccountEmailPage />,
+      },
+      {
+        path: "createId",
+        element: <CreateAccountIdPage />,
       },
     ],
   },
