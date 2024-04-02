@@ -1,5 +1,6 @@
 package smw.capstone.service;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -8,12 +9,12 @@ import smw.capstone.DTO.*;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Documents;
 import smw.capstone.entity.Files;
+import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import smw.capstone.repository.MemberRepository;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +24,16 @@ public class DocService {
 
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
+    private final MemberRepository memberRepository;
+    private final FileService fileService;
+    private final DocFileService docFileService;
 
     public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
         List<DocDTO> docDto = new ArrayList<>();
 
         //doc id 리스트를 받아서 id별로 doc 내용과 파일 찾아주기
         for (Long docId : docsIdDTO.getDocsIdList()) {
+
             DocDTO responseDoc = new DocDTO();
             Optional<Documents> documents = docRepository.findById(docId);
             if (!documents.isPresent()) {
@@ -98,5 +103,74 @@ public class DocService {
                 .createAt(document.getCreateAt())
                 .content(document.getContent())
                 .id(document.getId()).build();
+    }
+
+    public DocsIdDTO getMyDocs(/*인증정보*/) {
+        Member temp = memberRepository.findById(1L); //임시 데이터, 실행 오류 방지
+            List<Documents> documents = docRepository.findByMember(temp/*인증된 멤버 객체*/);
+        DocsIdDTO dosIdDTO = new DocsIdDTO();
+        for (Documents document : documents) {
+            dosIdDTO.getDocsIdList().add(document.getId());
+        }
+        return dosIdDTO;
+    }
+
+    @Transactional
+    public void deleteDoc(int id /*사용자 인증정보*/) {
+            Long docId = (long) id;
+            /*사용자 정보 확인 후 삭제 가능한 문서면 삭제*/
+        docRepository.deleteById(docId);
+    }
+
+    @Transactional
+    public ReqUpdateDocDTO updateDoc(ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
+        //사용자 정보 토대로 reqUpdateDocDoc.fileName 으로 filepath 찾고 반환
+        Optional<Documents> findDoc = docRepository.findById(reqUpdateDocDTO.getDocId());
+        List<String> fileNames = new ArrayList<>();
+        Documents updateDoc = null;
+        try {
+            updateDoc = findDoc.get();
+            docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName());
+            updateDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now()); //변경이 감지되면 바로 flush하나? test해보기
+
+            List<DocFile> docFileList = docFileRepository.findByDocument(updateDoc);
+            for (DocFile docFile : docFileList) {
+                fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
+            }
+        } catch (NullPointerException e) {
+            log.info("{} 해당 문서가 존재하지 않습니다.", reqUpdateDocDTO.getDocId(), e);
+        }
+
+        return ReqUpdateDocDTO.builder()
+                .docId(updateDoc.getId())
+                .content(updateDoc.getContent())
+                .fileName(fileNames)
+                .build();
+    }
+
+    public DocDTO showRandDoc() {
+        /*사용자가 볼 수 있는 문서인가 확인*/
+        List<Documents> documents = docRepository.findAll();
+
+        if (documents.isEmpty()) {
+            log.info("문서가 없습니다");
+            //나중에 예외 처리
+        }
+        int rand = (int) (Math.random() * documents.size() + 1);
+        Documents randDoc = docRepository.getReferenceById((long) rand);
+
+        ResponseDocDTO responseDocDTO = ResponseDocDTO.builder()
+                .id(randDoc.getId())
+                .title(randDoc.getTitle())
+                .createAt(randDoc.getCreateAt())
+                .updateAt(randDoc.getUpdateAt())
+                .memberId(randDoc.getMember().getId())
+                .content(randDoc.getContent())
+                .build();
+        List<FileDTO> fileDTOList = fileService.findFilesByDocId((long) rand);
+
+        return  DocDTO.builder()
+                .documents(responseDocDTO)
+                .fileDtoList(fileDTOList).build();
     }
 }

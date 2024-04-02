@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
@@ -28,4 +31,6 @@ public class Files {
 
     private String storedFileName;
 
+    @OneToMany(mappedBy = "file", orphanRemoval = true)
+    private List<DocFile> docFileList = new ArrayList<DocFile>();
 }
