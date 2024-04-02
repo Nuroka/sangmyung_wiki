@@ -19,7 +19,6 @@ import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
 import CreateAccountEmailPage from "./pages/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/CreateAccountid";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +40,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "board/:idx",
+        path: "/board/one",
         element: (
           <>
             <Community />
