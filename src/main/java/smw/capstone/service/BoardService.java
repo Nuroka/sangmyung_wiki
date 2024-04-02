@@ -11,11 +11,9 @@ import smw.capstone.entity.Board;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.BoardRepository;
 import smw.capstone.repository.MemberRepository;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,21 +51,20 @@ public class BoardService {
     public void deleteBoard(Long boardId/*사용자 정보*/) {
         Member temp = memberRepository.findById(1L); //임시 데이터
         //멤버가 작성한 글이 맞으면 게시물 삭제
-        Optional<Board> byMemberAndId = boardRepository.findByMemberAndId(temp, boardId);
-        byMemberAndId.orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        System.out.println(boardId);
+        Board board = boardRepository.findByMemberAndId(temp, boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
 
-        boardRepository.delete(byMemberAndId.get());
+        boardRepository.delete(board);
     }
 
     public BoardDTO getOneBoard(Long boardId) {
-        Optional<Board> board = boardRepository.findById(boardId);
-        board.orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_BOARD));
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_BOARD));
         return BoardDTO.builder()
-                .boardId(board.get().getId())
-                .memberName(board.get().getMember().getID())
-                .updateAt(board.get().getUpdateAt())
-                .boardTitle(board.get().getTitle())
-                .content(board.get().getContent())
-                .createAt(board.get().getCreateAt()).build();
+                .boardId(board.getId())
+                .memberName(board.getMember().getID())
+                .updateAt(board.getUpdateAt())
+                .boardTitle(board.getTitle())
+                .content(board.getContent())
+                .createAt(board.getCreateAt()).build();
     }
 }

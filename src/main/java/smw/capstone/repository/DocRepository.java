@@ -16,6 +16,6 @@ public interface DocRepository extends JpaRepository<Documents, Long> {
 
     public List<Documents> findByMember(Member member);
 
-    public Documents findByIdAndMember(Long id, Member member);
+    public Optional<Documents> findByIdAndMember(Long id, Member member);
 
 }

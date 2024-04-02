@@ -1,11 +1,12 @@
 package smw.capstone.service;
 
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.*;
+import smw.capstone.common.exception.BusinessException;
+import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Documents;
 import smw.capstone.entity.Files;
@@ -35,13 +36,9 @@ public class DocService {
         for (Long docId : docsIdDTO.getDocsIdList()) {
 
             DocDTO responseDoc = new DocDTO();
-            Optional<Documents> documents = docRepository.findById(docId);
-            if (!documents.isPresent()) {
-                log.info("존재하지 않는 문서입니다."); //클라이언트 예외 추가
-                break;
-            }
-            Documents findDocuments = documents.get();
-            responseDoc.setDocuments(buildResDocDto(findDocuments)); //리스트로 된 id 순차적으로 add
+            Documents documents = docRepository.findById(docId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
+
+            responseDoc.setDocuments(buildResDocDto(documents)); //리스트로 된 id 순차적으로 add
 
             setFileDto(responseDoc, docId); //docid와 연관된 file리스트
 
@@ -51,10 +48,16 @@ public class DocService {
     }
 
     public DocsIdDTO getDocsByKeyword(String keyword) {
-        List<Documents> findDocs = docRepository.findByKeyword(keyword);
+        if (keyword == null) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_KEYWORD);
+        }
         DocsIdDTO docsIdDto = new DocsIdDTO();
+        List<Documents> findDocs = docRepository.findByKeyword(keyword);
         for (Documents document : findDocs) {
             docsIdDto.getDocsIdList().add(document.getId());
+        }
+        if (findDocs.isEmpty()) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_KEYWORD_DOC);
         }
         return docsIdDto;
     }
@@ -106,43 +109,52 @@ public class DocService {
     }
 
     public DocsIdDTO getMyDocs(/*인증정보*/) {
-        Member temp = memberRepository.findById(1L); //임시 데이터, 실행 오류 방지
-            List<Documents> documents = docRepository.findByMember(temp/*인증된 멤버 객체*/);
         DocsIdDTO dosIdDTO = new DocsIdDTO();
-        for (Documents document : documents) {
-            dosIdDTO.getDocsIdList().add(document.getId());
+        try {
+            Member temp = memberRepository.findById(1L); //임시 데이터, 실행 오류 방지
+            List<Documents> documents = docRepository.findByMember(temp/*인증된 멤버 객체*/);
+            for (Documents document : documents) {
+                dosIdDTO.getDocsIdList().add(document.getId());
+            }
+        } catch (NullPointerException e) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC);
         }
+
         return dosIdDTO;
     }
 
     @Transactional
     public void deleteDoc(Long id /*사용자 인증정보*/) {
+        if (id == null) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
+
+        }
+        try {
             /*사용자 정보 확인 후 삭제 가능한 문서면 삭제*/
-        docRepository.deleteById(id);
+            docRepository.deleteById(id);
+        } catch (NullPointerException e) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
+        }
+
     }
 
     @Transactional
     public ReqUpdateDocDTO updateDoc(ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
         //사용자 정보 토대로 reqUpdateDocDoc.fileName 으로 filepath 찾고 반환
-        Optional<Documents> findDoc = docRepository.findById(reqUpdateDocDTO.getDocId());
+        Documents findDoc = docRepository.findById(reqUpdateDocDTO.getDocId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
         List<String> fileNames = new ArrayList<>();
-        Documents updateDoc = null;
-        try {
-            updateDoc = findDoc.get();
-            docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName());
-            updateDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now()); //변경이 감지되면 바로 flush하나? test해보기
 
-            List<DocFile> docFileList = docFileRepository.findByDocument(updateDoc);
-            for (DocFile docFile : docFileList) {
-                fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
-            }
-        } catch (NullPointerException e) {
-            log.info("{} 해당 문서가 존재하지 않습니다.", reqUpdateDocDTO.getDocId(), e);
+        docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName());
+        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now());
+        List<DocFile> docFileList = docFileRepository.findByDocument(findDoc);
+        for (DocFile docFile : docFileList) {
+            fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
         }
 
+
         return ReqUpdateDocDTO.builder()
-                .docId(updateDoc.getId())
-                .content(updateDoc.getContent())
+                .docId(findDoc.getId())
+                .content(findDoc.getContent())
                 .fileName(fileNames)
                 .build();
     }
@@ -151,10 +163,6 @@ public class DocService {
         /*사용자가 볼 수 있는 문서인가 확인*/
         List<Documents> documents = docRepository.findAll();
 
-        if (documents.isEmpty()) {
-            log.info("문서가 없습니다");
-            //나중에 예외 처리
-        }
         int rand = (int) (Math.random() * documents.size() + 1);
         Documents randDoc = docRepository.getReferenceById((long) rand);
 

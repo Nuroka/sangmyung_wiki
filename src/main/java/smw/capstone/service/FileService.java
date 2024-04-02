@@ -9,6 +9,8 @@ import smw.capstone.DTO.FileDTO;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.DTO.ResponseFilePathDTO;
 import smw.capstone.common.component.FileHandler;
+import smw.capstone.common.exception.BusinessException;
+import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Files;
 import smw.capstone.entity.Member;
@@ -36,6 +38,7 @@ public class FileService {
 
         if (files == null) {
             //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
         }
         else {
             fileRepository.save(files);
@@ -56,14 +59,9 @@ public class FileService {
     }
 
     public String findFilePathByFile(Files files) {
-        String filePathName = null;
-        try {
-            filePathName =  fileRepository.findById(files.getId()).get().getStoredFileName();
-        } catch (NullPointerException e) {
-            log.info("{} 해당 파일이 존재하지 않습니다.", files.getName(), e);
-        }
+        Files file = fileRepository.findById(files.getId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_FILE_BY_ID));
 
-        return filePathName;
+        return file.getStoredFileName();
     }
 
     public FileDTO buildFileDTO(Files files) {
