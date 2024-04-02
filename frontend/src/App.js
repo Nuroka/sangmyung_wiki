@@ -12,7 +12,7 @@ import Community from "./pages/Community";
 import RecentUpdated from "./pages/RecentUpdated";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
-import BoardWrite from "./component/board/BoardWirte";
+import BoardWrite from "./component/board/BoardWrite";
 import BoardUpdate from "./component/board/BoardUpdate";
 import FindId from "./pages/FindId";
 import MyPage from "./pages/MyPage";
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "board/write",
+        path: "/write",
         element: (
           <>
             <Community />
