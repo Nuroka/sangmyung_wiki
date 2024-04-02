@@ -17,6 +17,9 @@ import BoardUpdate from "./component/board/BoardUpdate";
 import FindId from "./pages/FindId";
 import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
+import CreateAccountEmail from "./component/member/CreateAccountEmail";
+import CreateAccountId from "./component/member/CreateAccoutId";
+import ConfirmEmail from "./component/member/ConfirmEmail";
 
 const router = createBrowserRouter([
   {

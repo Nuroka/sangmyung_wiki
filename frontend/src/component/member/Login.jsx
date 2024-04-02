@@ -13,11 +13,6 @@ function Login() {
     console.log("Remember Me:", rememberMe);
   };
 
-  const handleCreateAccount = () => {
-    // 계정 생성 페이지로 이동하는 로직
-    console.log("Navigate to create account page");
-  };
-
   return (
     <div>
       <h2>로그인</h2>
@@ -53,7 +48,9 @@ function Login() {
         <NavLink to="/findID">[아이디/비밀번호 찾기]</NavLink>
       </div>
       <div>
-        <button onClick={handleCreateAccount}>계정 생성</button>
+        <button onClick={handleCreateAccount}>
+          <NavLink to="createEmail">계정 생성</NavLink>
+        </button>
         <button onClick={handleLogin}>로그인</button>
       </div>
     </div>
