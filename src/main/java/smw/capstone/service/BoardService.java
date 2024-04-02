@@ -3,6 +3,7 @@ package smw.capstone.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.BoardDTO;
 import smw.capstone.DTO.BoardUploadDTO;
 import smw.capstone.common.exception.BusinessException;
@@ -17,10 +18,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+
+    @Transactional
     public void saveBoard(BoardUploadDTO boardUploadDTO /*사용자 정보*/) {
 
         Member temp = memberRepository.findById(1L); //임시 데이터
@@ -48,6 +52,7 @@ public class BoardService {
         return responseBoardDTO;
     }
 
+    @Transactional
     public void deleteBoard(Long boardId/*사용자 정보*/) {
         Member temp = memberRepository.findById(1L); //임시 데이터
         //멤버가 작성한 글이 맞으면 게시물 삭제
