@@ -116,10 +116,9 @@ public class DocService {
     }
 
     @Transactional
-    public void deleteDoc(int id /*사용자 인증정보*/) {
-            Long docId = (long) id;
+    public void deleteDoc(Long id /*사용자 인증정보*/) {
             /*사용자 정보 확인 후 삭제 가능한 문서면 삭제*/
-        docRepository.deleteById(docId);
+        docRepository.deleteById(id);
     }
 
     @Transactional

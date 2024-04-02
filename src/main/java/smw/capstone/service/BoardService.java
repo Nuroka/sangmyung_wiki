@@ -50,10 +50,10 @@ public class BoardService {
         return responseBoardDTO;
     }
 
-    public void deleteBoard(int boardId/*사용자 정보*/) {
+    public void deleteBoard(Long boardId/*사용자 정보*/) {
         Member temp = memberRepository.findById(1L); //임시 데이터
         //멤버가 작성한 글이 맞으면 게시물 삭제
-        Optional<Board> byMemberAndId = boardRepository.findByMemberAndId(temp, (long) boardId);
+        Optional<Board> byMemberAndId = boardRepository.findByMemberAndId(temp, boardId);
         byMemberAndId.orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
 
         boardRepository.delete(byMemberAndId.get());
