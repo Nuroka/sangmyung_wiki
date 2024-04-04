@@ -19,6 +19,8 @@ import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
 import CreateAccountEmailPage from "./pages/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/CreateAccountid";
+import IdAuth from "./pages/IdAuth";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -76,7 +78,16 @@ const router = createBrowserRouter([
       },
       {
         path: "findId",
-        element: <FindId />,
+        children: [
+          {
+            index: true,
+            element: <FindId />,
+          },
+          {
+            path: "auth",
+            element: <IdAuth />,
+          },
+        ],
       },
       {
         path: "mypage",
