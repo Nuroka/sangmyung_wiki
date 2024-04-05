@@ -1,26 +1,12 @@
 package smw.capstone.repository;
 
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import smw.capstone.entity.Board;
+import smw.capstone.entity.Member;
 
-@Repository
-@RequiredArgsConstructor
-public class BoardRepository {
+import java.util.Optional;
 
-    private final EntityManager em;
-    @Transactional
-    public void save(Board board){
-        em.persist(board);
-    }
+public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    @Transactional
-    public void delete(Long id){
-        Board board = em.find(Board.class, id);
-        if (board != null) {
-            em.remove(board);
-        }
-    }
+    Optional<Board> findByMemberAndId(Member member, Long boardId);
 }

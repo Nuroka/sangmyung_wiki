@@ -1,11 +1,19 @@
 package smw.capstone.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 
 @Entity
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@Getter
 public class Board {
 
     @Id

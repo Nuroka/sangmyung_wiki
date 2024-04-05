@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.ReqUpdateDocDTO;
+import smw.capstone.common.exception.BusinessException;
+import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Documents;
 import smw.capstone.entity.Files;
@@ -36,7 +38,7 @@ public class DocServiceTest {
 
         //Given
         Member member = memberRepository.findById(1L);
-        Documents doc = docRepository.findByIdAndMember(1L, member);
+        Documents doc = docRepository.findByIdAndMember(1L, member).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_DOC));
 
         List<String> fileNames = new ArrayList<>();
         fileNames.add("ex.jpg");

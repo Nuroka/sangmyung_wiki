@@ -1,5 +1,6 @@
 package smw.capstone.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class FileController {
     @PostMapping("/file")
     public ResponseEntity<?> uploadFile(
             @Validated @RequestParam("file") MultipartFile file,
-            @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO
+            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO
     ) throws Exception {
         return ok().body(fileService.savefiles(fileUploadDTO, file));
     }
@@ -39,7 +40,7 @@ public class FileController {
      * TODO: 시큐리티 Authentication 객체 생성하면 api에 적용
      */
     @GetMapping("/docs")
-    public ResponseEntity<?> getDocs(@RequestBody DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
+    public ResponseEntity<?> getDocs(@Valid @RequestBody DocsIdDTO docsIdList /*@AuthenticationPrincial pricipalDetails*/) {
         return ResponseEntity.ok().body(docService.getDoc(docsIdList));
     }
 
@@ -73,7 +74,7 @@ public class FileController {
      * 문서 삭제
      */
     @PostMapping("/docs")
-    public ResponseEntity<?> deleteDoc(int id /*사용자 확인후 삭제 가능한 문서면 삭제*/) {
+    public ResponseEntity<?> deleteDoc(Long id /*사용자 확인후 삭제 가능한 문서면 삭제*/) {
         docService.deleteDoc(id/*사용자 인증정보*/);
         return ResponseEntity.ok().body("문서가 삭제 되었습니다.");
     }
@@ -86,7 +87,7 @@ public class FileController {
      * 문서 편집
      */
     @PostMapping("/docs/edit")
-    public ResponseEntity<?> updateDoc(@RequestBody ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
+    public ResponseEntity<?> updateDoc(@Valid @RequestBody ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
         return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO));
     }
 
