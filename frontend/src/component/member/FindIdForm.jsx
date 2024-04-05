@@ -1,33 +1,54 @@
-export default function FindIdForm({inputData, onSubmit, children}) {
-    function handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData);
-        onSubmit(data);
-      }
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
-    return (
-        <form id="form" onSubmit={handleSubmit}>
+import { defaultInstance } from "../../util/api";
+import { useNavigate } from "react-router";
+
+/**
+ * todo validation
+ * Http Status Error handling
+ */
+export default function FindIdForm() {
+  const url = "/findID";
+
+  const navigate = useNavigate();
+
+  const [data, setData] = useState({
+    email: "",
+  });
+
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: (data) => {
+      const response = defaultInstance.post(url, data);
+      // Http Status Error handling
+      return response;
+    },
+    onSuccess: () => {
+      navigate("/findID/auth", { state: { email: data.email } });
+    },
+  });
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    setData(data);
+    mutate(data);
+  }
+
+  return (
+    <>
+      <h2>계정 찾기</h2>
+      {isError && <p>{error.message}</p>}
+      <form id="form" onSubmit={handleSubmit}>
         <p>
           <label htmlFor="email">이메일</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            defaultValue={inputData?.email}
-          />
+          <input type="text" id="email" name="email" defaultValue={data?.email} disabled={isPending} />
         </p>
-        <p>
-          <label htmlFor="student_Id">학번</label>
-          <input
-            type="text"
-            id="student_Id"
-            name="student_Id"
-            defaultValue={inputData?.student_Id}
-          />
-        </p>
-        {children}
+        <button type="submit" className="button" disabled={isPending}>
+          {isPending ? "전송 중..." : "찾기"}
+        </button>
       </form>
-    );
-  }
-  
+    </>
+  );
+}

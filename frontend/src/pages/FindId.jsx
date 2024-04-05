@@ -1,9 +1,9 @@
-import FindIdDetail from "../component/member/FindIdDetail";
+import FindIdForm from "../component/member/FindIdForm";
 
 export default function FindId() {
   return (
     <>
-      <FindIdDetail />
+      <FindIdForm />
     </>
   );
 }

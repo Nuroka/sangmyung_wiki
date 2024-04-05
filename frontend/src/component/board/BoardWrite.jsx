@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
+import { authInstance } from '../../util/api'; 
 
 const BoardWrite = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const BoardWrite = () => {
   };
 
   const saveBoard = async () => {
-    await axios.post(`//localhost:3000/board`, board).then((res) => {
+    await authInstance.post(`/board`, board).then((res) => {
       alert('등록되었습니다.');
       navigate('/board');
     });

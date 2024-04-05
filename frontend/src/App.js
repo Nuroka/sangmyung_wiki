@@ -12,11 +12,14 @@ import Community from "./pages/Community";
 import RecentUpdated from "./pages/RecentUpdated";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
-import BoardWrite from "./component/board/BoardWirte";
+import BoardWrite from "./component/board/BoardWrite";
 import BoardUpdate from "./component/board/BoardUpdate";
 import FindId from "./pages/FindId";
 import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
+import CreateAccountEmailPage from "./pages/CreateAccountEmail";
+import CreateAccountIdPage from "./pages/CreateAccountid";
+import IdAuth from "./pages/IdAuth";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +42,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "board/:idx",
+        path: "/board/one",
         element: (
           <>
             <Community />
@@ -48,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "board/write",
+        path: "/write",
         element: (
           <>
             <Community />
@@ -75,7 +78,16 @@ const router = createBrowserRouter([
       },
       {
         path: "findId",
-        element: <FindId />,
+        children: [
+          {
+            index: true,
+            element: <FindId />,
+          },
+          {
+            path: "auth",
+            element: <IdAuth />,
+          },
+        ],
       },
       {
         path: "mypage",
@@ -84,6 +96,14 @@ const router = createBrowserRouter([
       {
         path: "member/update",
         element: <UpdatePw />,
+      },
+      {
+        path: "createEmail",
+        element: <CreateAccountEmailPage />,
+      },
+      {
+        path: "createId",
+        element: <CreateAccountIdPage />,
       },
     ],
   },
