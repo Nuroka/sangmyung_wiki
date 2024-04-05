@@ -19,6 +19,10 @@
   left: 60vw;
 }
 
+.nav4{
+  left: 70vw;
+}
+
 .logo {
   position: absolute;
   left: 3vw;
@@ -32,7 +36,6 @@
   left: 93vw;
   display: inline-block;
   margin-left: 20px;
-  margin-top: -30px;
 }
 
 .search {
@@ -45,6 +48,8 @@
   border-radius: 50px;
   border: none;
   background-color: #efefef;
+  font-size: 2vmin;
+  padding-right: 60px;
 }
 
 .searchIcon {
