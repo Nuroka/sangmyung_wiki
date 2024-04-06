@@ -1,24 +1,29 @@
-package smw.capstone.DTO;
+package smw.capstone.DTO.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
-@Getter
-@AllArgsConstructor
-@Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class BoardDTO {
+@Builder
+@AllArgsConstructor
+@Getter
+public class ResponseDocDTO {
 
-    private Long boardId;
-    private String boardTitle;
-    private String memberName;
-    private LocalDate updateAt;
+    private Long id;
+
+    private Long memberId;
+
+    private String title;
+
+    private String content;
+
     private LocalDate createAt;
-    private  String content;
+
+    private LocalDate updateAt;
+
 }

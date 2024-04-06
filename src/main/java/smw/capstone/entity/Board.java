@@ -33,4 +33,8 @@ public class Board {
 
     private String content;
 
+    public void updateBoard(String content) {
+        this.content = content;
+    }
+
 }
