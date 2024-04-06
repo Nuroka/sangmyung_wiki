@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import smw.capstone.DTO.DocsIdDTO;
-import smw.capstone.DTO.FileUploadDTO;
-import smw.capstone.DTO.ReqUpdateDocDTO;
+import smw.capstone.DTO.*;
 import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
+
+import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -59,7 +59,7 @@ public class FileController {
      */
     @GetMapping("docs/all")
     public ResponseEntity<?> getAllDocs() {
-        return ResponseEntity.ok().body(docService.findAll());
+        return ResponseEntity.ok().body(docService.findAll("creatAt"));
     }
 
     /**
@@ -82,6 +82,11 @@ public class FileController {
     /**
      * 문서 만들기
      */
+    @PostMapping("/docs/create")
+    public ResponseEntity<?> createDoc(/*사용자정보*/@Valid ReqCreateDoc reqCreateDoc) {
+        docService.createDoc(reqCreateDoc);
+        return ResponseEntity.ok().body("문서가 생성되었습니다.");
+    }
 
     /**
      * 문서 편집
@@ -97,5 +102,13 @@ public class FileController {
     @GetMapping("/docs/recommend")
     public ResponseEntity<?> recommendDoc(/*사용자 정보*/) {
         return ResponseEntity.ok().body(docService.showRandDoc());
+    }
+
+    /**
+     * 최근 변경 내역
+     */
+    @GetMapping("/docs/edit")
+    public ResponseEntity<List<DocDTO>> getUpdateDoc(/*사용자 정보*/) {
+        return ResponseEntity.ok().body(docService.getUpdateDoc());
     }
 }

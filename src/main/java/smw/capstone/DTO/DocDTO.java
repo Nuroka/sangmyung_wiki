@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class DocDTO {
+    private String memberUsername;
     private ResponseDocDTO documents;
     private List<FileDTO> fileDtoList;
 

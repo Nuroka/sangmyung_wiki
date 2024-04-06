@@ -2,6 +2,7 @@ package smw.capstone.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.*;
@@ -62,13 +63,14 @@ public class DocService {
         return docsIdDto;
     }
 
-    public List<DocDTO> findAll() {
-        List<Documents> documents = docRepository.findAll();
+    public List<DocDTO> findAll(String sort) {
+        List<Documents> documents = docRepository.findAll(Sort.by(Sort.Direction.DESC, sort));
         List<DocDTO> docDTO = new ArrayList<>();
         for (Documents document : documents) {
             DocDTO responseDoc = new DocDTO();
 
             responseDoc.setDocuments(buildResDocDto(document));
+            responseDoc.setMemberUsername(document.getMember().getUsername());
 
             setFileDto(responseDoc, document.getId());
             docDTO.add(responseDoc);
@@ -179,5 +181,23 @@ public class DocService {
         return  DocDTO.builder()
                 .documents(responseDocDTO)
                 .fileDtoList(fileDTOList).build();
+    }
+
+    public List<DocDTO> getUpdateDoc() {
+        return findAll("updateAt");
+    }
+
+    @Transactional
+    public void createDoc(ReqCreateDoc reqCreateDoc) {
+
+        docRepository.findByTitle(reqCreateDoc.getTitle()).orElseThrow(() -> new BusinessException(CustomErrorCode.EXIST_DOC_TITLE));
+
+        docRepository.save(Documents.builder()
+                .title(reqCreateDoc.getTitle())
+                /*.member()*/
+                .content(reqCreateDoc.getContent())
+                .createAt(LocalDate.now())
+                .updateAt(LocalDate.now()).build());
+
     }
 }
