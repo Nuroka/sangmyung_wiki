@@ -47,7 +47,7 @@ public class BoardService {
                     .boardTitle(board.getTitle())
                     .createAt(board.getCreateAt())
                     .updateAt(board.getUpdateAt())
-                    .memberName(temp.getID()).build());
+                    .memberName(temp.getUsername()).build());
         }
         return responseBoardDTO;
     }
@@ -66,7 +66,7 @@ public class BoardService {
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_BOARD));
         return BoardDTO.builder()
                 .boardId(board.getId())
-                .memberName(board.getMember().getID())
+                .memberName(board.getMember().getUsername())
                 .updateAt(board.getUpdateAt())
                 .boardTitle(board.getTitle())
                 .content(board.getContent())

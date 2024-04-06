@@ -31,7 +31,7 @@ public class TestDataInit {
     @Transactional
     public void init() {
         Member member = new Member();
-        member.setID("test");
+        member.setUsername("test");
         member.setEmail("test@naver.com");
         member.setPassword("test");
         member.setAdmin_Type("false");
