@@ -1,4 +1,4 @@
-package smw.capstone.provider;
+package smw.capstone.common.provider;
 
 
 import lombok.RequiredArgsConstructor;
