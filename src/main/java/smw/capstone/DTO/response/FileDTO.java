@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import smw.capstone.DTO.response.ResponseFilePathDTO;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AllArgsConstructor
@@ -14,6 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FileDTO {
     private FileUploadDTO fileUploadDTO;
-    private  ResponseFilePathDTO responseFilePathDTO;
+    private ResponseFilePathDTO responseFilePathDTO;
 
 }

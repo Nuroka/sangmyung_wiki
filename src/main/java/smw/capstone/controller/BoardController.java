@@ -4,8 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import smw.capstone.DTO.BoardDTO;
-import smw.capstone.DTO.BoardUploadDTO;
+import smw.capstone.DTO.response.BoardDTO;
+import smw.capstone.DTO.request.BoardUploadDTO;
+import smw.capstone.DTO.request.BoarUpdatedDTO;
 import smw.capstone.service.BoardService;
 
 import java.util.List;
@@ -50,4 +51,14 @@ public class BoardController {
     public ResponseEntity<BoardDTO> getOneBoard(Long id/*사용자 정보*/) {
         return ResponseEntity.ok().body(boardService.getOneBoard(id));
     }
+
+    /**
+     * 게시물 수정
+     */
+    @PostMapping("/edit")
+    public ResponseEntity<?> updateBoard(@Valid @RequestBody BoarUpdatedDTO updateBoardDTO/*사용자 정보*/) {
+        boardService.updateBoard(updateBoardDTO);
+        return ResponseEntity.ok().body("게시물이 수정되었습니다.");
+    }
+
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import smw.capstone.DTO.response.ResponseDocDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 

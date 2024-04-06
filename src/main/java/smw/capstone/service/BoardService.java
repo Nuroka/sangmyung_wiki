@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import smw.capstone.DTO.BoardDTO;
-import smw.capstone.DTO.BoardUploadDTO;
+import smw.capstone.DTO.response.BoardDTO;
+import smw.capstone.DTO.request.BoardUploadDTO;
+import smw.capstone.DTO.request.BoarUpdatedDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.Board;
@@ -57,13 +58,13 @@ public class BoardService {
         Member temp = memberRepository.findById(1L); //임시 데이터
         //멤버가 작성한 글이 맞으면 게시물 삭제
         System.out.println(boardId);
-        Board board = boardRepository.findByMemberAndId(temp, boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        Board board = boardRepository.findByMemberAndId(temp, boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_MEMBER_BOARD));
 
         boardRepository.delete(board);
     }
 
     public BoardDTO getOneBoard(Long boardId) {
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_BOARD));
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
         return BoardDTO.builder()
                 .boardId(board.getId())
                 .memberName(board.getMember().getUsername())
@@ -71,5 +72,12 @@ public class BoardService {
                 .boardTitle(board.getTitle())
                 .content(board.getContent())
                 .createAt(board.getCreateAt()).build();
+    }
+
+    @Transactional
+    public void updateBoard(BoarUpdatedDTO updateBoardDTO) {
+        Member temp = memberRepository.findByUsername("test");
+        Board findBoard = boardRepository.findByMemberAndId(temp, updateBoardDTO.getBoardId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_MEMBER_BOARD));
+        findBoard.updateBoard(updateBoardDTO.getContent());
     }
 }
