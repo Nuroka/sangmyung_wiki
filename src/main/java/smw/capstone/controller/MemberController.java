@@ -2,8 +2,10 @@ package smw.capstone.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import smw.capstone.DTO.LoginDTO;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.MemberService;
@@ -11,7 +13,7 @@ import smw.capstone.service.MemberService;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class React {
+public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
@@ -25,9 +27,16 @@ public class React {
     }
 
     @GetMapping("/user")
-    public void login(@RequestParam String userid, @RequestParam String password) {
-        System.out.println(userid);
-        System.out.println(password);
+    public LoginDTO user() {
+        return new LoginDTO();
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<Member> login(@RequestBody LoginDTO form){
+        Member member = new Member();
+        member = memberService.login(form.getUsername(), form.getPassword());
+
+        return ResponseEntity.ok(member);
     }
 
 }

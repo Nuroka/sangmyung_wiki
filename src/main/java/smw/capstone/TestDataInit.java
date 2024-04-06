@@ -2,19 +2,15 @@ package smw.capstone;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import smw.capstone.entity.DocFile;
-import smw.capstone.entity.Documents;
-import smw.capstone.entity.Files;
-import smw.capstone.entity.Member;
+import smw.capstone.entity.*;
 import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.FileRepository;
 import smw.capstone.repository.MemberRepository;
 
-import javax.print.Doc;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +30,7 @@ public class TestDataInit {
         member.setUsername("test");
         member.setEmail("test@naver.com");
         member.setPassword("test");
-        member.setAdmin_Type("false");
+        member.setType(Type.USER);
         member.setStudent_Id(12345678);
 
         memberRepository.save(member);
