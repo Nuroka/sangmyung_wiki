@@ -1,4 +1,4 @@
-package smw.capstone.DTO;
+package smw.capstone.DTO.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;

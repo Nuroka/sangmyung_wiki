@@ -1,4 +1,4 @@
-package smw.capstone.DTO;
+package smw.capstone.DTO.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import smw.capstone.DTO.response.ResponseDocDTO;
 
 import java.util.ArrayList;
 import java.util.List;

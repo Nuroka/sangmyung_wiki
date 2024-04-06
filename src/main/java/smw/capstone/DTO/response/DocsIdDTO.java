@@ -1,4 +1,4 @@
-package smw.capstone.DTO;
+package smw.capstone.DTO.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -8,6 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.*;
+import smw.capstone.DTO.request.ReqCreateDoc;
+import smw.capstone.DTO.request.ReqUpdateDocDTO;
+import smw.capstone.DTO.response.DocDTO;
+import smw.capstone.DTO.response.DocsIdDTO;
 import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
 

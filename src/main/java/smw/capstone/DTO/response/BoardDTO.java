@@ -1,4 +1,4 @@
-package smw.capstone.DTO;
+package smw.capstone.DTO.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

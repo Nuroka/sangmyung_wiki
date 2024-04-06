@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import smw.capstone.DTO.ReqUpdateDocDTO;
+import smw.capstone.DTO.request.ReqUpdateDocDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.DocFile;
