@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import styles from "../member/Login.module.css";
 
 const BoardUpdate = () => {
   const navigate = useNavigate();
@@ -66,8 +67,8 @@ const BoardUpdate = () => {
       </div>
       <br />
       <div>
-        <button onClick={updateBoard}>수정</button>
-        <button onClick={backToDetail}>취소</button>
+        <button className={styles.link} onClick={updateBoard}>수정</button>
+        <button className={styles.link} onClick={backToDetail}>취소</button>
       </div>
     </div>
   );

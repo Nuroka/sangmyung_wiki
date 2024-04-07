@@ -1,5 +1,7 @@
 import React from "react";
 import LicenseDropdown from "./LicenseDropdown";
+import styles from "../member/Login.module.css";
+
 
 // 파일 업로드 폼 컴포넌트
 export default function UploadForm({ onSubmit }) {
@@ -18,7 +20,7 @@ export default function UploadForm({ onSubmit }) {
       <textarea id="summary" name="summary" rows="4"></textarea>
       <label htmlFor="license">라이선스:</label>
       <LicenseDropdown />
-      <button type="submit">업로드</button>
+      <button className={styles.link} type="submit">업로드</button>
     </form>
   );
 }

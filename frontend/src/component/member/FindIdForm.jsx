@@ -3,6 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 
 import { defaultInstance } from "../../util/api";
 import { useNavigate } from "react-router";
+import styles from "./Login.module.css";
+import findIdFormStyles from "./FindIdForm.module.css";
 
 /**
  * todo validation
@@ -38,17 +40,20 @@ export default function FindIdForm() {
 
   return (
     <>
-      <h2>계정 찾기</h2>
-      {isError && <p>{error.message}</p>}
-      <form id="form" onSubmit={handleSubmit}>
-        <p>
-          <label htmlFor="email">이메일</label>
-          <input type="text" id="email" name="email" defaultValue={data?.email} disabled={isPending} />
-        </p>
-        <button type="submit" className="button" disabled={isPending}>
-          {isPending ? "전송 중..." : "찾기"}
-        </button>
-      </form>
+      <div className={`${styles.loginDiv} ${styles.loginD}`}>
+        <h2>계정 찾기</h2>
+        {isError && <p>{error.message}</p>}
+        <form id="form" onSubmit={handleSubmit}>
+          <p>
+            <label htmlFor="email">이메일</label>
+            <br/>
+            <input type="text" id="email" name="email" defaultValue={data?.email} disabled={isPending} />
+          </p>
+          <button className={`${styles.link} ${findIdFormStyles.findIdFormBtn}`} type="submit" disabled={isPending}>
+            {isPending ? "전송 중..." : "찾기"}
+          </button>
+        </form>
+      </div>
     </>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { authInstance } from '../../util/api'; 
+import { authInstance } from '../../util/api';
+import styles from "../member/Login.module.css";
 
 const BoardWrite = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const BoardWrite = () => {
   };
 
   return (
-    <div>
+    <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <div>
         <span>제목</span>
         <input type="text" name="title" value={title} onChange={onChange} />
@@ -51,8 +52,8 @@ const BoardWrite = () => {
       </div>
       <br />
       <div>
-        <button onClick={saveBoard}>저장</button>
-        <button onClick={backToList}>취소</button>
+        <button className={styles.link} onClick={saveBoard}>저장</button>
+        <button className={styles.link} onClick={backToList}>취소</button>
       </div>
     </div>
   );

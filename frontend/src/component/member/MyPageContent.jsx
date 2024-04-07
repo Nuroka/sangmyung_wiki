@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { authInstance } from "../../util/api";
 import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css";
+import findIdAuthStyles from "./FindIdForm.module.css";
 
 export default function MyPageContent() {
   const url = "/mypage";
@@ -42,7 +44,7 @@ export default function MyPageContent() {
           <p>권한</p>
           <p>{data.adminType}</p>
           <p>비밀번호</p>
-          <button onClick={() => navigate("/member/update")}>
+          <button className={`${styles.link} ${findIdAuthStyles.findIdFormBtn}`} onClick={() => navigate("/member/update")}>
             비밀번호 변경
           </button>
           <p>스킨</p>

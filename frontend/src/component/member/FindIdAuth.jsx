@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
+import styles from "./Login.module.css";
 
 import { defaultInstance } from "../../util/api";
+import findIdAuthStyles from "./FindIdForm.module.css";
 
 /**
  * todo validation
@@ -54,7 +56,7 @@ export default function FindInstruction() {
                 <label htmlFor="authCode">인증번호</label>
                 <input type="text" id="authCode" name="authCode" defaultValue="" disabled={username} />
               </p>
-              <button type="submit" className="button" disabled={isPending || username}>
+              <button className={`${styles.link} ${findIdAuthStyles.findIdFormBtn}`} type="submit" disabled={isPending || username}>
                 {isPending ? "전송 중..." : "인증"}
               </button>
             </form>

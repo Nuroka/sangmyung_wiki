@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from "../member/Login.module.css";
 
 const Board = ({ idx, title, contents, createdBy }) => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Board = ({ idx, title, contents, createdBy }) => {
   };
 
   return (
-    <div>
+    <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <div>
         <h2>{title}</h2>
         <h5>{createdBy}</h5>
@@ -31,9 +32,9 @@ const Board = ({ idx, title, contents, createdBy }) => {
         <p>{contents}</p>
       </div>
       <div>
-        <button onClick={moveToUpdate}>수정</button>
-        <button onClick={deleteBoard}>삭제</button>
-        <button onClick={moveToList}>목록</button>
+        <button className={styles.link} onClick={moveToUpdate}>수정</button>
+        <button className={styles.link} onClick={deleteBoard}>삭제</button>
+        <button className={styles.link} onClick={moveToList}>목록</button>
       </div>
     </div>
   );

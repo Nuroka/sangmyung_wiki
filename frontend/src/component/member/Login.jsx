@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import styles from "./Login.module.css";
 
 function Login() {
   const [userid, setUserid] = useState("");
@@ -14,44 +15,44 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
-      <div>
+    <div className={`${styles.loginDiv} ${styles.loginD}`}>
+      <h2 className={styles.loginTitle}>로그인</h2>
+      <div className={styles.loginD}>
         <label htmlFor="userid">Username</label>
         <br />
-        <input
+        <input className={styles.loginInput}
           type="text"
           id="userid"
           value={userid}
           onChange={(e) => setUserid(e.target.value)}
         />
       </div>
-      <div>
+      <div className={styles.loginD}>
         <label htmlFor="password">Password</label>
         <br />
-        <input
+        <input className={styles.loginInput}
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div>
-        <input
+      <div className={styles.loginD}>
+        <input className={`${styles.rememberMe}` }
           type="checkbox"
           id="rememberMe"
           checked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
         />
-        <label htmlFor="rememberMe">자동 로그인</label>
+        <label className={styles.login} htmlFor="rememberMe">자동 로그인</label>
         <span> </span>
-        <NavLink to="/findID">[아이디/비밀번호 찾기]</NavLink>
+        <NavLink className={`${styles.link} ${styles.find}`} to="/findID">[아이디/비밀번호 찾기]</NavLink>
       </div>
-      <div>
+      <div className={styles.loginD}>
         <button>
-          <NavLink to="/createEmail">계정 생성</NavLink>
+          <NavLink className={`${styles.loginBtn} ${styles.link}`} to="/createEmail">계정 생성</NavLink>
         </button>
-        <button onClick={handleLogin}>로그인</button>
+        <button className={styles.link} onClick={handleLogin}>로그인</button>
       </div>
     </div>
   );

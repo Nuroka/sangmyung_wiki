@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import { defaultInstance } from '../../util/api';
+import styles from "./Login.module.css";
+import findIdAuthStyles from "./FindIdForm.module.css";
 
 function CreateAccountEmail() {
     const url = "/member/save"
@@ -18,7 +20,7 @@ function CreateAccountEmail() {
         }
     }
     return (
-        <div style={{ textAlign: 'left' }}>
+        <div  className={`${styles.loginDiv} ${styles.loginD}`} style={{ textAlign: 'left' }}>
             <h2><b>계정 만들기</b></h2>
             <form id="form" onSubmit={handleSubmit}>
                 <label htmlFor="email">이메일</label><br />
@@ -30,8 +32,8 @@ function CreateAccountEmail() {
             </form>
             <p><b>가입후 탈퇴는 불가능합니다.</b></p>
             <div>
-                <button type="submit">
-                    <NavLink to="/createId">가입</NavLink>
+                <button className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.sinUpBtn}`} type="submit">
+                    <NavLink className={`${styles.link} ${styles.loginBtn}`} to="/createId">가입</NavLink>
                 </button>
             </div>
         </div>

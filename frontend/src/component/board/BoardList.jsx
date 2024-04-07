@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { authInstance } from '../../util/api'; 
+import { authInstance } from '../../util/api';
+import styles from "../member/Login.module.css";
 
 const BoardList = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const BoardList = () => {
         ))}
       </ul>
       <div>
-        <button onClick={moveToWrite}>글쓰기</button>
+        <button className={styles.link} onClick={moveToWrite}>글쓰기</button>
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { defaultInstance } from '../../util/api';
+import styles from "./Login.module.css";
+import findIdAuthStyles from "./FindIdForm.module.css";
+
 
 const CreateAccountId = () => {
   const url = "/member/save";
@@ -38,7 +41,7 @@ const CreateAccountId = () => {
 
 
   return (
-    <div>
+    <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2>계정 만들기</h2>
       <form id="form" onSubmit={handleSubmit}>
         <div>
@@ -50,7 +53,7 @@ const CreateAccountId = () => {
             onChange={handleUserIdChange}
           />
         </div>
-        <button>중복확인</button>
+        <button className={`${styles.link} ${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}>중복확인</button>
         <div>
           <label htmlFor="passwordInput">암호</label><br />
           <input
@@ -60,6 +63,7 @@ const CreateAccountId = () => {
             onChange={handlePasswordChange}
           />
         </div>
+        <br/>
         <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label><br />
           <input
@@ -71,7 +75,7 @@ const CreateAccountId = () => {
         </div>
       </form>
         <p>가입 후 탈퇴는 불가능합니다.</p>
-        <button><NavLink to="/confirmEmail">가입</NavLink></button>
+        <button className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}><NavLink to="/confirmEmail" className={`${styles.link} ${styles.loginBtn}`}>가입</NavLink></button>
       </div>
   );
 };

@@ -4,6 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { authInstance } from "../../util/api";
 import UpdatePwForm from "./UpdatePwForm";
 import { useNavigate } from "react-router-dom";
+import findIdAuthStyles from "./FindIdForm.module.css";
+import styles from "./Login.module.css";
 
 /**
  * todo validation
@@ -45,7 +47,7 @@ export default function FindIdDetail() {
       <h2>계정 찾기</h2>
       {isError && <p>{error.message}</p>}
       <UpdatePwForm onSubmit={handleSubmit} inputData={data}>
-        <button type="submit" className="button" disabled={isPending}>
+        <button className={`${findIdAuthStyles.findIdFormBtn} ${styles.link}`} type="submit" disabled={isPending}>
           {isPending ? "전송 중..." : "변경"}
         </button>
       </UpdatePwForm>

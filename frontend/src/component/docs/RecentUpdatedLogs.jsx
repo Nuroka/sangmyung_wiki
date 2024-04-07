@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { authInstance } from "../../util/api";
-
+import styles from "../member/Login.module.css";
 export default function RecentUpdatedLogs() {
   const navigate = useNavigate();
 
@@ -34,14 +34,14 @@ export default function RecentUpdatedLogs() {
   return (
     <>
       <h2>최근 변경 내역</h2>
-      <button
+      <button className={styles.link}
         onClick={() => {
           url = "/docs/edit";
         }}
       >
         전체
       </button>
-      <button
+      <button className={styles.link}
         onClick={() => {
           url = "/docs/edit?category=temp";
         }}
