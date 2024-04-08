@@ -23,6 +23,7 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+
     public void remove(Member member){em.remove(em.contains(member) ? member : em.merge(member));}
 
     public Member findByUsername(String username){
