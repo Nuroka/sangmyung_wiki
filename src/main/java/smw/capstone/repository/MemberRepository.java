@@ -10,6 +10,8 @@ import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
@@ -30,11 +32,11 @@ public class MemberRepository {
     public void remove(Member member){em.remove(em.contains(member) ? member : em.merge(member));}
 
     public Member findByUsername(String username){
-        Member m = em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getSingleResult();
-        if (m == null){
+        List<Member> result = em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getResultList();
+        if(result == null){
             throw new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER);
-        }else {
-            return m;
+        }else{
+            return em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getSingleResult();
         }
     }
 
