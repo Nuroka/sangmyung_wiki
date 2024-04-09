@@ -9,6 +9,7 @@ public class LoginDTO {
     @NotNull
     @JsonProperty("username")
     private String Username;
+
     @NotNull
     @JsonProperty("password")
     private String Password;

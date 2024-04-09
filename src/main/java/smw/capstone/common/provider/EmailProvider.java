@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import javax.mail.internet.MimeMessage;
+import java.util.Random;
 
 @Component
 @RequiredArgsConstructor
@@ -43,5 +44,14 @@ public class EmailProvider {
                 + certificationNumber + "</strong></h3>";
 
         return certificationMessage;
+    }
+
+    public String randomCode(){
+        Random random = new Random();
+        int codeInt = random.nextInt(900000) + 100000;
+
+        String code = String.valueOf(codeInt);
+
+        return code;
     }
 }
