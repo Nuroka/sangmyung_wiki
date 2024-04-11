@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import styles from "../member/Login.module.css";
+import { authInstance } from '../../util/api';
 
 const BoardUpdate = () => {
   const navigate = useNavigate();
-  const { idx } = useParams(); // /update/:idx와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
+  const { board_id } = useParams(); // /update/:board_id와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
   const [board, setBoard] = useState({
-    idx: 0,
-    title: '',
-    createdBy: '',
-    contents: '',
+    board_id: 0,
+    //board_title: '',
+    //createdBy: '',
+    content: '',
   });
 
-  const { title, createdBy, contents } = board; //비구조화 할당
+  const { board_title, content } = board; //비구조화 할당
 
   const onChange = (event) => {
     const { value, name } = event.target; //event.target에서 name과 value만 가져오기
@@ -24,19 +24,19 @@ const BoardUpdate = () => {
   };
 
   const getBoard = async () => {
-    const resp = await (await axios.get(`//localhost:3000/board/${idx}`)).data;
+    const resp = await (await authInstance.get(`/board/${board_id}`)).data;
     setBoard(resp.data);
   };
 
   const updateBoard = async () => {
-    await axios.patch(`//localhost:3000/board`, board).then((res) => {
+    await authInstance.patch(`/board`, board).then((res) => {
       alert('수정되었습니다.');
-      navigate('/board/' + idx);
+      navigate('/board/' + board_id);
     });
   };
 
   const backToDetail = () => {
-    navigate('/board/' + idx);
+    navigate('/board/' + board_id);
   };
 
   useEffect(() => {
@@ -46,22 +46,22 @@ const BoardUpdate = () => {
   return (
     <div>
       <div>
-        <span>제목</span>
-        <input type="text" name="title" value={title} onChange={onChange} />
+        {/* <span>제목</span>
+        <input type="text" name="board_title" value={board_title} onChange={onChange} /> */}
       </div>
       <br />
       <div>
-        <span>작성자</span>
-        <input type="text" name="createdBy" value={createdBy} readOnly={true} />
+        {/* <span>작성자</span>
+        <input type="text" name="createdBy" value={createdBy} readOnly={true} /> */}
       </div>
       <br />
       <div>
         <span>내용</span>
         <textarea
-          name="contents"
+          name="content"
           cols="30"
           rows="10"
-          value={contents}
+          value={content}
           onChange={onChange}
         ></textarea>
       </div>

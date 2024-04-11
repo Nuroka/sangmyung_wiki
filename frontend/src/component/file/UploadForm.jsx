@@ -1,18 +1,20 @@
 import React from "react";
 import LicenseDropdown from "./LicenseDropdown";
 import styles from "../member/Login.module.css";
+import UploadBox from "./UploadBox";
 
 
 // 파일 업로드 폼 컴포넌트
 export default function UploadForm({ onSubmit }) {
   return (
     <form id="uploadForm" onSubmit={onSubmit}>
+      <UploadBox />
       <label htmlFor="file">파일 선택:</label>
       <input
         type="file"
         id="file"
         name="file"
-        accept=".txt, .pdf, .doc, .docx"
+        accept="image/*"
       />
       <label htmlFor="category">분류:</label>
       <input type="text" id="category" name="category" />

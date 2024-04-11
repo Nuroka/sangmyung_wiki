@@ -10,7 +10,13 @@ import { useSearchParams } from "react-router-dom";
 const BoardDetail = () => {
   const id = useParams(); // /board/:idx와 동일한 변수명으로 데이터를 꺼냄.
   const [loading, setLoading] = useState(true);
-  const [board, setBoard] = useState({});
+  const [board, setBoard] = useState({
+      board_id: '',
+      board_title: '',
+      member_name: 'ex',
+      update_at: '00-00-00',
+      create_at: '00-00-00'
+  });
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(['댓글 내용']);
   const [searchParams, setSearchParams] = useSearchParams();

@@ -1,15 +1,31 @@
 import React from "react";
 import UploadForm from "./UploadForm";
 // 파일 업로드 컴포넌트
+
+
 export default function FileUpload() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    formData.append("file",files[0]);
+    
+    const value=[{
+      file_name: "",
+      license: "",
+      category: "",
+      summary: ""
+    }]
+    const blob = new Blob([JSON.stringify(value)], {type: "application/json"})
+    formData.append("data",blob);
 
     try {
-      const response = await fetch("/upload", {
+      const response = await fetch("/file", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        mode: "cors",
+        data: formData,
       });
       const data = await response.json();
 

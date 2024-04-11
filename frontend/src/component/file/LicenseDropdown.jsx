@@ -15,7 +15,6 @@ export default function LicenseDropdown() {
             <option value="GNU GPL">GNU GPL</option>
             <option value="Apache License">Apache License</option>
             <option value="MIT License">MIT License</option>
-            {/* 다른 라이선스 옵션들을 추가할 수 있습니다. */}
         </select>
     );
 }

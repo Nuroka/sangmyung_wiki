@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from "../member/Login.module.css";
+import { authInstance } from '../../util/api';
 
 const Board = ({ idx, title, contents, createdBy }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Board = ({ idx, title, contents, createdBy }) => {
 
   const deleteBoard = async () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
-      await axios.delete(`//localhost:3000/board/${idx}`).then((res) => {
+      await authInstance.delete(`board/${idx}`).then((res) => {
         alert('삭제되었습니다.');
         navigate('/board');
       });
