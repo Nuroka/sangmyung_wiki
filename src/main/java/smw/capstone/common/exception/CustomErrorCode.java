@@ -24,7 +24,9 @@ public enum CustomErrorCode{
     NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "존재하지 않는 회원입니다."),
     NOT_MATCHED_CODE(HttpStatus.BAD_REQUEST, "인증번호가 틀렸습니다."),
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "로그인정보가 틀렸습니다."),
-    EXIST_DOC_TITLE(HttpStatus.BAD_REQUEST, "이미 존재하는 제목입니다. 문서를 생성할 수 없습니다.");
+    EXIST_DOC_TITLE(HttpStatus.BAD_REQUEST, "이미 존재하는 제목입니다. 문서를 생성할 수 없습니다."),
+    EMPTY_TOKEN(HttpStatus.BAD_REQUEST, "헤더에 토큰이 비어 있습니다. 토큰을 설정해 주세요" ),
+    ;
 
     private final HttpStatus status;
     private final String message;

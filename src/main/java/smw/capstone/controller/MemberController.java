@@ -1,5 +1,6 @@
 package smw.capstone.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.LoginDTO;
 import smw.capstone.DTO.request.EmailDTO;
+import smw.capstone.common.provider.JwtProvider;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.MemberService;
@@ -19,6 +21,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final JwtProvider jwtProvider;
 
 
     @RequestMapping("/mypage")
@@ -34,11 +37,11 @@ public class MemberController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<Member> login(@RequestBody LoginDTO form){
+    public ResponseEntity<String> login(HttpServletResponse response, @RequestBody LoginDTO form){
         Member member = new Member();
         member = memberService.login(form.getUsername(), form.getPassword());
-
-        return ResponseEntity.ok(member);
+        jwtProvider.sendAccessToken(response, jwtProvider.create(member.getEmail()));
+        return ResponseEntity.ok().body("access_toekn 헤더 설정 완료");
     }
 
     @GetMapping("/signin/email")

@@ -47,6 +47,8 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/favicon.ico")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/user")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/signin/**")).permitAll()
                                 .anyRequest().permitAll());
 
         return http.build();

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.common.provider.EmailProvider;
+import smw.capstone.common.provider.JwtProvider;
 import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 import smw.capstone.repository.MemberRepository;
@@ -17,6 +18,7 @@ import smw.capstone.repository.MemberRepository;
 public class MemberService {
     private final MemberRepository mr;
     private final EmailProvider emailProvider;
+    private final JwtProvider jwtProvider;
     Member member = new Member();
 
     @Transactional
@@ -32,12 +34,13 @@ public class MemberService {
     @Transactional
     public Member login(String id, String pw) {
         Member requestmember = mr.findByUsername(id);
-
         if (requestmember == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER);
         } else if (!requestmember.getPassword().equals(pw)) {
             throw new BusinessException(CustomErrorCode.NOT_LOGIN);
         } else {
+            jwtProvider.create(requestmember.getEmail());
+
             return requestmember;
         }
     }
