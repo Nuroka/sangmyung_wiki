@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registration) {
-        registration.addResourceHandler("/**").addResourceLocations("file:///C:/Users/jykim/OneDrive/사진");
+//        registration.addResourceHandler("/**").addResourceLocations("file:///C:/Users/jykim/OneDrive/사진");
         registration.addResourceHandler("/**").addResourceLocations("classpath:/templates/"); //
     }
 }
