@@ -34,22 +34,44 @@ export default function RecentUpdatedLogs() {
   return (
     <>
       <h2 className={styles.recentTitle}>최근 변경 내역</h2>
-      <div className={styles.buttonDiv}>
-        <button className={styles.whiteButton}
+      <div className={styles.btnDiv}>
+        <button className={styles.whiteBtn}
           onClick={() => {
             url = "/docs/edit";
           }}
         >
           전체
         </button>
-        <button className={styles.whiteButton}
+        <button className={styles.whiteBtn}
           onClick={() => {
             url = "/docs/edit?category=temp";
           }}
         >
           tempCategory
         </button>
+        <button className={styles.whiteBtn}
+          onClick={() => {
+            url = "/docs/edit";
+          }}
+        >
+          전체
+        </button>
+        <button className={styles.whiteBtn}
+          onClick={() => {
+            url = "/docs/edit";
+          }}
+        >
+          전체
+        </button>
+        <button className={styles.whiteBtn}
+          onClick={() => {
+            url = "/docs/edit";
+          }}
+        >
+          전체
+        </button>
       </div>
+
       <table className={styles.table}>
         <thead className={styles.th} > 
           <th className={styles.recentTitle}>항목</th>

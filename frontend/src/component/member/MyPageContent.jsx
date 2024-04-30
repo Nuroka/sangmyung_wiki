@@ -34,7 +34,7 @@ export default function MyPageContent() {
       ) : (
         <>
           {isError && <p>{error.message}</p>}
-          <h2>내 정보</h2>
+          <h2 className={styles.loginTitle}>내 정보</h2>
 
           <p>사용자 이름</p>
           <p>{data.username}</p>

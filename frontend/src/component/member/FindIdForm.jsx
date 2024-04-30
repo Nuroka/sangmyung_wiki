@@ -41,7 +41,7 @@ export default function FindIdForm() {
   return (
     <>
       <div className={`${styles.loginDiv} ${styles.loginD}`}>
-        <h2>계정 찾기</h2>
+        <h2 className={styles.loginTitle}>계정 찾기</h2>
         {isError && <p>{error.message}</p>}
         <form id="form" onSubmit={handleSubmit}>
           <p>

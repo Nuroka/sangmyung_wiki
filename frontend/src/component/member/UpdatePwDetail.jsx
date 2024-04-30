@@ -44,7 +44,7 @@ export default function FindIdDetail() {
 
   return (
     <>
-      <h2>계정 찾기</h2>
+      <h2 className={styles.loginTitle}>계정 찾기</h2>
       {isError && <p>{error.message}</p>}
       <UpdatePwForm onSubmit={handleSubmit} inputData={data}>
         <button className={`${findIdAuthStyles.findIdFormBtn} ${styles.link}`} type="submit" disabled={isPending}>
