@@ -15,6 +15,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import smw.capstone.common.filter.JwtAuthenticationFilter;
+import smw.capstone.common.provider.JwtProvider;
+import smw.capstone.repository.MemberRepository;
 
 import java.io.IOException;
 
@@ -22,8 +24,10 @@ import java.io.IOException;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CorsConfig corsConfig;
+    private final MemberRepository memberRepository;
+    private final JwtProvider jwtProvider;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception{
@@ -36,11 +40,11 @@ public class WebSecurityConfig {
                                 .requestMatchers("/").permitAll().anyRequest().authenticated())
                                 .exceptionHandling(exceptionHandling -> exceptionHandling
                                         .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
-                                        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                                        .addFilterBefore(new JwtAuthenticationFilter(memberRepository, jwtProvider), UsernamePasswordAuthenticationFilter.class);
 
 
 
-        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

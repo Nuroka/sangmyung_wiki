@@ -19,9 +19,6 @@ import smw.capstone.common.provider.JwtProvider;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtProvider jwtProvider;
-
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -56,7 +53,12 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+
+        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .requestMatchers(new AntPathRequestMatcher("/user"))
+                .requestMatchers(new AntPathRequestMatcher("/recent"))
+                .requestMatchers(new AntPathRequestMatcher("/popular"))
+                .requestMatchers(new AntPathRequestMatcher("/signin/**"));
     }
 }
 

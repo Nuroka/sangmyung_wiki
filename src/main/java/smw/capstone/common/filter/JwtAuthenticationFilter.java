@@ -6,12 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,22 +18,24 @@ import java.io.IOException;
 
 
 @RequiredArgsConstructor
-@Component
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
-    private static final String NO_CHECK_URL = "/user"; // "/login"으로 들어오는 요청은 Filter 작동 X
     private final MemberRepository memberRepository;
 
+    public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+        this.memberRepository = memberRepository;
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try{
-            if(request.getRequestURI().equals(NO_CHECK_URL)) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+//            if(request.getRequestURI().equals(NO_CHECK_URL) || request.getRequestURI().equals(TEST_URL_1) || request.getRequestURI().equals(TEST_URL_2)) {
+//                filterChain.doFilter(request, response);
+//                return;
+//            }
             String token = parseBearerToken(request);
 
             String email = jwtProvider.validate(token);
