@@ -41,11 +41,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+//                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/favicon.ico")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/user")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/signin/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                                 .anyRequest().permitAll());
 
         return http.build();

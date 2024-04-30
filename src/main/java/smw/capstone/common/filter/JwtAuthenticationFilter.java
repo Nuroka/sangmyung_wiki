@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,13 +18,14 @@ import smw.capstone.repository.MemberRepository;
 import java.io.IOException;
 
 
-@RequiredArgsConstructor
 @Slf4j
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
 
+    private static final String[] urls = {"/user", "/recent", "/popular", "/signin/email/1", "/signin/email/2"};
     public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
         this.memberRepository = memberRepository;
@@ -31,14 +33,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+
         try{
-//            if(request.getRequestURI().equals(NO_CHECK_URL) || request.getRequestURI().equals(TEST_URL_1) || request.getRequestURI().equals(TEST_URL_2)) {
-//                filterChain.doFilter(request, response);
-//                return;
-//            }
+            for (String url:urls) {
+                if(request.getRequestURI().equals(url)) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+            }
+
+            log.info("jwt 필터 작동");
             String token = parseBearerToken(request);
 
             String email = jwtProvider.validate(token);
+            System.out.println("멤버이메일: " + email);
 
             if(email==null){
                 filterChain.doFilter(request, response);

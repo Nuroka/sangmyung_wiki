@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
@@ -24,7 +25,7 @@ import java.io.IOException;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CorsConfig corsConfig;
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
@@ -40,11 +41,11 @@ public class WebSecurityConfig {
                                 .requestMatchers("/").permitAll().anyRequest().authenticated())
                                 .exceptionHandling(exceptionHandling -> exceptionHandling
                                         .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
-                                        .addFilterBefore(new JwtAuthenticationFilter(memberRepository, jwtProvider), UsernamePasswordAuthenticationFilter.class);
+                                        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
 
-//        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

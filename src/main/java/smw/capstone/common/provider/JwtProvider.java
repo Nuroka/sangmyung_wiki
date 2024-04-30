@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtProvider {
 
     @Value("${jwt.secretKey}")
@@ -63,6 +65,7 @@ public class JwtProvider {
     public void sendAccessToken(HttpServletResponse response, String accessToken) {
         response.setStatus((HttpServletResponse.SC_OK));
         response.setHeader(accessHeader, accessToken);
+        log.info("토큰 헤더에 설정 완료");
     }
 
     public void saveAuthentication(Member member) {
