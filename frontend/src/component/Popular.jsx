@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { defaultInstance } from "../util/api";
+import styles from "../component/Popular.module.css";
 
 export default function Popular() {
   const [data, setData] = useState([]);
@@ -23,7 +23,7 @@ export default function Popular() {
 
   return (
     <>
-      <p>인기글</p>
+      <p className={styles.popularTitle}>인기글</p>
       <div>
         {data && (
           <ul>

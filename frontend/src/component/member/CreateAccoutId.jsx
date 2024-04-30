@@ -42,7 +42,7 @@ const CreateAccountId = () => {
 
   return (
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
-      <h2>계정 만들기</h2>
+      <h2 className={styles.loginTitle}>계정 만들기</h2>
       <form id="form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="userIdInput">사용자 ID</label><br />

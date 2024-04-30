@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-
 import { defaultInstance } from "../util/api";
+import styles from "../component/Recent.module.css";
 
 export default function Recent() {
   const url = "/recent";
@@ -22,7 +22,7 @@ export default function Recent() {
 
   return (
     <>
-      <p>최근 변경</p>
+      <p className={styles.recentTitle}>최근 변경</p>
       {isLoading ? (
         <p>로딩 중..</p>
       ) : (

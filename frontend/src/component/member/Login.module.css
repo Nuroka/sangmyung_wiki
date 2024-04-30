@@ -56,6 +56,8 @@ input[type=checkbox] {
 
 .loginTitle {
     margin-bottom: 39px;
+    color: #004896;
+    font-size: 25px;
 }
 
 button {

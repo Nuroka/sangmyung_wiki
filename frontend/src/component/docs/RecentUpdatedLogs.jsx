@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { authInstance } from "../../util/api";
-import styles from "../member/Login.module.css";
+import styles from "../docs/RecentUpdatedLogs.module.css";
 export default function RecentUpdatedLogs() {
   const navigate = useNavigate();
 
@@ -33,26 +33,28 @@ export default function RecentUpdatedLogs() {
 
   return (
     <>
-      <h2>최근 변경 내역</h2>
-      <button className={styles.link}
-        onClick={() => {
-          url = "/docs/edit";
-        }}
-      >
-        전체
-      </button>
-      <button className={styles.link}
-        onClick={() => {
-          url = "/docs/edit?category=temp";
-        }}
-      >
-        tempCategory
-      </button>
-      <table border="1">
-        <thead>
-          <th>항목</th>
-          <th>수정자</th>
-          <th>등록 시간</th>
+      <h2 className={styles.recentTitle}>최근 변경 내역</h2>
+      <div className={styles.buttonDiv}>
+        <button className={styles.whiteButton}
+          onClick={() => {
+            url = "/docs/edit";
+          }}
+        >
+          전체
+        </button>
+        <button className={styles.whiteButton}
+          onClick={() => {
+            url = "/docs/edit?category=temp";
+          }}
+        >
+          tempCategory
+        </button>
+      </div>
+      <table className={styles.table}>
+        <thead className={styles.th} > 
+          <th className={styles.recentTitle}>항목</th>
+          <th className={styles.recentTitle}>수정자</th>
+          <th className={styles.recentTitle}>등록 시간</th>
         </thead>
         {!isFetching && error && <p>{error.message}</p>}
         {!isFetching && <p>로딩 중...</p>}

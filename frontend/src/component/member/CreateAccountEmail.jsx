@@ -21,7 +21,7 @@ function CreateAccountEmail() {
     }
     return (
         <div  className={`${styles.loginDiv} ${styles.loginD}`} style={{ textAlign: 'left' }}>
-            <h2><b>계정 만들기</b></h2>
+            <h2 className={styles.loginTitle}><b>계정 만들기</b></h2>
             <form id="form" onSubmit={handleSubmit}>
                 <label htmlFor="email">이메일</label><br />
                 <input type="email" id="email" name="email" /><br /><br />
