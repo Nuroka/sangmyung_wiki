@@ -1,0 +1,70 @@
+.nav {
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  margin-right: 43px;
+  line-height: 50px;
+  text-decoration-line: none;
+  color: inherit;
+  font-size: 1.2vw;
+}
+.nav1 {
+  left: 40vw;
+}
+
+.nav2 {
+  left: 50vw;
+}
+.nav3 {
+  left: 60vw;
+}
+
+.nav4{
+  left: 70vw;
+}
+
+.logo {
+  position: absolute;
+  left: 3vw;
+  display: inline-block;
+  width: 13vw;
+  min-width: 100px;
+}
+
+.user {
+  position: absolute;
+  left: 93vw;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.search {
+  position: absolute;
+  margin: 0;
+  display: inline-block;
+  right: 6vw;
+  width: 15vw;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #efefef;
+  font-size: 2vmin;
+  padding-right: 60px;
+}
+
+.searchIcon {
+  position: absolute;
+  display: inline-block;
+  right: 7vw;
+  height: 25px;
+  margin-top: 6px;
+}
+
+input {
+  padding-left: 21px;
+  font-family: "SUIT-Regular";
+}
+
+input::placeholder {
+  font-size: 1vw;
+}
