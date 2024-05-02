@@ -10,3 +10,4 @@ export default function Comment({ comments }) {
       </div>
     );
   }
+  // 게시물 보기에 comment 관련이 없는듯

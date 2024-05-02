@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "board/update/:idx",
+        path: "board/edit/:id",
         element: (
           <>
             <Community />

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Board from './Board';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -8,7 +7,7 @@ import {authInstance} from "../../util/api";
 import { useSearchParams } from "react-router-dom";
 
 const BoardDetail = () => {
-  const id = useParams(); // /board/:idx와 동일한 변수명으로 데이터를 꺼냄.
+  const { id } = useParams(); // /board/:idx와 동일한 변수명으로 데이터를 꺼냄.
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState({
       board_id: '',
@@ -26,6 +25,7 @@ const BoardDetail = () => {
     setBoard(resp);
     setLoading(false);
   };
+  
   const handleAddComment = (event) => {
     event.preventDefault();
     if (comment.trim() !== '') {
@@ -44,6 +44,7 @@ const BoardDetail = () => {
         <h2>loading...</h2>
       ) : (
         <Board
+          id = {board.board_id}
           title={board.board_title}
           contents={board.content}
           createdBy={board.create_at}

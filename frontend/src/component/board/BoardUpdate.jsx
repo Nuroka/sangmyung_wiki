@@ -3,40 +3,47 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from "../member/Login.module.css";
 import { authInstance } from '../../util/api';
 
+//해결했는데 api문서에 board_title은 없어 제목은 수정이 안됨
 const BoardUpdate = () => {
   const navigate = useNavigate();
-  const { board_id } = useParams(); // /update/:board_id와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
+  const { id } = useParams(); // /update/:id와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
+
   const [board, setBoard] = useState({
-    board_id: 0,
-    //board_title: '',
-    //createdBy: '',
-    content: '',
+    board_title: '',
+    createdBy: '',
+    content: ''
   });
 
-  const { board_title, content } = board; //비구조화 할당
+  const { board_title, createdBy, content } = board; //비구조화 할당
 
   const onChange = (event) => {
-    const { value, name } = event.target; //event.target에서 name과 value만 가져오기
+    const { value, name } = event.target;
+    console.log(`Updating ${name} to ${value}`);
     setBoard({
       ...board,
       [name]: value,
     });
   };
-
+  
   const getBoard = async () => {
-    const resp = await (await authInstance.get(`/board/${board_id}`)).data;
-    setBoard(resp.data);
+    try {
+      const resp = await authInstance.get("/board/one", { params: { id } });
+      setBoard(resp.data);
+    } catch (error) {
+      console.error("Error fetching board:", error);
+    }
   };
+  
 
   const updateBoard = async () => {
-    await authInstance.patch(`/board`, board).then((res) => {
+    await authInstance.post(`/board/edit`, board).then((res) => {
       alert('수정되었습니다.');
-      navigate('/board/' + board_id);
-    });
+      navigate('/board');
+    }); 
   };
 
   const backToDetail = () => {
-    navigate('/board/' + board_id);
+    navigate('/board');
   };
 
   useEffect(() => {
@@ -46,13 +53,13 @@ const BoardUpdate = () => {
   return (
     <div>
       <div>
-        {/* <span>제목</span>
-        <input type="text" name="board_title" value={board_title} onChange={onChange} /> */}
+        <span>제목</span>
+        <input type="text" name="board_title" value={board_title} onChange={onChange} />
       </div>
       <br />
       <div>
-        {/* <span>작성자</span>
-        <input type="text" name="createdBy" value={createdBy} readOnly={true} /> */}
+        <span>작성자</span>
+        <h5>{createdBy}</h5>
       </div>
       <br />
       <div>
