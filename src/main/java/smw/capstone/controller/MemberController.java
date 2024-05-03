@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.LoginDTO;
 import smw.capstone.DTO.request.EmailDTO;
+import smw.capstone.DTO.request.SignUpRequestDTO;
 import smw.capstone.common.provider.JwtProvider;
 import smw.capstone.entity.Member;
+import smw.capstone.entity.Type;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.MemberService;
 
@@ -41,11 +43,14 @@ public class MemberController {
         Member member = new Member();
         member = memberService.login(form.getUsername(), form.getPassword());
         jwtProvider.sendAccessToken(response, jwtProvider.create(member.getEmail()));
-        return ResponseEntity.ok().body("access_toekn 헤더 설정 완료");
+        return ResponseEntity.ok().body("access_token 헤더 설정 완료");
     }
 
     @GetMapping("/signin/email")
-    public EmailDTO email() { return new EmailDTO();}
+    public ResponseEntity<EmailDTO> email() {
+        EmailDTO email = new EmailDTO();
+        return ResponseEntity.ok().body(email);
+    }
 
     @PostMapping("/signin/email/1")
     public ResponseEntity<?> certificateEmail(@RequestBody EmailDTO form){
@@ -62,5 +67,22 @@ public class MemberController {
 
         return memberService.certificate(email, code);
     }
+
+    @GetMapping("/signin/ID")
+    public SignUpRequestDTO signupform(){ return new SignUpRequestDTO(); }
+
+    @PostMapping("/signin/ID")
+    public ResponseEntity<?> signup(@RequestBody SignUpRequestDTO form){
+        Member member = new Member();
+
+        member.setEmail(form.getEmail());
+        member.setUsername(form.getUsername());
+        member.setPassword(form.getPassword());
+        member.setStudent_Id(form.getStudent_Id());
+        member.setType(Type.USER);
+
+        return memberService.register(member);
+    }
+
 
 }

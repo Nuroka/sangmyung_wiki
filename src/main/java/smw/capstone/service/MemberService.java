@@ -1,6 +1,7 @@
 package smw.capstone.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,9 @@ import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 import smw.capstone.repository.MemberRepository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,8 +26,9 @@ public class MemberService {
     Member member = new Member();
 
     @Transactional
-    public void register(Member member) {
+    public ResponseEntity<?> register(Member member) {
         mr.save(member);
+        return ResponseEntity.ok().body("회원가입 완료되었습니다.");
     }
 
     @Transactional
@@ -73,7 +78,10 @@ public class MemberService {
         if (!answer.equals(code)){
             throw new BusinessException(CustomErrorCode.NOT_MATCHED_CODE);
         }else{
-            return ResponseEntity.ok().body("인증되었습니다.");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "인증되었습니다");
+            response.put("email", email);
+            return ResponseEntity.ok().body(response);
         }
     }
 }
