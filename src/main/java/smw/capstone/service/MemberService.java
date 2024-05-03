@@ -9,6 +9,7 @@ import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.common.provider.EmailProvider;
 import smw.capstone.common.provider.JwtProvider;
+import smw.capstone.entity.Emailcertificatelog;
 import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 import smw.capstone.repository.MemberRepository;
@@ -82,6 +83,25 @@ public class MemberService {
             response.put("message", "인증되었습니다");
             response.put("email", email);
             return ResponseEntity.ok().body(response);
+        }
+    }
+
+    public Member findByEmail(String email){ return mr.findMemberByEmail(email);}
+
+    public boolean certificate_v2(String email, String code) {
+        String answer = mr.findCode(email);
+        if (!answer.equals(code)) {
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_CODE);
+        }else{
+            Emailcertificatelog emaillog = new Emailcertificatelog();
+            SigninCode signinCode = mr.findsignincode(code);
+            emaillog.setEmail(signinCode.getEmail());
+            emaillog.setCertification_Code(signinCode.getCertification_Code());
+
+            mr.removeSigninCode(signinCode);
+            mr.saveEmaillog(emaillog);
+
+            return true;
         }
     }
 }

@@ -84,5 +84,28 @@ public class MemberController {
         return memberService.register(member);
     }
 
+    @GetMapping("/find/ID")
+    public ResponseEntity<EmailDTO> findId(){
+        EmailDTO email = new EmailDTO();
+        return ResponseEntity.ok().body(email);
+    }
 
+    @PostMapping("/find/ID/1")
+    public ResponseEntity<?> findingID(@RequestBody EmailDTO form){
+        String email = form.getEmail();
+        memberService.sendNumber(email);
+
+        return ResponseEntity.ok().body("인증번호가 전송되었습니다.");
+    }
+
+    @PostMapping("/find/ID/2")
+    public ResponseEntity<String> findingID2(@RequestBody EmailDTO form) {
+        String email = form.getEmail();
+        String code = form.getCode();
+        Member member = new Member();
+        if(memberService.certificate_v2(email, code)){
+            member = memberService.findByEmail(email);
+        }
+        return ResponseEntity.ok().body("사용자의 아이디는 '" + member.getUsername() + "' 입니다.");
+    }
 }
