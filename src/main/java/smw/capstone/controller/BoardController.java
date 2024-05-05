@@ -40,7 +40,7 @@ public class BoardController {
     /**
      * 게시물 삭제
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> delBoard(Long boardId, @CurrentUser Member member) {
         boardService.deleteBoard(boardId, member);
         return ResponseEntity.ok().body("게시물이 삭제되었습니다.");
