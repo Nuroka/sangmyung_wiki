@@ -101,4 +101,19 @@ public class BoardService {
         int likeCnt = findBoard.getLikes();
         findBoard.updateLike(++likeCnt);
     }
+
+    @Transactional
+    public void deleteLike(Long id, Member member) {
+        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        try {
+            Like findLike = likeRepository.findByMemberAndBoard(member, findBoard);
+            likeRepository.delete(findLike);
+            int likeCnt = findBoard.getLikes();
+            findBoard.updateLike(--likeCnt);
+        } catch (NullPointerException e) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_LIKE);
+        }
+    }
+
+
 }

@@ -71,4 +71,13 @@ public class BoardController {
         boardService.saveLike(id, member);
         return ResponseEntity.ok().body("좋아요가 반영되었습니다.");
     }
+
+    /**
+     * 게시물 추천 취소하기
+     */
+    @PostMapping("like/delete")
+    public ResponseEntity<?> deleteLike(@RequestParam("board_id") Long id, @CurrentUser Member member) {
+        boardService.deleteLike(id, member);
+        return ResponseEntity.ok().body("좋아요가 취소되었습니다.");
+    }
 }
