@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -26,6 +27,8 @@ public class Board {
     private Member member;
 
     private String title;
+
+    @ColumnDefault("0")
     private int likes;
     private LocalDate createAt;
 
@@ -35,6 +38,9 @@ public class Board {
 
     public void updateBoard(String content) {
         this.content = content;
+    }
+    public void updateLike(int like) {
+        this.likes = like;
     }
 
 }

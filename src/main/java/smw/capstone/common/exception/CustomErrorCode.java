@@ -26,7 +26,8 @@ public enum CustomErrorCode{
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "로그인정보가 틀렸습니다."),
     EXIST_DOC_TITLE(HttpStatus.BAD_REQUEST, "이미 존재하는 제목입니다. 문서를 생성할 수 없습니다."),
     EMPTY_TOKEN(HttpStatus.BAD_REQUEST, "헤더에 토큰이 비어 있습니다. 토큰을 설정해 주세요" ),
-    ACCESS_DENIED(HttpStatus.BAD_REQUEST, "접근 권한이 없는 사용자 입니다.");
+    ACCESS_DENIED(HttpStatus.BAD_REQUEST, "접근 권한이 없는 사용자 입니다."),
+    EXIST_LIKE(HttpStatus.BAD_REQUEST, "이미 좋아요가 반영된 게시물 입니다.");
 
     private final HttpStatus status;
     private final String message;

@@ -10,8 +10,10 @@ import smw.capstone.DTO.request.BoarUpdatedDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.Board;
+import smw.capstone.entity.Like;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.BoardRepository;
+import smw.capstone.repository.LikeRepository;
 import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public void saveBoard(BoardUploadDTO boardUploadDTO, Member member) {
@@ -82,5 +85,20 @@ public class BoardService {
         Member findMember = memberRepository.findById(member.getId());
         Board findBoard = boardRepository.findByMemberAndId(findMember, updateBoardDTO.getBoardId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_MEMBER_BOARD));
         findBoard.updateBoard(updateBoardDTO.getContent());
+    }
+
+    @Transactional
+    public void saveLike(Long id, Member member) {
+        //이미 좋아요가 반영되었다면 예외
+        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        Like findLike = likeRepository.findByMemberAndBoard(member, findBoard);
+
+        if (findLike != null) {
+            throw new BusinessException(CustomErrorCode.EXIST_LIKE);
+        }
+
+        likeRepository.save(Like.builder().board(findBoard).member(member).build());
+        int likeCnt = findBoard.getLikes();
+        findBoard.updateLike(++likeCnt);
     }
 }

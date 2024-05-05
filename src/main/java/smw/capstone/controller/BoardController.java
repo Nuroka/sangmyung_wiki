@@ -63,4 +63,12 @@ public class BoardController {
         return ResponseEntity.ok().body("게시물이 수정되었습니다.");
     }
 
+    /**
+     * 게시물 추천
+     */
+    @PostMapping("like")
+    public ResponseEntity<?> saveLike(@RequestParam("board_id") Long id, @CurrentUser Member member) {
+        boardService.saveLike(id, member);
+        return ResponseEntity.ok().body("좋아요가 반영되었습니다.");
+    }
 }
