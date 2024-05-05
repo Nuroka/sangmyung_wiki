@@ -32,8 +32,10 @@ public class FileService {
     private final DocFileRepository docFileRepository;
 
     @Transactional
-    public Files savefiles(FileUploadDTO file, MultipartFile newFile) throws Exception {
-
+    public Files savefiles(FileUploadDTO file, MultipartFile newFile, Member member) throws Exception {
+        if (member == null) {
+            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+        }
         Files files = fileHandler.parseFileInfo(file, newFile);
 
         if (files == null) {

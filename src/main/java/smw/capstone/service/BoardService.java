@@ -26,20 +26,21 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public void saveBoard(BoardUploadDTO boardUploadDTO /*사용자 정보*/) {
-
-        Member temp = memberRepository.findById(1L); //임시 데이터
+    public void saveBoard(BoardUploadDTO boardUploadDTO, Member member) {
+        if(member == null) {
+            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+        }
+        Member findMember = memberRepository.findById(member.getId());
         boardRepository.save(Board.builder()
                 .content(boardUploadDTO.getContent())
                 .title(boardUploadDTO.getBoardTitle())
                 .createAt(LocalDate.now())
                 .likes(0)
-                .member(temp)
+                .member(findMember)
                 .build());
     }
 
     public List<BoardDTO> getAllBoard(/*사용자정보*/) {
-        Member temp = memberRepository.findById(1L); //임시 데이터
         List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createAt"));
         List<BoardDTO> responseBoardDTO = new ArrayList<>();
         for (Board board : boardList) {
@@ -48,13 +49,13 @@ public class BoardService {
                     .boardTitle(board.getTitle())
                     .createAt(board.getCreateAt())
                     .updateAt(board.getUpdateAt())
-                    .memberName(temp.getUsername()).build());
+                    .memberName(board.getMember().getUsername()).build());
         }
         return responseBoardDTO;
     }
 
     @Transactional
-    public void deleteBoard(Long boardId/*사용자 정보*/) {
+    public void deleteBoard(Long boardId, Member member) {
         Member temp = memberRepository.findById(1L); //임시 데이터
         //멤버가 작성한 글이 맞으면 게시물 삭제
         System.out.println(boardId);
@@ -75,9 +76,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(BoarUpdatedDTO updateBoardDTO) {
-        Member temp = memberRepository.findByUsername("test");
-        Board findBoard = boardRepository.findByMemberAndId(temp, updateBoardDTO.getBoardId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_MEMBER_BOARD));
+    public void updateBoard(BoarUpdatedDTO updateBoardDTO, Member member) {
+        Member findMember = memberRepository.findById(member.getId());
+        Board findBoard = boardRepository.findByMemberAndId(findMember, updateBoardDTO.getBoardId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_MEMBER_BOARD));
         findBoard.updateBoard(updateBoardDTO.getContent());
     }
 }

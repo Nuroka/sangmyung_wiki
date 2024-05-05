@@ -113,11 +113,11 @@ public class DocService {
                 .id(document.getId()).build();
     }
 
-    public DocsIdDTO getMyDocs(/*인증정보*/) {
+    public DocsIdDTO getMyDocs(Member member) {
         DocsIdDTO dosIdDTO = new DocsIdDTO();
         try {
-            Member temp = memberRepository.findById(1L); //임시 데이터, 실행 오류 방지
-            List<Documents> documents = docRepository.findByMember(temp/*인증된 멤버 객체*/);
+            Member findMember = memberRepository.findById(member.getId()); //임시 데이터, 실행 오류 방지
+            List<Documents> documents = docRepository.findByMember(findMember);
             for (Documents document : documents) {
                 dosIdDTO.getDocsIdList().add(document.getId());
             }
@@ -129,14 +129,15 @@ public class DocService {
     }
 
     @Transactional
-    public void deleteDoc(Long id /*사용자 인증정보*/) {
+    public void deleteDoc(Long id, Member member) {
         if (id == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
 
         }
         try {
-            /*사용자 정보 확인 후 삭제 가능한 문서면 삭제*/
-            docRepository.deleteById(id);
+            Documents documents = docRepository.findByIdAndMember(id, member).orElseThrow(() -> new BusinessException(CustomErrorCode.ACCESS_DENIED));
+//            docRepository.deleteById(id);
+            docRepository.delete(documents);
         } catch (NullPointerException e) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
         }
@@ -144,8 +145,10 @@ public class DocService {
     }
 
     @Transactional
-    public ReqUpdateDocDTO updateDoc(ReqUpdateDocDTO reqUpdateDocDTO/*사용자 정보*/) {
-        //사용자 정보 토대로 reqUpdateDocDoc.fileName 으로 filepath 찾고 반환
+    public ReqUpdateDocDTO updateDoc(ReqUpdateDocDTO reqUpdateDocDTO, Member member) {
+        if (member == null) {
+            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+        }
         Documents findDoc = docRepository.findById(reqUpdateDocDTO.getDocId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
         List<String> fileNames = new ArrayList<>();
 
@@ -191,13 +194,15 @@ public class DocService {
     }
 
     @Transactional
-    public void createDoc(ReqCreateDoc reqCreateDoc) {
-
+    public void createDoc(ReqCreateDoc reqCreateDoc, Member member) {
+        if (member == null){
+            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+        }
         docRepository.findByTitle(reqCreateDoc.getTitle()).orElseThrow(() -> new BusinessException(CustomErrorCode.EXIST_DOC_TITLE));
 
         docRepository.save(Documents.builder()
                 .title(reqCreateDoc.getTitle())
-                /*.member()*/
+                .member(member)
                 .content(reqCreateDoc.getContent())
                 .createAt(LocalDate.now())
                 .updateAt(LocalDate.now()).build());

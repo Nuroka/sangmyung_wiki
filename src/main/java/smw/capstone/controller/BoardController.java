@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.response.BoardDTO;
 import smw.capstone.DTO.request.BoardUploadDTO;
 import smw.capstone.DTO.request.BoarUpdatedDTO;
+import smw.capstone.common.annotation.CurrentUser;
+import smw.capstone.entity.Member;
 import smw.capstone.service.BoardService;
 
 import java.util.List;
@@ -22,8 +24,8 @@ public class BoardController {
      * 게시물 추가
      */
     @PostMapping
-    public ResponseEntity<?> saveBoard(@Valid @RequestBody BoardUploadDTO boardUploadDTO/*사용자 정보*/) {
-        boardService.saveBoard(boardUploadDTO);
+    public ResponseEntity<?> saveBoard(@Valid @RequestBody BoardUploadDTO boardUploadDTO, @CurrentUser Member member) {
+        boardService.saveBoard(boardUploadDTO, member);
         return ResponseEntity.ok().body("커뮤니티에 글이 등록되었습니다.");
     }
 
@@ -31,7 +33,7 @@ public class BoardController {
      * 전체 게시물 보기
      */
     @GetMapping
-    public ResponseEntity<List<BoardDTO>> getAllBoard(/*사용자 정보*/) {
+    public ResponseEntity<List<BoardDTO>> getAllBoard() {
         return ResponseEntity.ok().body(boardService.getAllBoard());
     }
 
@@ -39,8 +41,8 @@ public class BoardController {
      * 게시물 삭제
      */
     @PostMapping("/delete")
-    public ResponseEntity<String> delBoard(Long boardId /*사용자 정보*/) {
-        boardService.deleteBoard(boardId);
+    public ResponseEntity<String> delBoard(Long boardId, @CurrentUser Member member) {
+        boardService.deleteBoard(boardId, member);
         return ResponseEntity.ok().body("게시물이 삭제되었습니다.");
     }
 
@@ -48,7 +50,7 @@ public class BoardController {
      * 게시물 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<BoardDTO> getOneBoard(Long id/*사용자 정보*/) {
+    public ResponseEntity<BoardDTO> getOneBoard(Long id) {
         return ResponseEntity.ok().body(boardService.getOneBoard(id));
     }
 
@@ -56,8 +58,8 @@ public class BoardController {
      * 게시물 수정
      */
     @PostMapping("/edit")
-    public ResponseEntity<?> updateBoard(@Valid @RequestBody BoarUpdatedDTO updateBoardDTO/*사용자 정보*/) {
-        boardService.updateBoard(updateBoardDTO);
+    public ResponseEntity<?> updateBoard(@Valid @RequestBody BoarUpdatedDTO updateBoardDTO, @CurrentUser Member member) {
+        boardService.updateBoard(updateBoardDTO, member);
         return ResponseEntity.ok().body("게시물이 수정되었습니다.");
     }
 
