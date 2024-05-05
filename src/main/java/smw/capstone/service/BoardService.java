@@ -49,7 +49,8 @@ public class BoardService {
                     .boardTitle(board.getTitle())
                     .createAt(board.getCreateAt())
                     .updateAt(board.getUpdateAt())
-                    .memberName(board.getMember().getUsername()).build());
+                    .memberName(board.getMember().getUsername())
+                    .likes(board.getLikes()).build());
         }
         return responseBoardDTO;
     }
@@ -72,7 +73,8 @@ public class BoardService {
                 .updateAt(board.getUpdateAt())
                 .boardTitle(board.getTitle())
                 .content(board.getContent())
-                .createAt(board.getCreateAt()).build();
+                .createAt(board.getCreateAt())
+                .likes(board.getLikes()).build();
     }
 
     @Transactional

@@ -41,7 +41,7 @@ public class BoardController {
      * 게시물 삭제
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delBoard(Long boardId, @CurrentUser Member member) {
+    public ResponseEntity<String> delBoard(@RequestParam("id") Long boardId, @CurrentUser Member member) {
         boardService.deleteBoard(boardId, member);
         return ResponseEntity.ok().body("게시물이 삭제되었습니다.");
     }
@@ -50,7 +50,7 @@ public class BoardController {
      * 게시물 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<BoardDTO> getOneBoard(Long id) {
+    public ResponseEntity<BoardDTO> getOneBoard(@RequestParam("idx") Long id) {
         return ResponseEntity.ok().body(boardService.getOneBoard(id));
     }
 
