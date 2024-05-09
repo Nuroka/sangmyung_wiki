@@ -8,18 +8,19 @@ import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
 import Login from "./pages/Login";
-import Community from "./pages/Community";
 import RecentUpdated from "./pages/RecentUpdated";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWrite";
 import BoardUpdate from "./component/board/BoardUpdate";
-import FindId from "./pages/FindId";
+import FindID from "./pages/FindID";
 import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
 import CreateAccountEmailPage from "./pages/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/CreateAccountid";
-import IdAuth from "./pages/IdAuth";
+import AuthRoute from "./util/AuthRoute";
+import UnauthRoute from "./util/UnauthRoute";
+import DefaultRoute from "./util/DefaultRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,83 +28,37 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
       {
-        path: "file",
-        element: <Fileload />,
-      },
-      {
-        path: "board",
-        element: (
-          <>
-            <Community />
-            <BoardList />
-          </>
-        ),
-      },
-      {
-        path: "/board/one",
-        element: (
-          <>
-            <Community />
-            <BoardDetail />
-          </>
-        ),
-      },
-      {
-        path: "/write",
-        element: (
-          <>
-            <Community />
-            <BoardWrite />
-          </>
-        ),
-      },
-      {
-        path: "board/edit/:id",
-        element: (
-          <>
-            <Community />
-            <BoardUpdate />
-          </>
-        ),
-      },
-      {
-        path: "docs/edit",
-        element: <RecentUpdated />,
-      },
-      {
-        path: "user",
-        element: <Login />,
-      },
-      {
-        path: "findId",
+        path: "/",
+        element: <AuthRoute />, // 로그인 후 접근 가능
+        errorElement: <ErrorPage />,
         children: [
-          {
-            index: true,
-            element: <FindId />,
-          },
-          {
-            path: "auth",
-            element: <IdAuth />,
-          },
+          { path: "file", element: <Fileload /> },
+          { path: "board", element: <BoardList /> },
+          { path: "board/one", element: <BoardDetail /> },
+          { path: "write", element: <BoardWrite /> },
+          { path: "board/edit/:id", element: <BoardUpdate /> },
+          { path: "docs/edit", element: <RecentUpdated /> },
+          { path: "mypage", element: <MyPage /> },
+          { path: "member/update", element: <UpdatePw /> },
         ],
       },
       {
-        path: "mypage",
-        element: <MyPage />,
+        path: "/",
+        element: <UnauthRoute />, // 로그인 시 접근 불가
+        errorElement: <ErrorPage />,
+        children: [
+          { path: "user", element: <Login /> },
+          { path: "findID", element: <FindID /> },
+          { path: "createEmail", element: <CreateAccountEmailPage /> },
+          { path: "createId", element: <CreateAccountIdPage /> },
+        ],
       },
       {
-        path: "member/update",
-        element: <UpdatePw />,
-      },
-      {
-        path: "createEmail",
-        element: <CreateAccountEmailPage />,
-      },
-      {
-        path: "createId",
-        element: <CreateAccountIdPage />,
+        path: "/",
+        element: <DefaultRoute />, // 로그인과 상관없이 접근 가능
+        errorElement: <ErrorPage />,
+        children: [{ index: true, element: <Home /> }],
       },
     ],
   },
