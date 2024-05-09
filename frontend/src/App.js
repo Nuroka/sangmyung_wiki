@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/api";
 
 import RootLayout from "./layout/RootLayout";
+
 import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/Fileload";
@@ -16,8 +17,10 @@ import BoardUpdate from "./component/board/BoardUpdate";
 import FindID from "./pages/FindID";
 import MyPage from "./pages/MyPage";
 import UpdatePw from "./pages/UpdatePw";
+import Logout from "./pages/Logout";
 import CreateAccountEmailPage from "./pages/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/CreateAccountid";
+
 import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
@@ -41,6 +44,7 @@ const router = createBrowserRouter([
           { path: "docs/edit", element: <RecentUpdated /> },
           { path: "mypage", element: <MyPage /> },
           { path: "member/update", element: <UpdatePw /> },
+          { path: "logout", element: <Logout /> },
         ],
       },
       {

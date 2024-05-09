@@ -1,6 +1,7 @@
 import axios from "axios";
-
 import { QueryClient } from "@tanstack/react-query";
+
+import { getAuthToken } from "./auth";
 
 export const queryClient = new QueryClient();
 
@@ -23,7 +24,7 @@ export const authInstance = axiosAuthAPI(BASE_URL);
 
 authInstance.interceptors.request.use(
   function (config) {
-    const accessToken = sessionStorage.getItem("token");
+    const accessToken = getAuthToken();
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

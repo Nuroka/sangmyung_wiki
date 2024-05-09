@@ -1,11 +1,11 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react"; // useEffect를 import합니다.
 
-import useLogin from "./useLogin";
+import { checkAuth } from "./auth";
 
 // 비로그인 상태에서만 접속 가능한 Route
 export default function UnauthRoute() {
-  const isLogin = useLogin();
+  const isLogin = checkAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

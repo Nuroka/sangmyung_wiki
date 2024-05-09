@@ -21,6 +21,8 @@ export default function HomeContent() {
       <NavLink to="/docs/edit">최근 변경 내역</NavLink>
       <br></br>
       <NavLink to="/error">오류 페이지</NavLink>
+      <br></br>
+      <NavLink to="/logout">로그아웃</NavLink>
     </div>
   );
 }
