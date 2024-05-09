@@ -1,4 +1,4 @@
-import CreateAccountId from "../component/member/CreateAccoutId";
+import CreateAccountId from "../../component/member/CreateAccoutId";
 
 export default function CreateAccountIdPage() {
   return (

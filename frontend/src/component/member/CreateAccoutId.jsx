@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { defaultInstance } from '../../util/api';
-import styles from "./Login.module.css";
+import { defaultInstance } from "../../util/api";
+import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
-
 
 const CreateAccountId = () => {
   const url = "/member/save";
-  
+
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -18,12 +17,11 @@ const CreateAccountId = () => {
           throw new Error("error");
         }
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   }
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [isUserIdAvailable, setIsUserIdAvailable] = useState(false);
 
@@ -39,13 +37,13 @@ const CreateAccountId = () => {
     setConfirmPassword(event.target.value);
   };
 
-
   return (
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2 className={styles.loginTitle}>계정 만들기</h2>
       <form id="form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="userIdInput">사용자 ID</label><br />
+          <label htmlFor="userIdInput">사용자 ID</label>
+          <br />
           <input
             type="text"
             id="userIdInput"
@@ -53,9 +51,14 @@ const CreateAccountId = () => {
             onChange={handleUserIdChange}
           />
         </div>
-        <button className={`${styles.link} ${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}>중복확인</button>
+        <button
+          className={`${styles.link} ${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
+        >
+          중복확인
+        </button>
         <div>
-          <label htmlFor="passwordInput">암호</label><br />
+          <label htmlFor="passwordInput">암호</label>
+          <br />
           <input
             type="password"
             id="passwordInput"
@@ -63,9 +66,10 @@ const CreateAccountId = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <br/>
+        <br />
         <div>
-          <label htmlFor="confirmPasswordInput">암호 확인</label><br />
+          <label htmlFor="confirmPasswordInput">암호 확인</label>
+          <br />
           <input
             type="password"
             id="confirmPasswordInput"
@@ -74,9 +78,18 @@ const CreateAccountId = () => {
           />
         </div>
       </form>
-        <p>가입 후 탈퇴는 불가능합니다.</p>
-        <button className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}><NavLink to="/confirmEmail" className={`${styles.link} ${styles.loginBtn}`}>가입</NavLink></button>
-      </div>
+      <p>가입 후 탈퇴는 불가능합니다.</p>
+      <button
+        className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
+      >
+        <NavLink
+          to="/confirmEmail"
+          className={`${styles.link} ${styles.loginBtn}`}
+        >
+          가입
+        </NavLink>
+      </button>
+    </div>
   );
 };
 

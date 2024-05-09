@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
-import { defaultInstance } from "../../util/api";
+import { defaultInstance } from "../util/api";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -20,7 +20,8 @@ function Login() {
       .then(function (res) {
         console.log(res.headers);
         const accessToken = res.headers.get("Authorization");
-        sessionStorage.setItem("token", accessToken);
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem("token", accessToken);
         navigate("/");
       })
       .catch(function (e) {

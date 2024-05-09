@@ -1,4 +1,4 @@
-import UpdatePwDetail from "../component/member/UpdatePwDetail";
+import UpdatePwDetail from "../../component/member/UpdatePwDetail";
 
 export default function LoginPage() {
   return (

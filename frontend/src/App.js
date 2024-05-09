@@ -7,19 +7,19 @@ import RootLayout from "./layout/RootLayout";
 
 import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
-import Fileload from "./pages/Fileload";
+import Fileload from "./pages/file/Fileload";
 import Login from "./pages/Login";
-import RecentUpdated from "./pages/RecentUpdated";
+import RecentUpdated from "./pages/docs/RecentUpdated";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWrite";
 import BoardUpdate from "./component/board/BoardUpdate";
-import FindID from "./pages/FindID";
-import MyPage from "./pages/MyPage";
-import UpdatePw from "./pages/UpdatePw";
+import FindID from "./pages/member/FindID";
+import MyPage from "./pages/member/MyPage";
+import UpdatePw from "./pages/member/UpdatePw";
 import Logout from "./pages/Logout";
-import CreateAccountEmailPage from "./pages/CreateAccountEmail";
-import CreateAccountIdPage from "./pages/CreateAccountid";
+import CreateAccountEmailPage from "./pages/member/CreateAccountEmail";
+import CreateAccountIdPage from "./pages/member/CreateAccountid";
 
 import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";

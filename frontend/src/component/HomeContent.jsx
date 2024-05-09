@@ -8,8 +8,6 @@ export default function HomeContent() {
       <br></br>
       <NavLink to="/board">커뮤니티</NavLink>
       <br></br>
-      <NavLink to="/docs/edit">문서 편집</NavLink>
-      <br></br>
       <NavLink to="/user">로그인</NavLink>
       <br></br>
       <NavLink to="/findId">계정 찾기</NavLink>

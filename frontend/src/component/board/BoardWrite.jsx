@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { authInstance } from '../../util/api';
-import styles from "../member/Login.module.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authInstance } from "../../util/api";
+import styles from "../Login.module.css";
 
 const BoardWrite = () => {
   const navigate = useNavigate();
 
   const [board, setBoard] = useState({
-    board_title: '',
-    createdBy: '',
-    content: '',
+    board_title: "",
+    createdBy: "",
+    content: "",
   });
 
   const { board_title, createdBy, content } = board; //비구조화 할당
@@ -24,20 +24,25 @@ const BoardWrite = () => {
 
   const saveBoard = async () => {
     await authInstance.post(`/board`, board).then((res) => {
-      alert('등록되었습니다.');
-      navigate('/board');
+      alert("등록되었습니다.");
+      navigate("/board");
     });
   };
 
   const backToList = () => {
-    navigate('/board');
+    navigate("/board");
   };
 
   return (
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <div>
         <span>제목</span>
-        <input type="text" name="board_title" value={board_title} onChange={onChange} />
+        <input
+          type="text"
+          name="board_title"
+          value={board_title}
+          onChange={onChange}
+        />
       </div>
       <div>
         <span>내용</span>
@@ -51,8 +56,12 @@ const BoardWrite = () => {
       </div>
       <br />
       <div>
-        <button className={styles.link} onClick={saveBoard}>저장</button>
-        <button className={styles.link} onClick={backToList}>취소</button>
+        <button className={styles.link} onClick={saveBoard}>
+          저장
+        </button>
+        <button className={styles.link} onClick={backToList}>
+          취소
+        </button>
       </div>
     </div>
   );

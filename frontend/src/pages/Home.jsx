@@ -1,6 +1,6 @@
-import HomeContent from "../component/home/HomeConent";
+import HomeContent from "../component/HomeContent";
 
-export default function Fileload() {
+export default function Home() {
   return (
     <>
       <HomeContent />
