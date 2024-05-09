@@ -9,7 +9,7 @@ import ErrorPage from "./pages/Error";
 import Home from "./pages/Home";
 import Fileload from "./pages/file/Fileload";
 import Login from "./pages/Login";
-import RecentUpdated from "./pages/docs/RecentUpdated";
+import RecentEdited from "./pages/docs/RecentEdited";
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWrite";
@@ -24,6 +24,7 @@ import CreateAccountIdPage from "./pages/member/CreateAccountid";
 import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
+import BoardRoot from "./pages/board/BoardRoot";
 
 const router = createBrowserRouter([
   {
@@ -36,12 +37,18 @@ const router = createBrowserRouter([
         element: <AuthRoute />, // 로그인 후 접근 가능
         errorElement: <ErrorPage />,
         children: [
+          {
+            path: "/board",
+            element: <BoardRoot />,
+            children: [
+              { index: true, element: <BoardList /> },
+              { path: "one", element: <BoardDetail /> },
+              { path: "edit/:id", element: <BoardUpdate /> },
+            ],
+          },
           { path: "file", element: <Fileload /> },
-          { path: "board", element: <BoardList /> },
-          { path: "board/one", element: <BoardDetail /> },
           { path: "write", element: <BoardWrite /> },
-          { path: "board/edit/:id", element: <BoardUpdate /> },
-          { path: "docs/edit", element: <RecentUpdated /> },
+          { path: "docs/edit", element: <RecentEdited /> },
           { path: "mypage", element: <MyPage /> },
           { path: "member/update", element: <UpdatePw /> },
           { path: "logout", element: <Logout /> },
