@@ -6,28 +6,29 @@ export default function Recent() {
   const url = "/recent";
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["/recent"],
+    queryKey: [url],
     queryFn: async () => {
-      try {
-        const response = await defaultInstance.get(url);
-        console.log(response.data);
-        return response.data;
-      } catch (error) {
-        // error handling
-      }
+      const response = await defaultInstance.get(url);
+      return response.data;
     },
-    staleTime: 1000,
-    keepPreviousData: true,
+    retry: 1,
+    refetchInterval: 1 * 60 * 1000,
+    staleTime: 1 * 60 * 1000,
+    refetchIntervalInBackground: false,
   });
 
   return (
     <>
       <p className={styles.recentTitle}>최근 변경</p>
-      {isLoading ? (
+      {isError ? (
+        <>
+          <p>{error.message}</p>
+          <p>서버 연결 상태를 확인해주세요.</p>
+        </>
+      ) : !data ? (
         <p>로딩 중..</p>
       ) : (
         <>
-          {isError && <p>{error.message}</p>}
           {
             <ul>
               {data.map((recent, index) => (
