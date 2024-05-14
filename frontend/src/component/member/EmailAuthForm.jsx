@@ -2,12 +2,7 @@ import { useState } from "react";
 
 import { defaultInstance } from "../../util/api";
 
-/**
- * todo
- * validation
- * Http Status Error handling
- */
-export default function EmailAuthForm({ authUrl, handleResult }) {
+export default function EmailAuthForm({ authUrl, handleResult, children }) {
   const [formData, setFormData] = useState({
     email: "",
     code: "",
@@ -83,6 +78,7 @@ export default function EmailAuthForm({ authUrl, handleResult }) {
         <button type="submit" disabled={emailChecked || isFetching}>
           {emailChecked ? "전송완료" : isFetching ? "전송 중" : "전송"}
         </button>
+        {!emailChecked && <>{children}</>}
       </form>
       <br />
       {emailChecked && (

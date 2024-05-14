@@ -14,8 +14,8 @@ import FindID from "./pages/member/FindID";
 import MyPage from "./pages/member/MyPage";
 import UpdatePw from "./pages/member/UpdatePw";
 import Logout from "./pages/Logout";
-import CreateAccountEmailPage from "./pages/member/CreateAccountEmail";
-import CreateAccountIdPage from "./pages/member/CreateAccountid";
+import CreateAccount from "./pages/member/CreateAccount";
+import Created from "./pages/member/Created";
 import DocsLog from "./pages/docs/DocsLog";
 import BoardRoot from "./pages/board/BoardRoot";
 
@@ -64,8 +64,8 @@ const router = createBrowserRouter([
         children: [
           { path: "user", element: <Login /> },
           { path: "findID", element: <FindID /> },
-          { path: "createEmail", element: <CreateAccountEmailPage /> },
-          { path: "createId", element: <CreateAccountIdPage /> },
+          { path: "signin", element: <CreateAccount /> },
+          { path: "created", element: <Created /> },
         ],
       },
       {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-export default function FindIdDetail({ username }) {
+export default function FindIdResult({ username }) {
   return (
     <>
       <p>인증 완료!</p>

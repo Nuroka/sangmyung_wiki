@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import EmailAuthForm from "../../component/member/EmailAuthForm";
-import FindIdDetail from "../../component/member/FindIdDetail";
+import FindIdResult from "../../component/member/FindIdResult";
 
 export default function FindID() {
   const authUrls = {
@@ -21,7 +21,7 @@ export default function FindID() {
       {!username && (
         <EmailAuthForm authUrl={authUrls} handleResult={handleEmailAuth} />
       )}
-      {username && <FindIdDetail username={username} />}
+      {username && <FindIdResult username={username} />}
     </>
   );
 }
