@@ -20,6 +20,7 @@ import UpdatePw from "./pages/member/UpdatePw";
 import Logout from "./pages/Logout";
 import CreateAccountEmailPage from "./pages/member/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/member/CreateAccountid";
+import DocsLog from "./pages/docs/DocsLog";
 
 import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
           { path: "mypage", element: <MyPage /> },
           { path: "member/update", element: <UpdatePw /> },
           { path: "logout", element: <Logout /> },
+          { path: "docs/log", element: <DocsLog /> },
         ],
       },
       {

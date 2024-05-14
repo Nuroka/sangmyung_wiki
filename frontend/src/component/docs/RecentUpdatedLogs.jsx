@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { authInstance } from "../../util/api";
-import styles from "../docs/RecentUpdatedLogs.module.css";
+import styles from "../docs/Docs.module.css";
 export default function RecentUpdatedLogs() {
   const navigate = useNavigate();
 
