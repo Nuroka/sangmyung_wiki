@@ -14,9 +14,9 @@ const DocsLog = () => {
   const [docsLogData, setDocsLogData] = useState(initialDocsLogData);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
-  const goToPreviousPage = () => {
+  const goToPrevPage = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
@@ -29,14 +29,14 @@ const DocsLog = () => {
   };
 
   const goToDocument = (id) => {
-    navigate(`/document/${id}`); // 문서로 이동
+    navigate(`/document/${id}`);
   };
 
   return (
     <div>
       <h1 className={styles.recentTitle}>문서 역사</h1>
       <div>
-        <button className={styles.whiteBtn} onClick={goToPreviousPage}>{"< Prev"}</button>
+        <button className={styles.whiteBtn} onClick={goToPrevPage}>{"< Prev"}</button>
         <button className={styles.whiteBtn} onClick={goToNextPage}>{"Next >"}</button>
       </div>
       <div>
