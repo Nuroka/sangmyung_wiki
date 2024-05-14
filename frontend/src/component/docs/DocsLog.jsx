@@ -41,7 +41,7 @@ const DocsLog = () => {
       const response = await authInstance.get(url);
       setDocsLogData(response.data);
     } catch (error) {
-      console.error('Error'), error;
+      console.error('Error');
     }
   };
 
