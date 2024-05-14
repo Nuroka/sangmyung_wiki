@@ -1,9 +1,9 @@
-import RecentUpdatedLogs from "../../component/docs/RecentUpdatedLogs";
+import RecentEditedLog from "../../component/docs/RecentEditedLog";
 
-export default function RecentUpdated() {
+export default function RecentEdited() {
   return (
     <>
-      <RecentUpdatedLogs />
+      <RecentEditedLog />
     </>
   );
 }

@@ -11,7 +11,7 @@ export default function Header() {
       <NavLink to="/">
         <img className={styles.logo} src={logo} alt="logo" />
       </NavLink>
-      <NavLink className={`${styles.nav} ${styles.nav1}`} to="/">
+      <NavLink className={`${styles.nav} ${styles.nav1}`} to="/docs/edit">
         최근변경
       </NavLink>
       <NavLink className={`${styles.nav} ${styles.nav2}`} to="/">
@@ -22,10 +22,12 @@ export default function Header() {
       </NavLink>
       <input className={styles.search} placeholder={"이곳에서 검색"}></input>
       <img className={styles.searchIcon} src={search} alt="search" />
-      <NavLink
-        to="/user"
-      >
-        <img className={`${styles.nav} ${styles.nav4} ${styles.user}`} src={user} alt="user" />
+      <NavLink to="/user">
+        <img
+          className={`${styles.nav} ${styles.nav4} ${styles.user}`}
+          src={user}
+          alt="user"
+        />
       </NavLink>
     </>
   );

@@ -10,10 +10,6 @@ import Home from "./pages/Home";
 import Fileload from "./pages/file/Fileload";
 import Login from "./pages/Login";
 import RecentEdited from "./pages/docs/RecentEdited";
-import BoardList from "./component/board/BoardList";
-import BoardDetail from "./component/board/BoardDetail";
-import BoardWrite from "./component/board/BoardWrite";
-import BoardUpdate from "./component/board/BoardUpdate";
 import FindID from "./pages/member/FindID";
 import MyPage from "./pages/member/MyPage";
 import UpdatePw from "./pages/member/UpdatePw";
@@ -21,11 +17,16 @@ import Logout from "./pages/Logout";
 import CreateAccountEmailPage from "./pages/member/CreateAccountEmail";
 import CreateAccountIdPage from "./pages/member/CreateAccountid";
 import DocsLog from "./pages/docs/DocsLog";
+import BoardRoot from "./pages/board/BoardRoot";
+
+import BoardList from "./component/board/BoardList";
+import BoardDetail from "./component/board/BoardDetail";
+import BoardWrite from "./component/board/BoardWrite";
+import BoardUpdate from "./component/board/BoardUpdate";
 
 import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
-import BoardRoot from "./pages/board/BoardRoot";
 
 const router = createBrowserRouter([
   {
