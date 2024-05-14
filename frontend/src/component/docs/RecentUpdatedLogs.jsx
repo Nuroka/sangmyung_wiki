@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { authInstance } from "../../util/api";
 import styles from "../docs/Docs.module.css";
-export default function RecentUpdatedLogs() {
+export default function RecentUpdatedLogs() { 
   const navigate = useNavigate();
 
   const [isFetching, setIsFetching] = useState(false);
