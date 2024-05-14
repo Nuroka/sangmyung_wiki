@@ -23,6 +23,11 @@ export default function CreateAccountId({ email }) {
     admin_Type: "",
   });
 
+  const [confirmPassword, setConfirmPassword] = useState();
+  const isSame = formData.password === confirmPassword;
+  const isValid =
+    isSame === true && formData.username !== "" && formData.password !== "";
+
   async function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
@@ -30,7 +35,10 @@ export default function CreateAccountId({ email }) {
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("/created", { state: { username: formData.username } });
+          navigate("/created", {
+            state: { username: formData.username },
+            replace: true,
+          });
         } else {
           throw new Error();
         }
@@ -45,6 +53,10 @@ export default function CreateAccountId({ email }) {
       ...formData,
       [event.target.id]: event.target.value,
     });
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
   };
 
   return (
@@ -65,6 +77,7 @@ export default function CreateAccountId({ email }) {
         >
           중복확인
         </button> */}
+        <br />
         <div>
           <label htmlFor="password">암호</label>
           <br />
@@ -76,22 +89,26 @@ export default function CreateAccountId({ email }) {
           />
         </div>
         <br />
-        {/* <div>
+        <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label>
           <br />
           <input
             type="password"
             id="confirmPasswordInput"
-            // value={confirmPassword}
-            // onChange={handleConfirmPasswordChange}
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
           />
-        </div> */}
+        </div>
+        {!isSame && <p>암호가 다릅니다.</p>}
         <p>가입 후 탈퇴는 불가능합니다.</p>
         <button
           type="submit"
+          disabled={!isValid}
           className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
         >
-          <p className={`${styles.link} ${styles.loginBtn}`}>가입</p>
+          <p className={`${styles.link} ${styles.loginBtn}`}>
+            {isValid ? "가입" : "가입 불가"}
+          </p>
         </button>
       </form>
     </div>
