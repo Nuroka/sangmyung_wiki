@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom"; // useNavigate 훅 import
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { authInstance } from "../../util/api";
 import styles from "../docs/Docs.module.css";
 
 const DocsLog = () => {
@@ -13,8 +14,11 @@ const DocsLog = () => {
 
   const [docsLogData, setDocsLogData] = useState(initialDocsLogData);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const goToPrevPage = () => {
     if (currentIndex > 0) {
@@ -30,6 +34,15 @@ const DocsLog = () => {
 
   const goToDocument = (id) => {
     navigate(`/document/${id}`);
+  };
+
+   const fetchData = async () => {
+    try {
+      const response = await authInstance.get(url);
+      setDocsLogData(response.data);
+    } catch (error) {
+      console.error('Error'), error;
+    }
   };
 
   return (
