@@ -4,34 +4,50 @@ import styles from "./Login.module.css";
 
 import { defaultInstance } from "../util/api";
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default function Login() {
+  const url = "/user";
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [error, setError] = useState();
   const [rememberMe, setRememberMe] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // 로그인 처리 로직
-    const tokenUrl = "/user";
-
+    setError();
     defaultInstance
-      .post(tokenUrl, { username, password })
+      .post(url, { ...formData })
       .then(function (res) {
-        console.log(res.headers);
-        const accessToken = res.headers.get("Authorization");
-        const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem("token", accessToken);
-        navigate("/");
+        if (res.status === 200) {
+          const accessToken = res.headers.get("Authorization");
+          const storage = rememberMe ? localStorage : sessionStorage;
+          storage.setItem("token", accessToken);
+          navigate("/");
+        } else {
+          throw new Error();
+        }
       })
       .catch(function (e) {
+        setError({ message: "아이디와 비밀번호를 확인해주세요." });
         console.log(e);
       });
+  };
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.id]: event.target.value,
+    });
   };
 
   return (
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2 className={styles.loginTitle}>로그인</h2>
+      {error && <p>{error.message}</p>}
       <div className={styles.loginD}>
         <label htmlFor="username">Username</label>
         <br />
@@ -39,8 +55,8 @@ function Login() {
           className={styles.loginInput}
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formData.username}
+          onChange={handleChange}
         />
       </div>
       <div className={styles.loginD}>
@@ -50,8 +66,8 @@ function Login() {
           className={styles.loginInput}
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
       </div>
       <div className={styles.loginD}>
@@ -72,10 +88,7 @@ function Login() {
       </div>
       <div className={styles.loginD}>
         <button>
-          <NavLink
-            className={`${styles.loginBtn} ${styles.link}`}
-            to="/createEmail"
-          >
+          <NavLink className={`${styles.loginBtn} ${styles.link}`} to="/signin">
             계정 생성
           </NavLink>
         </button>
@@ -86,5 +99,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;
