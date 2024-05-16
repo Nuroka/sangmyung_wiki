@@ -30,7 +30,8 @@ const BoardList = () => {
           // map 함수로 데이터 출력
           <li key={board}>
             <Link to={`/board/one?id=${board.board_id}`}>
-              {board.board_title}
+              {board.board_title} 
+              👍{board.likes}
             </Link>
           </li>
         ))}

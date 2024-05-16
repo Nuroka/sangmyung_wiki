@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Board from "./Board";
-import Comment from "./Comment";
-import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
 import { authInstance } from "../../util/api";
 import { useSearchParams } from "react-router-dom";
 
 const BoardDetail = () => {
-  const { id } = useParams(); // /board/:idx와 동일한 변수명으로 데이터를 꺼냄.
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState({
     board_id: "",
@@ -15,9 +13,9 @@ const BoardDetail = () => {
     member_name: "ex",
     update_at: "00-00-00",
     create_at: "00-00-00",
+    content: "",
+    likes: ""
   });
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState(["댓글 내용"]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getBoard = async () => {
@@ -30,13 +28,6 @@ const BoardDetail = () => {
     setLoading(false);
   };
 
-  const handleAddComment = (event) => {
-    event.preventDefault();
-    if (comment.trim() !== "") {
-      setComments([...comments, comment]);
-      setComment("");
-    }
-  };
 
   useEffect(() => {
     getBoard();
@@ -50,18 +41,14 @@ const BoardDetail = () => {
         <Board
           id={board.board_id}
           title={board.board_title}
+          member_name={board.member_name}
+          update_at={board.update_at}
+          create_at={board.create_at}
           contents={board.content}
-          createdBy={board.create_at}
+          likes={board.likes}
         />
       )}
-      {}
-      <Comment comments={comments} />
-      {}
-      <CommentForm
-        comment={comment}
-        setComment={setComment}
-        handleAddComment={handleAddComment}
-      />
+      <CommentList boardId={board.board_id} />
     </div>
   );
 };
