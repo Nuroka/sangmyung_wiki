@@ -57,7 +57,7 @@ public class BoardController {
     /**
      * 게시물 수정
      */
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> updateBoard(@Valid @RequestBody BoarUpdatedDTO updateBoardDTO, @CurrentUser Member member) {
         boardService.updateBoard(updateBoardDTO, member);
         return ResponseEntity.ok().body("게시물이 수정되었습니다.");
