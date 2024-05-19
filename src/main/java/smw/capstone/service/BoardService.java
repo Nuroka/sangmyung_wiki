@@ -69,7 +69,7 @@ public class BoardService {
     }
 
     public BoardDTO getOneBoard(Long boardId) {
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        Board board = getBoardById(boardId);
         return BoardDTO.builder()
                 .boardId(board.getId())
                 .memberName(board.getMember().getUsername())
@@ -90,7 +90,7 @@ public class BoardService {
     @Transactional
     public void saveLike(Long id, Member member) {
         //이미 좋아요가 반영되었다면 예외
-        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        Board findBoard = getBoardById(id);
         Like findLike = likeRepository.findByMemberAndBoard(member, findBoard);
 
         if (findLike != null) {
@@ -104,7 +104,7 @@ public class BoardService {
 
     @Transactional
     public void deleteLike(Long id, Member member) {
-        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+        Board findBoard = getBoardById(id);
         try {
             Like findLike = likeRepository.findByMemberAndBoard(member, findBoard);
             likeRepository.delete(findLike);
@@ -115,5 +115,8 @@ public class BoardService {
         }
     }
 
+    public Board getBoardById(Long id) {
+        return boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
+    }
 
 }
