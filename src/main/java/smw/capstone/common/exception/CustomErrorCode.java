@@ -28,7 +28,9 @@ public enum CustomErrorCode{
     EMPTY_TOKEN(HttpStatus.BAD_REQUEST, "헤더에 토큰이 비어 있습니다. 토큰을 설정해 주세요" ),
     ACCESS_DENIED(HttpStatus.BAD_REQUEST, "접근 권한이 없는 사용자 입니다."),
     EXIST_LIKE(HttpStatus.BAD_REQUEST, "이미 좋아요가 반영된 게시물 입니다."),
-    NOT_EXIST_LIKE(HttpStatus.BAD_REQUEST, "해당 게시물에 좋아요를 하지 않았습니다. 좋아요를 먼저 진행한 후 취소해주세요" );
+    NOT_EXIST_LIKE(HttpStatus.BAD_REQUEST, "해당 게시물에 좋아요를 하지 않았습니다. 좋아요를 먼저 진행한 후 취소해주세요" ),
+    NOT_EXIST_COMMENTS(HttpStatus.BAD_REQUEST, "해당 게시물에 댓글이 없습니다."),
+    NOT_EXIST_COMMENTS_BY_MEMBER(HttpStatus.BAD_REQUEST, "해당 댓글은 멤버가 작성한 댓글이 아닙니다.");
 
     private final HttpStatus status;
     private final String message;

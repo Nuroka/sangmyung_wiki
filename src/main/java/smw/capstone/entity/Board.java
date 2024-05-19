@@ -36,6 +36,7 @@ public class Board {
 
     private String content;
 
+    @OneToMany(mappedBy = "file", orphanRemoval = true)
     public void updateBoard(String content) {
         this.content = content;
     }
