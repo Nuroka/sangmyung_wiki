@@ -45,17 +45,7 @@ public class BoardService {
 
     public List<BoardDTO> getAllBoard(/*사용자정보*/) {
         List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createAt"));
-        List<BoardDTO> responseBoardDTO = new ArrayList<>();
-        for (Board board : boardList) {
-            responseBoardDTO.add(BoardDTO.builder()
-                    .boardId(board.getId())
-                    .boardTitle(board.getTitle())
-                    .createAt(board.getCreateAt())
-                    .updateAt(board.getUpdateAt())
-                    .memberName(board.getMember().getUsername())
-                    .likes(board.getLikes()).build());
-        }
-        return responseBoardDTO;
+        return setBoardDTO(boardList);
     }
 
     @Transactional
@@ -119,4 +109,24 @@ public class BoardService {
         return boardRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_BOARD));
     }
 
+    public List<BoardDTO> getPopularBoard() {
+        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC,"likes", "createAt"));
+
+        return setBoardDTO(boardList);
+    }
+
+    private List<BoardDTO> setBoardDTO(List<Board> boardList) {
+        List<BoardDTO> responseBoardDTO = new ArrayList<>();
+        for (Board board : boardList) {
+            responseBoardDTO.add(BoardDTO.builder()
+                            .boardId(board.getId())
+                            .boardTitle(board.getTitle())
+                            .createAt(board.getCreateAt())
+                            .updateAt(board.getUpdateAt())
+                            .memberName(board.getMember().getUsername())
+                            .content(board.getContent())
+                            .likes(board.getLikes()).build());
+        }
+        return responseBoardDTO;
+    }
 }

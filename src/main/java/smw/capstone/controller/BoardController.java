@@ -80,4 +80,13 @@ public class BoardController {
         boardService.deleteLike(id, member);
         return ResponseEntity.ok().body("좋아요가 취소되었습니다.");
     }
+
+    /**
+     * 인기 게시물 보기 (추천 순)
+     * 추천 수가 동일할 경우 최근 생성일 기준으로
+     */
+    @GetMapping("/popular")
+    public ResponseEntity<?> getPopularBoard() {
+        return ResponseEntity.ok().body(boardService.getPopularBoard());
+    }
 }
