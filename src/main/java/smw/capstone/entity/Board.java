@@ -34,9 +34,10 @@ public class Board {
 
     private LocalDate updateAt;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "file", orphanRemoval = true)
+//    @OneToMany(mappedBy = "file", orphanRemoval = true)
     public void updateBoard(String content) {
         this.content = content;
     }

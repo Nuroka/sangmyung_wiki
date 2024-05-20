@@ -28,6 +28,7 @@ public class Comments {
     @ManyToOne
     private Board board;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     private LocalDate createAt;

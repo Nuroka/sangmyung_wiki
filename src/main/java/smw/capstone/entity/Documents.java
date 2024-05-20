@@ -28,8 +28,10 @@ public class Documents {
     @ManyToOne
     private Member member;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     private LocalDate createAt;
