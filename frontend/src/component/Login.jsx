@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 import { defaultInstance } from "../util/api";
 
 export default function Login() {
   const url = "/user";
+  const { state } = useLocation();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -26,7 +27,7 @@ export default function Login() {
           const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
-          navigate("/");
+          navigate(state ? state : "/");
         } else {
           throw new Error();
         }
