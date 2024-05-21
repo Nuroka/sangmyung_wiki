@@ -18,6 +18,6 @@ public interface DocRepository extends JpaRepository<Documents, Long> {
 
     public Optional<Documents> findByIdAndMember(Long id, Member member);
 
-    public Optional<Documents> findByTitle(String title);
+    public Documents findByTitle(String title);
 
 }

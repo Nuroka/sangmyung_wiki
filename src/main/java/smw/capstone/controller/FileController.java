@@ -90,7 +90,7 @@ public class FileController {
      * 문서 만들기
      */
     @PostMapping("/docs/create")
-    public ResponseEntity<?> createDoc(@Valid ReqCreateDoc reqCreateDoc, @CurrentUser Member member) {
+    public ResponseEntity<?> createDoc(@Valid @RequestBody ReqCreateDoc reqCreateDoc, @CurrentUser Member member) {
         docService.createDoc(reqCreateDoc, member);
         return ResponseEntity.ok().body("문서가 생성되었습니다.");
     }

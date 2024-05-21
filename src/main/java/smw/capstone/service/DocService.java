@@ -21,6 +21,9 @@ import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
 import java.util.*;
 
+import static smw.capstone.common.exception.CustomErrorCode.EXIST_DOC_TITLE;
+import static smw.capstone.common.exception.CustomErrorCode.NOT_MEMBER_FILE;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -198,8 +201,21 @@ public class DocService {
         if (member == null){
             throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
         }
-        docRepository.findByTitle(reqCreateDoc.getTitle()).orElseThrow(() -> new BusinessException(CustomErrorCode.EXIST_DOC_TITLE));
-
+        if (docRepository.findByTitle(reqCreateDoc.getTitle()) != null) {
+            throw new BusinessException(EXIST_DOC_TITLE);
+        }
+        if (reqCreateDoc.getFileName() != null) {
+            List<Files> memberFile = fileService.finByMember(member);
+            List<String> getFileName = new ArrayList<>();
+            for (Files fileName : memberFile) {
+                getFileName.add(fileName.getName());
+            }
+            for (String file : reqCreateDoc.getFileName()) {
+                if (!getFileName.contains(file)) {
+                    throw new BusinessException(NOT_MEMBER_FILE);
+                }
+            }
+        }
         docRepository.save(Documents.builder()
                 .title(reqCreateDoc.getTitle())
                 .member(member)
