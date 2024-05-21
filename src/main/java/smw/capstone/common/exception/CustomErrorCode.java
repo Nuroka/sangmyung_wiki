@@ -30,7 +30,8 @@ public enum CustomErrorCode{
     EXIST_LIKE(HttpStatus.BAD_REQUEST, "이미 좋아요가 반영된 게시물 입니다."),
     NOT_EXIST_LIKE(HttpStatus.BAD_REQUEST, "해당 게시물에 좋아요를 하지 않았습니다. 좋아요를 먼저 진행한 후 취소해주세요" ),
     NOT_EXIST_COMMENTS(HttpStatus.BAD_REQUEST, "해당 게시물에 댓글이 없습니다."),
-    NOT_EXIST_COMMENTS_BY_MEMBER(HttpStatus.BAD_REQUEST, "해당 댓글은 멤버가 작성한 댓글이 아닙니다.");
+    NOT_EXIST_COMMENTS_BY_MEMBER(HttpStatus.BAD_REQUEST, "해당 댓글은 멤버가 작성한 댓글이 아닙니다."),
+    NOT_MEMBER_FILE(HttpStatus.BAD_REQUEST, "회원이 등록하지 않은 파일이 포함되어 있습니다.. 회원이 등록한 파일 중에서만 업로드 가능합니다.");
 
     private final HttpStatus status;
     private final String message;

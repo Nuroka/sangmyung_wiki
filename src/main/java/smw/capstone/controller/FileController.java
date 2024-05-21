@@ -99,7 +99,7 @@ public class FileController {
      * 문서 편집
      */
     @PostMapping("/docs/edit")
-    public ResponseEntity<?> updateDoc(@Valid @RequestBody ReqUpdateDocDTO reqUpdateDocDTO, Member member) {
+    public ResponseEntity<?> updateDoc(@Valid @RequestBody ReqUpdateDocDTO reqUpdateDocDTO, @CurrentUser Member member) {
         return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO, member));
     }
 
@@ -117,5 +117,13 @@ public class FileController {
     @GetMapping("/docs/edit")
     public ResponseEntity<List<DocDTO>> getUpdateDoc() {
         return ResponseEntity.ok().body(docService.getUpdateDoc());
+    }
+
+    /**
+     * 한개 문서 가져오기
+     */
+    @GetMapping("/doc")
+    public ResponseEntity<?> getOneDoc(Long id) {
+        return ResponseEntity.ok().body(docService.getDoc(id));
     }
 }

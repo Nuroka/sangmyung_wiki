@@ -152,7 +152,7 @@ public class DocService {
         Documents findDoc = docRepository.findById(reqUpdateDocDTO.getDocId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
         List<String> fileNames = new ArrayList<>();
 
-        docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName());
+        docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName(), member);
         findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now());
         List<DocFile> docFileList = docFileRepository.findByDocument(findDoc);
         for (DocFile docFile : docFileList) {
@@ -207,5 +207,20 @@ public class DocService {
                 .createAt(LocalDate.now())
                 .updateAt(LocalDate.now()).build());
 
+    }
+
+    public DocDTO getDoc(Long id) {
+        DocDTO docDto = new DocDTO();
+
+        //doc id 리스트를 받아서 id별로 doc 내용과 파일 찾아주기
+
+        Documents documents = docRepository.findById(id).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
+
+        docDto.setDocuments(buildResDocDto(documents)); //리스트로 된 id 순차적으로 add
+
+        setFileDto(docDto, id); //docid와 연관된 file리스트
+
+
+        return docDto;
     }
 }

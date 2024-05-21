@@ -6,6 +6,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.entity.Files;
+import smw.capstone.entity.Member;
 import smw.capstone.repository.MemberRepository;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class FileHandler {
 
     private final MemberRepository memberRepository;
 
-    public Files parseFileInfo(FileUploadDTO saveFiles, MultipartFile multipartFile) throws Exception {
+    public Files parseFileInfo(FileUploadDTO saveFiles, MultipartFile multipartFile, Member member) throws Exception {
 
         //반환할 파일 리스트
         Files files = null;
@@ -66,19 +67,19 @@ public class FileHandler {
                     //클라이언트에게 오류 코드
                     ;
                 }
-                //각 이름이 겹치면 안되므로 uuid
-                UUID uuid = UUID.randomUUID();
-                String newFileName = saveFiles.getFileName() + uuid.toString() + originalFileExtension;
-                while (new File(path + "/" + newFileName).exists()) {
-                    newFileName = saveFiles.getFileName() + UUID.randomUUID().toString() + originalFileExtension;
-                }
+                //각 이름이 겹치면 안되므로 uuid -> 파일이름+회원username.확장자
+//                UUID uuid = UUID.randomUUID();
+                String newFileName = saveFiles.getFileName() + member.getUsername() + originalFileExtension;
+//                while (new File(path + "/" + newFileName).exists()) {
+//                    newFileName = saveFiles.getFileName() + UUID.randomUUID().toString() + originalFileExtension;
+//                }
                 files = Files.builder()
                         .storedFileName(path + "/" + newFileName)
                         .Category(saveFiles.getCategory())
                         .Name(saveFiles.getFileName())
                         .License(saveFiles.getLicense())
                         .Summary(saveFiles.getSummary())
-                        .member(memberRepository.findByUsername("test")) //나중에 회원정보 넣기
+                        .member(member) //나중에 회원정보 넣기
                         .build();
                 file = new File(absolutePath + path + "/" + newFileName);
                 multipartFile.transferTo(file);

@@ -33,7 +33,7 @@ public class Member {
 //        return this.getId();
 //    }
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     public List<Comments> comments = new ArrayList<Comments>();
 }
 

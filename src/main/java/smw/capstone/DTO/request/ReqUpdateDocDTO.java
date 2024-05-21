@@ -24,7 +24,6 @@ public class ReqUpdateDocDTO {
     @NotNull
     private String content;
 
-    @JsonProperty("file_name")
-    @NotNull
+    @JsonProperty("file")
     private List<String> fileName;
 }

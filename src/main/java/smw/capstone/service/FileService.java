@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import smw.capstone.DTO.response.FileDTO;
 import smw.capstone.DTO.FileUploadDTO;
 import smw.capstone.DTO.response.ResponseFilePathDTO;
+import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.common.component.FileHandler;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
@@ -36,7 +37,8 @@ public class FileService {
         if (member == null) {
             throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
         }
-        Files files = fileHandler.parseFileInfo(file, newFile);
+
+        Files files = fileHandler.parseFileInfo(file, newFile, member);
 
         if (files == null) {
             //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
@@ -86,6 +88,10 @@ public class FileService {
             filesList.add(buildFileDTO(docFile.getFile()));
         }
         return filesList;
+    }
+
+    public List<Files> finByMember(Member member) {
+        return fileRepository.findByMember(member);
     }
 
 }
