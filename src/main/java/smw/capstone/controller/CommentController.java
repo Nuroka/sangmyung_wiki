@@ -49,7 +49,7 @@ public class CommentController {
     /**
      * 댓글 수정
      */
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> updateComment(@Valid @RequestBody ReqUpdateCommentDTO reqUpdateCommentDTO, @CurrentUser Member member) {
         commentsService.updateComment(reqUpdateCommentDTO, member);
         return ResponseEntity.ok().body("댓글이 수정되었습니다.");

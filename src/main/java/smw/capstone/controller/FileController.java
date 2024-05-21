@@ -98,7 +98,7 @@ public class FileController {
     /**
      * 문서 편집
      */
-    @PostMapping("/docs/edit")
+    @PutMapping("/docs/edit")
     public ResponseEntity<?> updateDoc(@Valid @RequestBody ReqUpdateDocDTO reqUpdateDocDTO, @CurrentUser Member member) {
         return ResponseEntity.ok().body(docService.updateDoc(reqUpdateDocDTO, member));
     }
