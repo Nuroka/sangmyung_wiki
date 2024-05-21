@@ -18,6 +18,10 @@ import CreateAccount from "./pages/member/CreateAccount";
 import Created from "./pages/member/Created";
 import DocsLog from "./pages/docs/DocsLog";
 import BoardRoot from "./pages/board/BoardRoot";
+import Docs from "./pages/docs/Docs";
+import RandomDoc from "./pages/docs/RandomDoc";
+import EditDoc from "./pages/docs/EditDoc";
+import CreateDoc from "./pages/docs/CreateDoc";
 
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
@@ -50,11 +54,15 @@ const router = createBrowserRouter([
           },
           { path: "file", element: <Fileload /> },
           { path: "write", element: <BoardWrite /> },
-          { path: "docs/edit", element: <RecentEdited /> },
+          { path: "docs/recent", element: <RecentEdited /> },
           { path: "mypage", element: <MyPage /> },
           { path: "member/update", element: <UpdatePw /> },
           { path: "logout", element: <Logout /> },
           { path: "docs/log", element: <DocsLog /> },
+          { path: "docs", element: <Docs /> },
+          { path: "docs/recommend", element: <RandomDoc /> },
+          { path: "docs/edit", element: <EditDoc /> },
+          { path: "docs/create", element: <CreateDoc /> },
         ],
       },
       {
