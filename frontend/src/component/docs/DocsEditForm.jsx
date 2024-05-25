@@ -1,7 +1,7 @@
 import { useState } from "react";
 
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
 
 export default function DocsEditForm({ onSubmit, detail, edit }) {
   const [doc, setDoc] = useState({
@@ -32,13 +32,10 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
           .ck-editor__editable {
             min-height: 300px;
           }
-          .ck .ck-button {
-            margin: 0px;
-            padding: 0px -210px;
-          }
-          .ck .ck-editor__top {
-            z-index: 10;
-          }
+          .root {
+            --ck-z-default: 100;
+            --ck-z-panel: calc( var(--ck-z-default) + 999 );
+        }
         `}
         </style>
         <input
@@ -51,7 +48,7 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
         />
         <hr />
         <CKEditor
-          editor={CustomEditor}
+          editor={Editor}
           data={doc.content}
           onChange={(event, editor) => {
             const data = editor.getData();

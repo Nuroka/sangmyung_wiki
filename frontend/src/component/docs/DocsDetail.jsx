@@ -1,4 +1,4 @@
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
 
 export default function DocsDetail({ doc }) {
@@ -33,7 +33,7 @@ export default function DocsDetail({ doc }) {
           </button>
         </h2>
         <hr />
-        <div>{ReactHtmlParser(doc.content)}</div>
+        <div>{parse(doc.content)}</div>
       </div>
     </>
   );
