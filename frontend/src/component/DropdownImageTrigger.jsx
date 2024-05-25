@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Dropdown, Image } from "semantic-ui-react";
+
+import styles from "./DropdownImageTrigger.module.css";
 import user from "../img/user.png";
 import { checkAuth } from "../util/auth";
 
-const trigger = (
-  <span>
-    <Image avatar src={user} />
-  </span>
-);
-
-const DropdownImageTrigger = () => {
+export default function DropdownImageTrigger() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const isLogin = checkAuth();
@@ -19,41 +14,47 @@ const DropdownImageTrigger = () => {
     {
       key: "mypage",
       text: "마이페이지",
-      icon: "user",
-      onClick: () => navigate("/mypage"),
+      icon: "mypage",
+      onClick: () => {
+        navigate("/mypage");
+        setIsOpen(false);
+      },
       hidden: !isLogin,
     },
     {
       key: "logout",
       text: "로그아웃",
-      icon: "sign-out",
-      onClick: () => navigate("/logout"),
+      icon: "logout",
+      onClick: () => {
+        navigate("/logout");
+        setIsOpen(false);
+      },
       hidden: !isLogin,
     },
     {
       key: "user",
       text: "로그인",
       icon: "user",
-      onClick: () => navigate("/user"),
+      onClick: () => {
+        navigate("/user");
+        setIsOpen(false);
+      },
       hidden: isLogin,
     },
   ].filter((option) => !option.hidden);
 
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-
   return (
-    <Container>
-      <Dropdown
-        trigger={trigger}
-        options={options}
-        open={isOpen}
-        onClick={handleOpen}
-        onBlur={handleClose}
-        onMouseLeave={handleClose}
-      />
-    </Container>
+    <div className={styles.dropdown_container}>
+      <img src={user} onClick={() => setIsOpen(!isOpen)} />
+      {isOpen && (
+        <ul className={`${styles.list} ${styles.dropdown}`}>
+          {options.map((option, index) => (
+            <li key={index} onClick={option.onClick}>
+              {option.text}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
-};
-
-export default DropdownImageTrigger;
+}
