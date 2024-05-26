@@ -12,9 +12,14 @@ export default function DropdownImageTrigger() {
 
   const options = [
     {
+      key: "User",
+      text: "User",
+      hidden: !isLogin,
+      noHover: true,
+    },
+    {
       key: "mypage",
       text: "마이페이지",
-      icon: "mypage",
       onClick: () => {
         navigate("/mypage");
         setIsOpen(false);
@@ -24,7 +29,6 @@ export default function DropdownImageTrigger() {
     {
       key: "logout",
       text: "로그아웃",
-      icon: "logout",
       onClick: () => {
         navigate("/logout");
         setIsOpen(false);
@@ -32,9 +36,14 @@ export default function DropdownImageTrigger() {
       hidden: !isLogin,
     },
     {
+      key: "비로그인 사용자",
+      text: "비로그인 사용자",
+      hidden: isLogin,
+      noHover: true,
+    },
+    {
       key: "user",
       text: "로그인",
-      icon: "user",
       onClick: () => {
         navigate("/user");
         setIsOpen(false);
@@ -49,7 +58,11 @@ export default function DropdownImageTrigger() {
       {isOpen && (
         <ul className={`${styles.list} ${styles.dropdown}`}>
           {options.map((option, index) => (
-            <li key={index} onClick={option.onClick}>
+            <li
+              key={index}
+              onClick={option.onClick}
+              className={!option.noHover ? styles.hoverEffect : ""}
+            >
               {option.text}
             </li>
           ))}

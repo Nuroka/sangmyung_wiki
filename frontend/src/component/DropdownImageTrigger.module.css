@@ -7,26 +7,34 @@
   position: relative;
   display: inline-block;
 }
+
 .dropdown {
   display: block;
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #004896;
+  border: 1px solid #ffffff;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  width: 150px;
+  width: auto;
 }
+
 .dropdown li {
   padding: 8px 12px;
+  border: 1px solid #ffffff;
   cursor: pointer;
+
+  color: #ffffff;
+  font-weight: 100;
   white-space: nowrap;
   text-align: left;
 }
+
 .dropdown img {
   cursor: pointer;
 }
-.dropdown li:hover {
-  background-color: #f1f1f1;
+
+.hoverEffect:hover {
+  background-color: #1f6cbe;
 }

@@ -7,24 +7,45 @@ import DropdownImageTrigger from "./DropdownImageTrigger";
 
 export default function Header() {
   return (
-    <>
-      <NavLink to="/">
-        <img className={styles.logo} src={logo} alt="logo" />
+    <nav>
+      <NavLink to="/" className={styles.logo}>
+        <img src={logo} alt="logo" />
       </NavLink>
-      <NavLink className={`${styles.nav} ${styles.nav1}`} to="/docs/recent">
+      <NavLink
+        to="/docs/recent"
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.nav} ${styles.recent} ${styles.active}`
+            : `${styles.nav} ${styles.recent}`
+        }
+      >
         최근변경
       </NavLink>
-      <NavLink className={`${styles.nav} ${styles.nav2}`} to="/docs/recommend">
+      <NavLink
+        to="/docs/recommend"
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.nav} ${styles.recommend} ${styles.active}`
+            : `${styles.nav} ${styles.recommend}`
+        }
+      >
         랜덤문서
       </NavLink>
-      <NavLink className={`${styles.nav} ${styles.nav3}`} to="/board">
+      <NavLink
+        to="/board"
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.nav} ${styles.board} ${styles.active}`
+            : `${styles.nav} ${styles.board}`
+        }
+      >
         커뮤니티
       </NavLink>
       <input className={styles.search} placeholder={"이곳에서 검색"}></input>
       <img className={styles.searchIcon} src={search} alt="search" />
-      <div className={`${styles.nav} ${styles.nav4} ${styles.user}`}>
+      <div className={styles.user}>
         <DropdownImageTrigger />
       </div>
-    </>
+    </nav>
   );
 }

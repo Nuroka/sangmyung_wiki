@@ -21,12 +21,11 @@
 
 /* Header */
 .item:nth-child(1) {
-  text-align: center;
+  text-align: left;
   position: relative;
   grid-column: 1 / -1;
   grid-row: 1 / 2;
   border-bottom: 3px solid #ededed;
-  margin-top: 23px;
 }
 
 /* Outlet */

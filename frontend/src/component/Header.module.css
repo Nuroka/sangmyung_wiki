@@ -2,60 +2,76 @@
   position: absolute;
   display: inline-block;
   text-align: center;
-  margin-right: 43px;
+  top: 35px;
+  width: 130px;
+  height: 50px;
   line-height: 50px;
   text-decoration-line: none;
+  text-decoration: none;
   color: inherit;
   font-size: 1.2vw;
 }
-.nav1 {
-  left: 40vw;
-}
 
-.nav2 {
-  left: 50vw;
-}
-.nav3 {
-  left: 60vw;
-}
-
-.nav4{
+.nav4 {
   left: 70vw;
 }
 
 .logo {
   position: absolute;
-  left: 3vw;
   display: inline-block;
-  width: 13vw;
-  min-width: 100px;
+
+  top: 38px;
+  left: 47px;
+  width: 240px;
+  height: 46.75px;
 }
 
-.user {
-  position: absolute;
-  left: 93vw;
-  display: inline-block;
-  margin-left: 20px;
+.recent {
+  left: 38vw;
+}
+
+.recent:hover,
+.recent.active {
+  color: #004896;
+}
+
+.recommend {
+  left: 47vw;
+}
+
+.recommend:hover,
+.recommend.active {
+  color: #004896;
+}
+
+.board {
+  left: 56vw;
+}
+
+.board:hover,
+.board.active {
+  color: #004896;
 }
 
 .search {
   position: absolute;
   margin: 0;
   display: inline-block;
-  right: 6vw;
-  width: 15vw;
-  height: 40px;
+  top: 33px;
+  left: 65vw;
+  width: 27vw;
+  height: 51px;
   border-radius: 50px;
   border: none;
   background-color: #efefef;
   font-size: 2vmin;
-  padding-right: 60px;
 }
 
 .searchIcon {
   position: absolute;
   display: inline-block;
-  right: 7vw;
+  left: 90vw;
+  top: 38px;
   height: 25px;
   margin-top: 6px;
 }
@@ -67,4 +83,11 @@ input {
 
 input::placeholder {
   font-size: 1vw;
+}
+
+.user {
+  position: absolute;
+  display: inline-block;
+  left: 96vw;
+  top: 38px;
 }
