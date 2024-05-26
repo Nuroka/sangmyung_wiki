@@ -14,7 +14,7 @@ export default function Doc() {
     async function fetchData() {
       setError();
       let url = "/doc";
-      url += state !== null ? "?id=" + state.id : "/recommend";
+      url += state !== null ? "?id=" + state.id : "s/recommend";
       console.log(url);
       authInstance
         .get(url)
@@ -31,7 +31,7 @@ export default function Doc() {
         });
     }
     fetchData();
-  }, []);
+  }, [state]);
 
   return (
     <>

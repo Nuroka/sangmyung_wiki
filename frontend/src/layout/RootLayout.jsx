@@ -16,10 +16,10 @@ function RootLayout() {
         <Outlet />
       </div>
       <div className={styles.item}>
-        <Popular />
+        <Recent />
       </div>
       <div className={styles.item}>
-        <Recent />
+        <Popular />
       </div>
     </div>
   );

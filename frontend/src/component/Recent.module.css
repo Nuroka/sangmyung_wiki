@@ -1,3 +1,18 @@
 .recentTitle {
-    color: #004896;
+  color: #004896;
+}
+
+.recent {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recentItem {
+  padding: 3px;
+  margin: 0;
+}
+
+.title {
+  margin: 10px;
 }

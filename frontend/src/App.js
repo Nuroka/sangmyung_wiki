@@ -19,7 +19,6 @@ import Created from "./pages/member/Created";
 import DocsLog from "./pages/docs/DocsLog";
 import BoardRoot from "./pages/board/BoardRoot";
 import Doc from "./pages/docs/Doc";
-import RandomDoc from "./pages/docs/RandomDoc";
 import EditDoc from "./pages/docs/EditDoc";
 import CreateDoc from "./pages/docs/CreateDoc";
 
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
           { path: "logout", element: <Logout /> },
           { path: "docs/log", element: <DocsLog /> },
           { path: "doc", element: <Doc /> },
-          { path: "docs/recommend", element: <RandomDoc /> },
+          { path: "docs/recommend", element: <Doc /> },
           { path: "docs/edit", element: <EditDoc /> },
           { path: "docs/create", element: <CreateDoc /> },
         ],

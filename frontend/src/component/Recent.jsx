@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { defaultInstance } from "../util/api";
+import { authInstance } from "../util/api";
 import styles from "../component/Recent.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Recent() {
-  const url = "/recent";
+  const url = "/docs/edit";
+
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [url],
     queryFn: async () => {
-      const response = await defaultInstance.get(url);
+      const response = await authInstance.get(url);
       return response.data;
     },
     retry: 1,
@@ -30,9 +33,21 @@ export default function Recent() {
       ) : (
         <>
           {
-            <ul>
-              {data.map((recent, index) => (
-                <li key={index}>{recent}</li>
+            <ul className={styles.recent}>
+              {data.slice(0, 8).map((recent, index) => (
+                <li
+                  key={index}
+                  className={styles.recentItem}
+                  onClick={() => {
+                    navigate("/doc", {
+                      state: { id: recent.documents.id },
+                    });
+                  }}
+                >
+                  {recent.documents.title.length > 15
+                    ? `${recent.documents.title.slice(0, 15)}...`
+                    : recent.documents.title}
+                </li>
               ))}
             </ul>
           }
