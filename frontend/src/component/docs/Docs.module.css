@@ -1,35 +1,40 @@
 .recentTitle {
-    color: #004896;
-    font-size: 25px;
+  color: #004896;
+  font-size: 25px;
 }
 
 .btnDiv {
-    height: auto;
-    display: flex;
-    justify-content: flex-start;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .whiteBtn {
-    position: inherit;
-    background-color: white;
-    width: auto;
-    height: 2.5em;
-    color: black;
-    border-radius: 5px;
-    margin-right: 5px;
-    margin-bottom: 15px;
-    padding: 0 10px;
-    font-size: 2vmin;
-    font-family: "SUIT-Regular";
+  position: inherit;
+  background-color: white;
+  width: auto;
+  height: 2.5em;
+  color: black;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+  font-size: 2vmin;
+  font-family: "SUIT-Regular";
 }
 
 .table {
-    border-collapse: collapse;
-    width: 98%;
-    text-align: left;
+  border-collapse: collapse;
+  width: 98%;
+  text-align: left;
 }
 
 .th {
-    padding: 10px;
-    border-bottom: 1px solid #004896
+  padding: 10px;
+  border-bottom: 2px solid #004896;
+}
+
+.tb {
+  padding: 10px;
+  border-bottom: 1px solid #004896;
 }

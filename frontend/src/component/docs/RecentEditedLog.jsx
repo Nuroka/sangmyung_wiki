@@ -18,6 +18,7 @@ export default function RecentUpdatedLogs() {
         .then(function (res) {
           if (res.status === 200) {
             setData(res.data);
+            console.log(res.data);
           } else {
             throw new Error();
           }
@@ -32,7 +33,7 @@ export default function RecentUpdatedLogs() {
   return (
     <>
       <h2 className={styles.recentTitle}>최근 변경 내역</h2>
-
+      <br />
       <table className={styles.table}>
         <thead className={styles.th}>
           <tr>
@@ -44,8 +45,8 @@ export default function RecentUpdatedLogs() {
         {data && (
           <tbody>
             {data.map((log, index) => (
-              <tr key={index}>
-                <RecentEditedDocs log={log.documents} />
+              <tr key={index} className={styles.tb}>
+                <RecentEditedDocs log={log} />
               </tr>
             ))}
           </tbody>

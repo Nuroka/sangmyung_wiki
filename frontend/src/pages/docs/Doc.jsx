@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import DocsDetail from "../../component/docs/DocsDetail";
 import { authInstance } from "../../util/api";
 
 export default function Doc() {
-  const url = "/docs/recommend";
+  const { state } = useLocation();
 
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -12,6 +13,9 @@ export default function Doc() {
   useEffect(() => {
     async function fetchData() {
       setError();
+      let url = "/doc";
+      url += state !== null ? "?id=" + state.id : "/recommend";
+      console.log(url);
       authInstance
         .get(url)
         .then(function (res) {
@@ -34,7 +38,7 @@ export default function Doc() {
       {!data ? (
         <p>로딩 중...</p>
       ) : (
-        <>{error ? <p>{error.message}</p> : <DocsDetail data={data} />}</>
+        <>{error ? <p>{error.message}</p> : <DocsDetail doc={data} />}</>
       )}
     </>
   );
