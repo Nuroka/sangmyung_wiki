@@ -9,6 +9,7 @@ import lombok.Setter;
 import smw.capstone.service.BoardService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -19,8 +20,8 @@ public class ResponseCommentsDTO {
     private Long commentId;
     private String memberName;
     private String content;
-    private LocalDate createAt;
-    private LocalDate updateAt;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
     public ResponseCommentsDTO setMemberName(String username) {
         this.memberName = username;

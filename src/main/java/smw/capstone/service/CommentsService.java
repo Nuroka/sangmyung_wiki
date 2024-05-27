@@ -8,15 +8,14 @@ import smw.capstone.DTO.request.ReqUpdateCommentDTO;
 import smw.capstone.DTO.response.ResponseCommentsDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
-import smw.capstone.entity.Board;
 import smw.capstone.entity.Comments;
 import smw.capstone.entity.Member;
-import smw.capstone.repository.CommentRepository;
 import smw.capstone.repository.CommentsRepository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +50,7 @@ public class CommentsService {
 
     ResponseCommentsDTO setResponseCommentsDTO(Comments comment) {
         return ResponseCommentsDTO.builder()
+                .memberName(comment.getMember().getUsername())
                 .commentId(comment.getId())
                 .content(comment.getContent())
                 .createAt(comment.getCreateAt())
@@ -63,8 +63,8 @@ public class CommentsService {
         Comments comments = Comments.builder()
                 .board(boardService.getBoardById(reqCommentDTO.getBoardId()))
                 .content(reqCommentDTO.getContent())
-                .createAt(LocalDate.now())
-                .updateAt(LocalDate.now())
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .member(member).build();
         commentsRepository.save(comments);
 
@@ -75,7 +75,7 @@ public class CommentsService {
     public void updateComment(ReqUpdateCommentDTO reqUpdateCommentDTO, Member member) {
         Comments comments = commentsRepository.findById(reqUpdateCommentDTO.getCommentId())
                 .orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS));
-        if (!member.getComments().contains(comments)) {
+        if (!Objects.equals(comments.getMember().getId(), member.getId())) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS_BY_MEMBER);
         }
         comments.updateContent(reqUpdateCommentDTO.getContent());
@@ -84,7 +84,7 @@ public class CommentsService {
     public void deleteComment(Long idx, Member member) {
         Comments comments = commentsRepository.findById(idx)
                 .orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS));
-        if (!member.getComments().contains(comments)) {
+        if (!comments.getMember().equals(member)) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS_BY_MEMBER);
         }
 

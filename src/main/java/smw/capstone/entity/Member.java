@@ -32,8 +32,6 @@ public class Member {
 //    public Long getId() {
 //        return this.getId();
 //    }
-
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    public List<Comments> comments = new ArrayList<Comments>();
+//
 }
 

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,9 +32,9 @@ public class Comments {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
     public void updateContent(String content) {
         this.content = content;
