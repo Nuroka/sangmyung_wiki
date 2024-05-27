@@ -11,6 +11,8 @@ export default function MyPageContent() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchData() {
       setError();
@@ -30,8 +32,6 @@ export default function MyPageContent() {
     fetchData();
   }, []);
 
-  const navigate = useNavigate();
-
   return (
     <>
       {!data ? (
@@ -45,8 +45,10 @@ export default function MyPageContent() {
               <h2 className={styles.loginTitle}>내 정보</h2>
               <p>사용자 이름</p>
               <p>{data.username}</p>
+              <br />
               <p>이메일</p>
               <p>{data.email}</p>
+              <br />
               <p>
                 비밀번호
                 <button

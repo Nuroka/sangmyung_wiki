@@ -3,11 +3,15 @@ import { defaultInstance } from "../../util/api";
 import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
 import { useNavigate } from "react-router-dom";
+import {
+  isEqualsToOtherValue,
+  isPassword,
+  isUserName,
+} from "../../util/validations";
 
 /**
  * todo
  * 아이디 중복 체크
- * 비밀번호 검증
  * 뒤로가기 막기
  */
 export default function CreateAccountId({ email }) {
@@ -23,14 +27,16 @@ export default function CreateAccountId({ email }) {
     admin_Type: "",
   });
 
+  const [globalError, setGlobalError] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const isSame = formData.password === confirmPassword;
-  const isValid =
-    isSame === true && formData.username !== "" && formData.password !== "";
+  const validUsername = isUserName(formData.username);
+  const validPassword = isPassword(formData.password);
+  const isSame = isEqualsToOtherValue(formData.password, confirmPassword);
+  const isValid = validUsername && validPassword && isSame;
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    setGlobalError();
     defaultInstance
       .post(url, { ...formData })
       .then(function (res) {
@@ -44,7 +50,8 @@ export default function CreateAccountId({ email }) {
         }
       })
       .catch(function (e) {
-        throw new Error();
+        setGlobalError({ message: "아이디와 비밀번호를 확인해주세요." });
+        console.log(e);
       });
   }
 
@@ -63,6 +70,7 @@ export default function CreateAccountId({ email }) {
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <form id="form" onSubmit={handleSubmit}>
         <div>
+          {globalError && <p>{globalError.message}</p>}
           <label htmlFor="username">사용자 ID</label>
           <br />
           <input
@@ -72,6 +80,7 @@ export default function CreateAccountId({ email }) {
             onChange={handleChange}
           />
         </div>
+        {!validUsername && <p>알파벳,숫자 조합만 가능합니다.</p>}
         {/* <button
           className={`${styles.link} ${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
         >
@@ -88,6 +97,9 @@ export default function CreateAccountId({ email }) {
             onChange={handleChange}
           />
         </div>
+        {!validPassword && (
+          <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>
+        )}
         <br />
         <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label>
@@ -100,11 +112,12 @@ export default function CreateAccountId({ email }) {
           />
         </div>
         {!isSame && <p>암호가 다릅니다.</p>}
+        <br />
         <p>가입 후 탈퇴는 불가능합니다.</p>
         <button
+          className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
           type="submit"
           disabled={!isValid}
-          className={`${findIdAuthStyles.findIdFormBtn} ${findIdAuthStyles.checkBtn}`}
         >
           <p className={`${styles.link} ${styles.loginBtn}`}>
             {isValid ? "가입" : "가입 불가"}

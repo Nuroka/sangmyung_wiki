@@ -8,7 +8,7 @@ export default function Recent() {
 
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isError, error } = useQuery({
     queryKey: [url],
     queryFn: async () => {
       const response = await authInstance.get(url);
