@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { defaultInstance } from "../util/api";
 import styles from "./Popular.module.css";
 
 export default function Popular() {
-  const url = "/popular";
+  const url = "/board/popular";
+
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [url],
@@ -30,9 +33,19 @@ export default function Popular() {
       ) : (
         <>
           {
-            <ul>
-              {data.map((recent, index) => (
-                <li key={index}>{recent}</li>
+            <ul className={styles.recent}>
+              {data.slice(0, 8).map((popular, index) => (
+                <li
+                  key={index}
+                  className={styles.recentItem}
+                  onClick={() => {
+                    navigate("/board/one?id=" + popular.board_id);
+                  }}
+                >
+                  {popular.board_title.length > 15
+                    ? `${popular.board_title.slice(0, 15)}...`
+                    : popular.board_title}
+                </li>
               ))}
             </ul>
           }

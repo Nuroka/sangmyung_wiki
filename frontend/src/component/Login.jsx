@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import LoginForm from "./LoginForm";
 import styles from "./Login.module.css";
 
 import { defaultInstance } from "../util/api";
@@ -13,13 +15,13 @@ export default function Login() {
     password: "",
   });
 
-  const [error, setError] = useState();
+  const [globalError, setGlobalError] = useState();
   const [rememberMe, setRememberMe] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    setError();
+    setGlobalError();
     defaultInstance
       .post(url, { ...formData })
       .then(function (res) {
@@ -27,13 +29,13 @@ export default function Login() {
           const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
-          navigate(state ? state : "/");
+          navigate(state ? state.pathname : "/", { state: state?.state });
         } else {
           throw new Error();
         }
       })
       .catch(function (e) {
-        setError({ message: "아이디와 비밀번호를 확인해주세요." });
+        setGlobalError({ message: "아이디와 비밀번호를 확인해주세요." });
         console.log(e);
       });
   };
@@ -48,29 +50,21 @@ export default function Login() {
   return (
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2 className={styles.loginTitle}>로그인</h2>
-      {error && <p>{error.message}</p>}
-      <div className={styles.loginD}>
-        <label htmlFor="username">Username</label>
-        <br />
-        <input
-          className={styles.loginInput}
-          type="text"
-          id="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-      </div>
-      <div className={styles.loginD}>
-        <label htmlFor="password">Password</label>
-        <br />
-        <input
-          className={styles.loginInput}
-          type="password"
-          id="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
+      {globalError && <p>{globalError.message}</p>}
+      <LoginForm
+        label="Username"
+        type="text"
+        id="username"
+        value={formData.username}
+        handleChange={handleChange}
+      />
+      <LoginForm
+        label="Password"
+        type="password"
+        id="password"
+        value={formData.password}
+        handleChange={handleChange}
+      />
       <div className={styles.loginD}>
         <input
           className={`${styles.rememberMe}`}

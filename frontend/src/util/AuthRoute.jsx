@@ -5,11 +5,11 @@ import { checkAuth } from "./auth";
 // 로그인 후에만 이용가능
 export default function AuthRoute() {
   const isLogin = checkAuth();
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
 
   return isLogin ? (
     <Outlet />
   ) : (
-    <Navigate replace to="/user" state={{ pathname }} />
+    <Navigate replace to="/user" state={{ pathname, state }} />
   );
 }
