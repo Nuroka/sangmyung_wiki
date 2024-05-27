@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import styles from "./Doc.module.css";
 
 export default function DocsEditForm({ onSubmit, detail, edit }) {
   const [doc, setDoc] = useState({
@@ -38,15 +39,20 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
         }
         `}
         </style>
-        <input
-          id="title"
-          type="text"
-          placeholder="title"
-          value={doc.title}
-          onChange={handleChange}
-          disabled={edit}
-        />
-        <hr />
+        {!edit ? (
+          <input
+            id="title"
+            type="text"
+            placeholder="title"
+            value={doc.title}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        ) : (
+          <h className={styles.title}>{doc.title}</h>
+        )}
+        <br />
+        <br />
         <CKEditor
           editor={Editor}
           data={doc.content}

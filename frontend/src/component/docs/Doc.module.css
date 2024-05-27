@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  color: #004896;
+}
+
+.update {
+  position: relative;
+  width: 236px;
+  height: 19px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 19px;
+  color: #000000;
+}
+
+.buttons {
+  display: flex;
+}
+
+.edit,
+.log,
+.create {
+  font-family: "SUIT-Regular";
+  font-style: normal;
+  font-weight: 700;
+  line-height: 50px;
+  margin: 0px;
+
+  color: #004896;
+  background: #ffffff;
+  border-style: solid;
+  border-color: #004896;
+}
+
+.edit {
+  width: 7.3vw;
+  height: 50px;
+  border-width: 1px 1px 1px 1px;
+  border-radius: 10px 0px 0px 10px;
+  font-size: 1.25vw;
+}
+
+.log {
+  width: 5.2vw;
+  height: 50px;
+  border-radius: 0;
+  border-width: 1px 1px 1px 0px;
+  font-size: 1.25vw;
+}
+
+.create {
+  width: 7.3vw;
+  height: 50px;
+  border-width: 1px 1px 1px 0px;
+  border-radius: 0px 10px 10px 0px;
+  font-size: 1.25vw;
+}
+
+.edit:hover,
+.log:hover,
+.create:hover {
+  background: #706f6f3a;
+}
+
+.edit img,
+.log img,
+.lock img,
+.create img {
+  vertical-align: middle;
+  margin: 0px 3px 0px 0px;
+  width: 1.19vw;
+  height: auto;
+}
+
+.edit img {
+  margin-right: 5px;
+  padding-bottom: 4px;
+}
+
+.log img {
+  margin-right: 5px;
+  padding-bottom: 4px;
+}
+
+.lock img {
+  width: 1.3vw;
+  padding-top: 3px;
+}

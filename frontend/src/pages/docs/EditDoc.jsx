@@ -11,7 +11,7 @@ export default function EditDoc() {
 
   const handleSubmit = (doc) => {
     authInstance
-      .post(url, { content: doc.content, doc_id: state.id, fileName: {} })
+      .put(url, { content: doc.content, doc_id: state.id, file: [] })
       .then(function (res) {
         if (res.status === 200) {
           navigate("/");
