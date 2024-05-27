@@ -71,6 +71,7 @@ button {
     height: 3em;
     text-decoration-line: none;
     font-size: 2vmin;
+    cursor: pointer;
 }
 .loginBtn {
     color: #FFFFFF;

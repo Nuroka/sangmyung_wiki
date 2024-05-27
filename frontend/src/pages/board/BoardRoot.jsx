@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-
+import styles from "../../component/Login.module.css"
 function BoardRoot() {
   return (
     <>
-      <p>커뮤니티</p>
+      <h3 className={styles.loginTitle}>커뮤니티</h3>
       <Outlet />
     </>
   );

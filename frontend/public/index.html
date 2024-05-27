@@ -39,5 +39,14 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  <script>
+    var btn = document.getElementById("likeBtn")
+    console.log(btn)
+
+    btn.addEventListener('click',function(){
+      btn.classList.toggle('active')
+      //클릭시 좋아요 수 변하는 것도 적용해주세요
+    })
+  </script>
   </body>
 </html>

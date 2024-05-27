@@ -1,5 +1,6 @@
 import React from "react";
 import { authInstance } from "../../util/api";
+import boardStyles from "./Board.module.css";
 
 const DeleteComment = ({ commentId }) => {
   const handleDeleteComment = async () => {
@@ -11,7 +12,7 @@ const DeleteComment = ({ commentId }) => {
   };
 
   return (
-    <button onClick={handleDeleteComment}>Delete Comment</button>
+    <button className={`${boardStyles.updateCommentBtn} ${boardStyles.deleteBtn}`} onClick={handleDeleteComment}>삭제</button>
   );
 };
 

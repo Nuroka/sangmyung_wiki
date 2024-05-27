@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { authInstance } from "../../util/api";
+import boardStyles from "./Board.module.css";
 
 const AddComment = ({ boardId }) => {
   const [comment, setComment] = useState({
@@ -26,13 +27,14 @@ const AddComment = ({ boardId }) => {
 
   return (
     <div>
-      <input
+      <input className={boardStyles.addCommentInput}
         type="text"
         name="content"
         value={content}
         onChange={onChange}
+             placeholder={"댓글을 작성해 주세요."}
       />
-      <button onClick={handleAddComment}>Add Comment</button>
+      <button className={`${boardStyles.addCommentBtn}`} onClick={handleAddComment}>댓글 작성</button>
     </div>
   );
 };
