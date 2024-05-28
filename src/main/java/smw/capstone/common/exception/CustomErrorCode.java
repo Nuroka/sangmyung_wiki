@@ -21,6 +21,7 @@ public enum CustomErrorCode{
     NOT_EXIST_DOC_ID(HttpStatus.BAD_REQUEST, "문서 id를 입력해주세요."),
 
     NOT_MATCHED_EMAIL(HttpStatus.BAD_REQUEST, "등록된 이메일이 존재하지 않습니다."),
+    NOT_MATCHED_EMAIL_USERNAME(HttpStatus.BAD_REQUEST, "이메일과 아이디가 일치하지 않습니다."),
     NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "존재하지 않는 회원입니다."),
     NOT_MATCHED_CODE(HttpStatus.BAD_REQUEST, "인증번호가 틀렸습니다."),
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "로그인정보가 틀렸습니다."),
@@ -31,7 +32,8 @@ public enum CustomErrorCode{
     NOT_EXIST_LIKE(HttpStatus.BAD_REQUEST, "해당 게시물에 좋아요를 하지 않았습니다. 좋아요를 먼저 진행한 후 취소해주세요" ),
     NOT_EXIST_COMMENTS(HttpStatus.BAD_REQUEST, "해당 게시물에 댓글이 없습니다."),
     NOT_EXIST_COMMENTS_BY_MEMBER(HttpStatus.BAD_REQUEST, "해당 댓글은 멤버가 작성한 댓글이 아닙니다."),
-    NOT_MEMBER_FILE(HttpStatus.BAD_REQUEST, "회원이 등록하지 않은 파일이 포함되어 있습니다.. 회원이 등록한 파일 중에서만 업로드 가능합니다.");
+    NOT_MEMBER_FILE(HttpStatus.BAD_REQUEST, "회원이 등록하지 않은 파일이 포함되어 있습니다.. 회원이 등록한 파일 중에서만 업로드 가능합니다."),
+    NOT_MATCHED_PASSWORD(HttpStatus.BAD_REQUEST, "두 비밀번호가 일치하지 않습니다.");
 
     private final HttpStatus status;
     private final String message;

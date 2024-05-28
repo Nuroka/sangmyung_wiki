@@ -77,7 +77,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void find_sendNumber(String email) {
+    public void findid_sendNumber(String email) {
         try {
             Member m = mr.findMemberByEmail(email);
         }catch(Exception e){
@@ -93,6 +93,30 @@ public class MemberService {
         target.setCertification_Code(code);
         target.setTime(LocalDateTime.now());
         mr.certificate_process(target);
+    }
+
+    @Transactional
+    public void findpw_sendNumber(String email, String username) {
+        try {
+            Member m = mr.findMemberByEmail(email);
+        }catch(Exception e){
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL);
+        }
+        Member m = mr.findMemberByEmail(email);
+        if(m.getUsername().equals(username)) {
+            //인증코드 생성 함수
+            String code = emailProvider.randomCode();
+            //함수 호출될때 들어온 email로 code 발송
+            emailProvider.sendCertificationMail(email, code);
+            //email, code를 SigininCode Table에 저장
+            SigninCode target = new SigninCode();
+            target.setEmail(email);
+            target.setCertification_Code(code);
+            target.setTime(LocalDateTime.now());
+            mr.certificate_process(target);
+        }else{
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL_USERNAME);
+        }
     }
 
     public ResponseEntity<?> certificate(String email, String code) {
