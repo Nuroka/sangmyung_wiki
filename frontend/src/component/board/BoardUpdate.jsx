@@ -2,70 +2,67 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../Login.module.css";
 import { authInstance } from "../../util/api";
+import boardStyles from "./Board.module.css";
 
-const BoardUpdate = () => {
-  const navigate = useNavigate();
-  const { id } = useParams(); 
-  const [board, setBoard] = useState({
-    content: "",
-  });
+const BoardUpdate = ({ boardId, initialContent }) => {
+  const [content, setContent] = useState(initialContent);
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 가져오기
 
-  const {content} = board; //비구조화 할당
-
-  const onChange = (event) => {
-    const { value, name } = event.target;
-    setBoard({
-      ...board,
-      [name]: value,
-    });
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+    console.log(content);
   };
 
-  const getBoard = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const resp = await authInstance.get("/board/one", { params: { id } });
-      setBoard(resp.data);
+      const response = await authInstance.put("/board/edit", {
+        board_id: boardId,
+        content: content
+      });
+      console.log(response);
+
+      if (response.status === 200) {
+        // navigate(`/board/one?id=${boardId}`); // navigate 함수 사용
+        window.alert("수정이 완료되었습니다");
+        // 이전 페이지로 돌아가기
+        window.location.href = `/board/one?id=${boardId}`;
+      } else {
+
+        console.error('게시글 수정 실패');
+      }
     } catch (error) {
-      console.error("Error fetching board:", error);
+      console.error('server response error', error);
     }
   };
 
-  const updateBoard = async () => {
-    await authInstance.post(`/board/edit`, board).then((res) => {   //post를 put으로 변경
-      alert("수정되었습니다.");
-      navigate("/board");
-    });
-  };
-
-  const backToDetail = () => {
-    navigate("/board");
-  };
-
   useEffect(() => {
-    getBoard();
+    // getBoard 함수 실행
   }, []);
 
   return (
-    <div>
       <div>
-        <span>내용</span>
-        <textarea
-          name="content"
-          cols="60"
-          rows="50"
-          value={content}
-          onChange={onChange}
+        <div>
+        <textarea className={`${boardStyles.boardContent} ${boardStyles.subTitle}`}
+                  name="content"
+                  cols="60"
+                  rows="20"
+                  value={content}
+                  onChange={handleContentChange}
         ></textarea>
-      </div>
-      <br />
-      <div>
-        <button className={styles.link} onClick={updateBoard}>
-          수정
-        </button>
-        <button className={styles.link} onClick={backToDetail}>
+        </div>
+        <br />
+        <div>
+          <button className={styles.link} onClick={handleSubmit}>
+            수정
+          </button>
+          {/* 취소 버튼은 필요하지 않은 경우 주석 처리 */}
+          {/* <button className={styles.link} onClick={backToDetail}>
           취소
-        </button>
+        </button> */}
+        </div>
       </div>
-    </div>
   );
 };
 

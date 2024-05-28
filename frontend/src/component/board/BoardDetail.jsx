@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Board from "./Board";
-import CommentList from "./CommentList";
 import { authInstance } from "../../util/api";
 import { useSearchParams } from "react-router-dom";
 
@@ -25,6 +24,7 @@ const BoardDetail = () => {
       })
     ).data;
     setBoard(resp);
+    console.log(resp);
     setLoading(false);
   };
 
@@ -48,7 +48,7 @@ const BoardDetail = () => {
           likes={board.likes}
         />
       )}
-      <CommentList boardId={board.board_id} />
+      {/*<CommentList boardId={board.board_id} />*/}
     </div>
   );
 };

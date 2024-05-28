@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authInstance } from "../../util/api";
 import styles from "../Login.module.css";
+import boardStyles from "./Board.module.css";
+
 
 const BoardWrite = () => {
   const navigate = useNavigate();
@@ -33,10 +35,15 @@ const BoardWrite = () => {
   };
 
   return (
-    <div className={`${styles.loginDiv} ${styles.loginD}`}>
+    <div className={`${styles.loginDiv} ${styles.loginD} `}>
+      <h3 className={styles.loginTitle}>커뮤니티</h3>
+      <hr />
+      <h3 className={boardStyles.subTitle}>글쓰기</h3>
       <div>
+        <div className={boardStyles.tag}>
         <span>제목</span>
-        <input
+        </div>
+        <input className={`${boardStyles.titleInput} ${boardStyles.subTitle}`}
           type="text"
           name="board_title"
           value={board_title}
@@ -44,8 +51,7 @@ const BoardWrite = () => {
         />
       </div>
       <div>
-        <span>내용</span>
-        <textarea
+        <textarea className={`${boardStyles.boardContent} ${boardStyles.subTitle}`}
           name="content"
           cols="30"
           rows="10"
@@ -54,7 +60,7 @@ const BoardWrite = () => {
         ></textarea>
       </div>
       <br />
-      <div>
+      <div className={boardStyles.boardBtn}>
         <button className={styles.link} onClick={saveBoard}>
           저장
         </button>
