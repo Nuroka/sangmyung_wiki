@@ -32,7 +32,7 @@ public class BoardController {
     /**
      * 전체 게시물 보기
      */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<BoardDTO>> getAllBoard() {
         return ResponseEntity.ok().body(boardService.getAllBoard());
     }

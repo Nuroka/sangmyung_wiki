@@ -58,6 +58,8 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/board")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/board/one")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/board/popular")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs/recent")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/board/all")).permitAll()
 
                                 .anyRequest().permitAll());
 
