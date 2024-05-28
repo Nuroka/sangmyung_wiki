@@ -35,6 +35,7 @@ public class MemberRepository {
 
     public void remove(Member member){em.remove(em.contains(member) ? member : em.merge(member));}
 
+    @Transactional
     public void removeSigninCode(SigninCode signinCode){em.remove(em.contains(signinCode) ? signinCode : em.merge(signinCode));}
 
     public Member findByUsername(String username){
@@ -55,7 +56,6 @@ public class MemberRepository {
     @Transactional
     public void certificate_process(SigninCode signinCode){
         em.persist(signinCode);
-
     }
 
     public String findCode(String email) {
