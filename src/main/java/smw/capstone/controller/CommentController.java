@@ -33,7 +33,7 @@ public class CommentController {
      *
      * 댓글 하나 가져오기
      */
-    @GetMapping
+    @GetMapping("/one")
     public ResponseEntity<ResponseCommentsDTO> getComment(Long idx) {
         return ResponseEntity.ok().body(commentsService.getCommentById(idx));
     }
@@ -58,7 +58,7 @@ public class CommentController {
     /**
      * 댓글 삭제
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteComment(Long idx, @CurrentUser Member member) {
         commentsService.deleteComment(idx, member);
         return ResponseEntity.ok().body("댓글이 삭제되었습니다.");
