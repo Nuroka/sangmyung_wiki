@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import DocDetail from "../../component/docs/Doc";
-import { authInstance } from "../../util/api";
+import { defaultInstance } from "../../util/api";
 
 export default function Doc() {
   const { state } = useLocation();
@@ -15,7 +15,7 @@ export default function Doc() {
       setError();
       let url = "/doc";
       url += state !== null ? "?id=" + state.id : "s/recommend";
-      authInstance
+      defaultInstance
         .get(url)
         .then(function (res) {
           if (res.status === 200) {
@@ -31,13 +31,5 @@ export default function Doc() {
     fetchData();
   }, [state]);
 
-  return (
-    <>
-      {!data ? (
-        <p>로딩 중...</p>
-      ) : (
-        <>{error ? <p>{error.message}</p> : <DocDetail doc={data} />}</>
-      )}
-    </>
-  );
+  return <>{!data ? <p>로딩 중...</p> : <>{error ? <p>{error.message}</p> : <DocDetail doc={data} />}</>}</>;
 }

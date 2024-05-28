@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { authInstance } from "../../util/api";
+import { defaultInstance } from "../../util/api";
 import styles from "../docs/Docs.module.css";
 
 const DocsLog = () => {
@@ -36,12 +36,12 @@ const DocsLog = () => {
     navigate(`/document/${id}`);
   };
 
-   const fetchData = async () => {
+  const fetchData = async () => {
     try {
-      const response = await authInstance.get(url);
+      const response = await defaultInstance.get(url);
       setDocsLogData(response.data);
     } catch (error) {
-      console.error('Error');
+      console.error("Error");
     }
   };
 
@@ -49,14 +49,18 @@ const DocsLog = () => {
     <div>
       <h1 className={styles.recentTitle}>문서 역사</h1>
       <div>
-        <button className={styles.whiteBtn} onClick={goToPrevPage}>{"< Prev"}</button>
-        <button className={styles.whiteBtn} onClick={goToNextPage}>{"Next >"}</button>
+        <button className={styles.whiteBtn} onClick={goToPrevPage}>
+          {"< Prev"}
+        </button>
+        <button className={styles.whiteBtn} onClick={goToNextPage}>
+          {"Next >"}
+        </button>
       </div>
       <div>
         {initialDocsLogData.map((log, index) => (
           <p key={index}>
-            &bull; {log.date} {log.time} (
-            <span onClick={() => goToDocument(log.id)}>보기</span> | ) {log.changes} {log.editor}
+            &bull; {log.date} {log.time} (<span onClick={() => goToDocument(log.id)}>보기</span> | ) {log.changes}{" "}
+            {log.editor}
           </p>
         ))}
       </div>

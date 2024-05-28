@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import RecentEditedDocs from "./RecentEditedDocs";
-import { authInstance } from "../../util/api";
+import { defaultInstance } from "../../util/api";
 import styles from "../docs/Docs.module.css";
 
 export default function RecentUpdatedLogs() {
@@ -13,7 +13,7 @@ export default function RecentUpdatedLogs() {
   useEffect(() => {
     async function fetchLogs() {
       setError();
-      authInstance
+      defaultInstance
         .get(url)
         .then(function (res) {
           if (res.status === 200) {

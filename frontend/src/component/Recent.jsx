@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { authInstance } from "../util/api";
+import { defaultInstance } from "../util/api";
 import styles from "../component/Recent.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export default function Recent() {
   const { data, isError, error } = useQuery({
     queryKey: [url],
     queryFn: async () => {
-      const response = await authInstance.get(url);
+      const response = await defaultInstance.get(url);
       return response.data;
     },
     retry: 1,
