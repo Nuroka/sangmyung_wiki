@@ -47,6 +47,18 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/user")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/signin/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs/search")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs/all")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs/recommend")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/docs/edit")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/doc")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/comment/board")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/comment")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/board")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/board/one")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/board/popular")).permitAll()
+
                                 .anyRequest().permitAll());
 
         return http.build();
