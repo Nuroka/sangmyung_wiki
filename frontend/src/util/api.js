@@ -22,16 +22,6 @@ const axiosAuthAPI = (url, options) => {
 export const defaultInstance = axiosAPI(BASE_URL);
 export const authInstance = axiosAuthAPI(BASE_URL);
 
-defaultInstance.interceptors.request.use(
-  function (config) {
-    config.headers.Authorization = `Bearer temp`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
 authInstance.interceptors.request.use(
   function (config) {
     const accessToken = getAuthToken();

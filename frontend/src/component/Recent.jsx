@@ -4,7 +4,7 @@ import styles from "../component/Recent.module.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Recent() {
-  const url = "/docs/edit";
+  const url = "/docs/recent";
 
   const navigate = useNavigate();
 

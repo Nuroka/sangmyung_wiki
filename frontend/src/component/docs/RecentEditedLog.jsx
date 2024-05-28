@@ -8,7 +8,7 @@ export default function RecentUpdatedLogs() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  const url = "/docs/edit";
+  const url = "/docs/recent";
 
   useEffect(() => {
     async function fetchLogs() {

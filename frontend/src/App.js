@@ -6,7 +6,6 @@ import { queryClient } from "./util/api";
 import RootLayout from "./layout/RootLayout";
 
 import ErrorPage from "./pages/Error";
-import Home from "./pages/Home";
 import Fileload from "./pages/file/Fileload";
 import Login from "./pages/Login";
 import RecentEdited from "./pages/docs/RecentEdited";
@@ -76,7 +75,7 @@ const router = createBrowserRouter([
         element: <DefaultRoute />, // 로그인과 상관없이 접근 가능
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Home /> },
+          { index: true, element: <Doc state="1" /> },
           { path: "docs/log", element: <DocsLog /> },
           { path: "docs/recommend", element: <Doc /> },
           { path: "docs/recent", element: <RecentEdited /> },
