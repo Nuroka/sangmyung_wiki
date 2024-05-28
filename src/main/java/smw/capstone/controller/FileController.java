@@ -114,7 +114,7 @@ public class FileController {
     /**
      * 최근 변경 내역
      */
-    @GetMapping("/docs/edit")
+    @GetMapping("/docs/recent")
     public ResponseEntity<List<DocDTO>> getUpdateDoc() {
         return ResponseEntity.ok().body(docService.getUpdateDoc());
     }
