@@ -20,7 +20,7 @@ public enum CustomErrorCode{
     NOT_EXIST_KEYWORD(HttpStatus.BAD_REQUEST, "한 문자 이상의 키워드를 입력해주세요"),
     NOT_EXIST_DOC_ID(HttpStatus.BAD_REQUEST, "문서 id를 입력해주세요."),
 
-
+    NOT_MATCHED_EMAIL(HttpStatus.BAD_REQUEST, "등록된 이메일이 존재하지 않습니다."),
     NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "존재하지 않는 회원입니다."),
     NOT_MATCHED_CODE(HttpStatus.BAD_REQUEST, "인증번호가 틀렸습니다."),
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "로그인정보가 틀렸습니다."),

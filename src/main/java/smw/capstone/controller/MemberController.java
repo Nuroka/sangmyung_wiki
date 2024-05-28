@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.LoginDTO;
 import smw.capstone.DTO.request.EmailDTO;
+import smw.capstone.DTO.request.FindPwDTO;
 import smw.capstone.DTO.request.SignUpRequestDTO;
 import smw.capstone.common.provider.JwtProvider;
 import smw.capstone.entity.Member;
@@ -55,7 +56,7 @@ public class MemberController {
     @PostMapping("/signin/email/1")
     public ResponseEntity<?> certificateEmail(@RequestBody EmailDTO form){
         String email = form.getEmail();
-        memberService.sendNumber(email);
+        memberService.signin_sendNumber(email);
 
         return ResponseEntity.ok().body("인증번호가 전송되었습니다.");
     }
@@ -93,11 +94,16 @@ public class MemberController {
     @PostMapping("/find/ID/1")
     public ResponseEntity<?> findingID(@RequestBody EmailDTO form){
         String email = form.getEmail();
-        memberService.sendNumber(email);
+        memberService.find_sendNumber(email);
 
         return ResponseEntity.ok().body("인증번호가 전송되었습니다.");
     }
 
+    @GetMapping("/find/ID/2")
+    public ResponseEntity<EmailDTO> findID2(){
+        EmailDTO email = new EmailDTO();
+        return ResponseEntity.ok().body(email);
+    }
     @PostMapping("/find/ID/2")
     public ResponseEntity<String> findingID2(@RequestBody EmailDTO form) {
         String email = form.getEmail();
@@ -107,5 +113,11 @@ public class MemberController {
             member = memberService.findByEmail(email);
         }
         return ResponseEntity.ok().body("사용자의 아이디는 '" + member.getUsername() + "' 입니다.");
+    }
+
+    @GetMapping("/find/pw")
+    public ResponseEntity<FindPwDTO> findPW(){
+        FindPwDTO findPwDTO = new FindPwDTO();
+        return ResponseEntity.ok().body(findPwDTO);
     }
 }

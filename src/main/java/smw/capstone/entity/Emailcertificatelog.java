@@ -7,6 +7,10 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -19,4 +23,6 @@ public class Emailcertificatelog {
     private String Email;
 
     private String Certification_Code;
+
+    private LocalDateTime time;
 }

@@ -14,6 +14,8 @@ import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 import smw.capstone.repository.MemberRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,8 +62,27 @@ public class MemberService {
         return mr.findByUsername(username);
     }
 
+
     @Transactional
-    public void sendNumber(String email) {
+    public void signin_sendNumber(String email) {
+            //인증코드 생성 함수
+            String code = emailProvider.randomCode();
+            //함수 호출될때 들어온 email로 code 발송
+            emailProvider.sendCertificationMail(email, code);
+            //email, code를 SigininCode Table에 저장
+            SigninCode target = new SigninCode();
+            target.setEmail(email);
+            target.setCertification_Code(code);
+            mr.certificate_process(target);
+    }
+
+    @Transactional
+    public void find_sendNumber(String email) {
+        try {
+            Member m = mr.findMemberByEmail(email);
+        }catch(Exception e){
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL);
+        }
         //인증코드 생성 함수
         String code = emailProvider.randomCode();
         //함수 호출될때 들어온 email로 code 발송
@@ -70,8 +91,8 @@ public class MemberService {
         SigninCode target = new SigninCode();
         target.setEmail(email);
         target.setCertification_Code(code);
+        target.setTime(LocalDateTime.now());
         mr.certificate_process(target);
-
     }
 
     public ResponseEntity<?> certificate(String email, String code) {
@@ -88,6 +109,7 @@ public class MemberService {
 
     public Member findByEmail(String email){ return mr.findMemberByEmail(email);}
 
+    @Transactional
     public boolean certificate_v2(String email, String code) {
         String answer = mr.findCode(email);
         if (!answer.equals(code)) {
@@ -97,7 +119,7 @@ public class MemberService {
             SigninCode signinCode = mr.findsignincode(code);
             emaillog.setEmail(signinCode.getEmail());
             emaillog.setCertification_Code(signinCode.getCertification_Code());
-
+            emaillog.setTime(signinCode.getTime());
             mr.removeSigninCode(signinCode);
             mr.saveEmaillog(emaillog);
 
