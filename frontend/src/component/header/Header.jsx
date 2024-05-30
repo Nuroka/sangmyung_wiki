@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 import styles from "./Header.module.css";
-import logo from "../img/logo.png";
-import search from "../img/search.png";
+import logo from "../../img/logo.png";
+import Search from "./Search";
 import DropdownImageTrigger from "./DropdownImageTrigger";
 
 export default function Header() {
@@ -41,8 +41,7 @@ export default function Header() {
       >
         커뮤니티
       </NavLink>
-      <input className={styles.search} placeholder={"이곳에서 검색"}></input>
-      <img className={styles.searchIcon} src={search} alt="search" />
+      <Search />
       <div className={styles.user}>
         <DropdownImageTrigger />
       </div>

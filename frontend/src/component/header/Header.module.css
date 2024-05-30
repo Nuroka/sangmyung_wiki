@@ -12,10 +12,6 @@
   font-size: 1.2vw;
 }
 
-.nav4 {
-  left: 70vw;
-}
-
 .logo {
   position: absolute;
   display: inline-block;
@@ -30,24 +26,18 @@
   left: 38vw;
 }
 
-.recent:hover,
-.recent.active {
-  color: #004896;
-}
-
 .recommend {
   left: 47vw;
-}
-
-.recommend:hover,
-.recommend.active {
-  color: #004896;
 }
 
 .board {
   left: 56vw;
 }
 
+.recent:hover,
+.recent.active,
+.recommend:hover,
+.recommend.active,
 .board:hover,
 .board.active {
   color: #004896;

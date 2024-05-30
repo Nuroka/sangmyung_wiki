@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import Header from "../component/Header";
+import Header from "../component/header/Header";
 import Popular from "../component/Popular";
 import Recent from "../component/Recent";
 

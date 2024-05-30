@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import styles from "./DropdownImageTrigger.module.css";
-import user from "../img/user.png";
-import { checkAuth } from "../util/auth";
+import user from "../../img/user.png";
+import { checkAuth } from "../../util/auth";
 
 export default function DropdownImageTrigger() {
   const [isOpen, setIsOpen] = useState(false);
