@@ -20,6 +20,7 @@ import BoardRoot from "./pages/board/BoardRoot";
 import Doc from "./pages/docs/Doc";
 import EditDoc from "./pages/docs/EditDoc";
 import CreateDoc from "./pages/docs/CreateDoc";
+import Home from "./pages/Home";
 
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
         element: <DefaultRoute />, // 로그인과 상관없이 접근 가능
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Doc state="1" /> },
+          { index: true, element: <Home /> },
           { path: "docs/log", element: <DocsLog /> },
           { path: "docs/recommend", element: <Doc /> },
           { path: "docs/recent", element: <RecentEdited /> },

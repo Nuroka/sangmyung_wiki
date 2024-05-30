@@ -1,9 +1,5 @@
-import HomeContent from "../component/HomeContent";
+import { Navigate } from "react-router-dom";
 
 export default function Home() {
-  return (
-    <>
-      <HomeContent />
-    </>
-  );
+  return <Navigate to={"/doc"} state={{ id: 1 }} />;
 }

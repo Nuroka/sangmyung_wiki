@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import styles from "./DropdownImageTrigger.module.css";
 import user from "../img/user.png";
@@ -9,6 +10,7 @@ export default function DropdownImageTrigger() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const isLogin = checkAuth();
+  const dropdownRef = useRef(null);
 
   const options = [
     {
@@ -52,21 +54,44 @@ export default function DropdownImageTrigger() {
     },
   ].filter((option) => !option.hidden);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
-    <div className={styles.dropdown_container}>
-      <img src={user} onClick={() => setIsOpen(!isOpen)} />
+    <div className={styles.dropdown_container} ref={dropdownRef}>
+      <motion.img src={user} onClick={() => setIsOpen(!isOpen)} />
       {isOpen && (
-        <ul className={`${styles.list} ${styles.dropdown}`}>
+        <motion.ul
+          className={`${styles.list} ${styles.dropdown}`}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+        >
           {options.map((option, index) => (
-            <li
+            <motion.li
               key={index}
               onClick={option.onClick}
               className={!option.noHover ? styles.hoverEffect : ""}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.1, delay: index * 0.1 }}
             >
               {option.text}
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       )}
     </div>
   );
