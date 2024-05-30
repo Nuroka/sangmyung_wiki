@@ -54,7 +54,7 @@ const BoardList = () => {
                     <TextWithLimit text={board.board_title} maxLength={6} />
                   </Link>
                 </div>
-                  <span className={boardStyles.properties}>👍{board.likes}</span>
+                  <span className={boardStyles.properties}>👍{board.like_count}</span>
                   <span className={boardStyles.properties}>{board.create_at}</span>
                 </li>
             ))}

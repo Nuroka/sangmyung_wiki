@@ -4,6 +4,7 @@ import AddComment from "./AddComment";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteComment";
 import { useSearchParams } from "react-router-dom";
+import CommentStyles from "./Comment.module.css";
 
 const CommentList = ({ boardId }) => {
   const [comments, setComments] = useState([]);
@@ -25,6 +26,8 @@ const CommentList = ({ boardId }) => {
   };
 
 
+
+
   return (
     <div>
       <h3>Comments</h3>
@@ -33,10 +36,10 @@ const CommentList = ({ boardId }) => {
         <p>Loading comments...</p>
       ) : (
         comments.map((comment) => (
-          <div key={comment.comment_id}>
-            <p>{comment.content}</p>
-            <EditComment commentId={comment.comment_id} initialContent={comment.content} />
+          <div className={CommentStyles.editCommentBtn} key={comment.comment_id}>
+            {/*<p>{comment.content}</p>*/}
             <DeleteComment commentId={comment.comment_id} />
+            <EditComment commentId={comment.comment_id} initialContent={comment.content} />
           </div>
         ))
       )}

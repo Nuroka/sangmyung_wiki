@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import boardStyles from "./Board.module.css";
 import styles from "../Login.module.css";
 import getMemberInfo from "./GetMemberInfo";
+import commentStyles from "./Comment.module.css";
 
 
 const BoardCommentList = ({ boardId }) => {
@@ -14,7 +15,6 @@ const BoardCommentList = ({ boardId }) => {
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [memberInfo, setMemberInfo] = useState(null);
-
 
     const [boardComments, setBoardComments] = useState([
         {
@@ -33,85 +33,72 @@ const BoardCommentList = ({ boardId }) => {
         }
     ]);
 
-
     useEffect(() => {
         const fetchMemberInfo = async () => {
             try {
-
                 const info = await getMemberInfo();
                 setMemberInfo(info);
             } catch (error) {
-
+                console.error("Error fetching member info:", error);
             }
-
         };
         fetchMemberInfo();
-    }, []);
+    }, []); // Empty dependency array ensures this effect runs only once
 
     useEffect(() => {
-        getAllComments()
-    }, []);
+        getAllComments();
+    }, []); // Empty dependency array ensures this effect runs only once
 
-
-    // 해당 커뮤니티 글과 관련된 댓글 모두 가져오기
     const getAllComments = async () => {
         try {
             const res = await authInstance.get(`comment/board`, { params: { idx: boardId } });
             setBoardComments(res.data);
-            console.log(res.data);
             setLoading(false);
-
         } catch (e) {
             if (e.response) {
-                // 서버 응답이 있는 경우
                 const message = e.response.data.message;
                 setErrorMessage(message);
             } else {
-                // 네트워크 요청 자체가 실패한 경우
                 setErrorMessage("Network request failed");
             }
             setLoading(false);
         }
-    }
-
+    };
 
     return (
-        <div >
-            {/*<p>댓글 작성</p>*/}
-            <AddComment boardId={boardId} />
-            {/*loading comments 는 없어도 될거같아요*/}
-            <hr/>
+        <div>
+            {/*<AddComment boardId={boardId} />*/}
+            {/*<hr />*/}
             {boardComments ? (
                 <div className={boardStyles.bodyFont}>
                     {loading ? (
                         <h2>Loading...</h2>
-                    ) : errorMessage ? (
-                        <p>{errorMessage}</p>
                     ) : (
                         <div>
                             {boardComments.length === 0 ? (
                                 <p>아직 댓글이 없습니다.</p>
                             ) : (
                                 boardComments.map((comment) => (
-                                    <div key={comment.comment_id}>
-                                        <strong><p>{comment.member_name}</p></strong>
-                                        <p>{comment.content}</p>
-
-                                        {memberInfo.username === comment.member_name && (
+                                    <div key={comment.comment_id} className={commentStyles.commentContainer}>
+                                        <div className={commentStyles.box}>
+                                            <span>{comment.member_name}</span>
+                                            <span>{comment.create_at}</span>
+                                        </div>
+                                        {memberInfo && memberInfo.username === comment.member_name && (
                                             <>
-                                                <EditComment commentId={comment.comment_id} initialContent={comment.content} />
+                                                <EditComment commentId={comment.comment_id} initialContent={comment.content} boardId={boardId} />
                                                 <DeleteComment commentId={comment.comment_id} />
                                             </>
                                         )}
-
-                                        <hr/>
                                     </div>
                                 ))
                             )}
                         </div>
                     )}
                 </div>
-            ) : null }
+            ) : null}
+            <hr className={boardStyles.hrStyles}/>
+            <AddComment boardId={boardId} />
         </div>
     );
 };

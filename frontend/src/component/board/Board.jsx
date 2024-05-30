@@ -12,14 +12,24 @@ import BoardCommentList from "./BoardCommentList";
 import AddComment from "./AddComment";
 
 
-const Board = ({ id, title, member_name, update_at, create_at, contents, likes }) => {
+const Board = ({ id, title, member_name, update_at, create_at, contents, like_count, comments_count, is_like }) => {
   const navigate = useNavigate();
+  const token = authInstance();
+  console.log(like_count);
+  console.log("is_like: ", is_like);
   const [searchParams, setSearchParams] = useSearchParams();
   const [showUpdateForm, setShowUpdateForm] = useState(false); // 수정 폼을 보여줄지 여부를 관리하는 상태 추가
-
   const moveToUpdate = () => {
     setShowUpdateForm(true); // 수정 버튼을 클릭하면 수정 폼을 보여주도록 상태 변경
   };
+
+  const [loginUser, setLoginUser] = useState();
+  // if (!token) {
+  //   setLoginUser(false);
+  // } else {
+  //   setLoginUser(true);
+  // }
+
 
   const deleteBoard = async () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
@@ -61,10 +71,10 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes }
                     목록
                   </button>
                 </div>
-                <div>
-                  <span>댓글</span> {/*댓글 수 백엔드 측에서 받아서 보여주기 */}
-                  <LikeBtn/>
-                  <span className={boardStyles.count}>{likes}</span>
+                <div className={boardStyles.commentAndLike}>
+                  <div>댓글 {comments_count}</div> {/*댓글 수 백엔드 측에서 받아서 보여주기 */}
+                  <LikeBtn boardId={id} countLike={like_count} isLike={is_like} />{/*해당 게시물에 좋아요를 눌렀는지 여부 판단 */}
+
                   {/*<AddComment boardId={id} />*/}
                   <div className={boardStyles.commentContainer}>
                     {/* 댓글 내용 */}

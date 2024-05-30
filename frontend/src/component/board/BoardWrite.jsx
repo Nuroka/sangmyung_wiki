@@ -43,7 +43,7 @@ const BoardWrite = () => {
         <div className={boardStyles.tag}>
         <span>제목</span>
         </div>
-        <input className={`${boardStyles.titleInput} ${boardStyles.subTitle}`}
+        <input className={`${boardStyles.titleInput}`}
           type="text"
           name="board_title"
           value={board_title}

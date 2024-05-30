@@ -27,7 +27,7 @@ const AddComment = ({ boardId }) => {
 
   return (
     <div>
-      <input className={boardStyles.addCommentInput}
+      <input className={`${boardStyles.addCommentInput} ${boardStyles.addCommentInput2}`}
         type="text"
         name="content"
         value={content}

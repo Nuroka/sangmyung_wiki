@@ -13,7 +13,9 @@ const BoardDetail = () => {
     update_at: "00-00-00",
     create_at: "00-00-00",
     content: "",
-    likes: ""
+    like_count: "",
+    like: false,
+    comments_count: 0
   });
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -45,7 +47,9 @@ const BoardDetail = () => {
           update_at={board.update_at}
           create_at={board.create_at}
           contents={board.content}
-          likes={board.likes}
+          like_count={board.like_count}
+          is_like={board.like}
+          comments_count={board.comments_count}
         />
       )}
       {/*<CommentList boardId={board.board_id} />*/}

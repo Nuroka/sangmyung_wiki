@@ -36,6 +36,9 @@ const BoardUpdate = ({ boardId, initialContent }) => {
       console.error('server response error', error);
     }
   };
+  const backToDetail = () => {
+      navigate(`/board/one?id=${boardId}`);
+  };
 
   useEffect(() => {
     // getBoard 함수 실행
@@ -58,9 +61,9 @@ const BoardUpdate = ({ boardId, initialContent }) => {
             수정
           </button>
           {/* 취소 버튼은 필요하지 않은 경우 주석 처리 */}
-          {/* <button className={styles.link} onClick={backToDetail}>
+           <button className={styles.link} onClick={backToDetail}>
           취소
-        </button> */}
+        </button>
         </div>
       </div>
   );
