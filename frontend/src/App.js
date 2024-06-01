@@ -14,7 +14,7 @@ import MyPage from "./pages/member/MyPage";
 import UpdatePw from "./pages/member/UpdatePw";
 import Logout from "./pages/Logout";
 import CreateAccount from "./pages/member/CreateAccount";
-import Created from "./pages/member/Created";
+import AccountCreated from "./pages/member/AccountCreated";
 import DocsLog from "./pages/docs/DocsLog";
 import BoardRoot from "./pages/board/BoardRoot";
 import Doc from "./pages/docs/Doc";
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
           { path: "user", element: <Login /> },
           { path: "findID", element: <FindID /> },
           { path: "signin", element: <CreateAccount /> },
-          { path: "created", element: <Created /> },
+          { path: "created", element: <AccountCreated /> },
         ],
       },
       {

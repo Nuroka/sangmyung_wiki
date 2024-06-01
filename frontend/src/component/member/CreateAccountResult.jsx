@@ -1,11 +1,8 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "../Login.module.css";
 
-export default function CreateAccountResult() {
-  const location = useLocation();
-
-  const username = location.state.username;
+export default function CreateAccountResult({ username }) {
   return (
     <div>
       <h2 className={styles.loginTitle}>계정 만들기</h2>

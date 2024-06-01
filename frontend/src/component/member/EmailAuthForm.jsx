@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import EmailAuthMessage from "./EmailAuthMessage";
 import { defaultInstance } from "../../util/api";
 
 export default function EmailAuthForm({ authUrl, handleResult, children }) {
@@ -69,12 +70,7 @@ export default function EmailAuthForm({ authUrl, handleResult, children }) {
       <form id="form" onSubmit={handleSubmitEmail}>
         <label>이메일</label>
         <br />
-        <input
-          type="email"
-          name="email"
-          onChange={handleChange}
-          disabled={emailChecked}
-        />
+        <input type="email" name="email" onChange={handleChange} disabled={emailChecked} />
         <button type="submit" disabled={emailChecked || isFetching}>
           {emailChecked ? "전송완료" : isFetching ? "전송 중" : "전송"}
         </button>
@@ -82,19 +78,17 @@ export default function EmailAuthForm({ authUrl, handleResult, children }) {
       </form>
       <br />
       {emailChecked && (
-        <form id="form" onSubmit={handleSubmitCode}>
-          <label htmlFor="code">인증번호</label>
-          <br />
-          <input
-            type="text"
-            name="code"
-            onChange={handleChange}
-            disabled={isFetching}
-          />
-          <button type="submit" disabled={isFetching}>
-            {isFetching ? "인증 중..." : "인증"}
-          </button>
-        </form>
+        <>
+          <EmailAuthMessage email={formData.email} />
+          <form id="form" onSubmit={handleSubmitCode}>
+            <label htmlFor="code">인증번호</label>
+            <br />
+            <input type="text" name="code" onChange={handleChange} disabled={isFetching} />
+            <button type="submit" disabled={isFetching}>
+              {isFetching ? "인증 중..." : "인증"}
+            </button>
+          </form>
+        </>
       )}
     </>
   );
