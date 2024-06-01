@@ -16,7 +16,7 @@ public class ResponseDocDTO {
 
     private Long id;
 
-    private Long memberId;
+    private String memberUsername;
 
     private String title;
 

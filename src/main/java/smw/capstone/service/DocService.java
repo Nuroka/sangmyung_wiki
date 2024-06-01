@@ -54,19 +54,16 @@ public class DocService {
         return docDto;
     }
 
-    public DocsIdDTO getDocsByKeyword(String keyword) {
+    public List<ResponseDocDTO> getDocsByKeyword(String keyword) {
         if (keyword == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_KEYWORD);
         }
-        DocsIdDTO docsIdDto = new DocsIdDTO();
         List<Documents> findDocs = docRepository.findByKeyword(keyword);
+        List<ResponseDocDTO> resDoc = new ArrayList<>();
         for (Documents document : findDocs) {
-            docsIdDto.getDocsIdList().add(document.getId());
+            resDoc.add(buildResDocDto(document));
         }
-        if (findDocs.isEmpty()) {
-            throw new BusinessException(CustomErrorCode.NOT_EXIST_KEYWORD_DOC);
-        }
-        return docsIdDto;
+        return resDoc;
     }
 
     public List<DocDTO> findAll(String sort) {
@@ -110,7 +107,7 @@ public class DocService {
         return ResponseDocDTO.builder()
                 .title(document.getTitle())
                 .updateAt(document.getUpdateAt())
-                .memberId(document.getMember().getId())
+                .memberUsername(document.getMember().getUsername())
                 .createAt(document.getCreateAt())
                 .content(document.getContent())
                 .id(document.getId()).build();
@@ -182,7 +179,7 @@ public class DocService {
                 .title(randDoc.getTitle())
                 .createAt(randDoc.getCreateAt())
                 .updateAt(randDoc.getUpdateAt())
-                .memberId(randDoc.getMember().getId())
+                .memberUsername(randDoc.getMember().getUsername())
                 .content(randDoc.getContent())
                 .build();
         List<FileDTO> fileDTOList = fileService.findFilesByDocId((long) rand);
