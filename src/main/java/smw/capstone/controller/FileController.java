@@ -120,6 +120,14 @@ public class FileController {
     }
 
     /**
+     * 최근 변경 내역 역순
+     */
+    @GetMapping("/docs/recent/reverse")
+    public ResponseEntity<List<DocDTO>> getUpdateDocReverse() {
+        return ResponseEntity.ok().body(docService.getUpdateDocReverse());
+    }
+
+    /**
      * 한개 문서 가져오기
      */
     @GetMapping("/doc")

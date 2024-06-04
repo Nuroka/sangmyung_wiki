@@ -81,6 +81,21 @@ public class DocService {
 
         return docDTO;
     }
+public List<DocDTO> findAllReverse(String sort) {
+        List<Documents> documents = docRepository.findAll(Sort.by(Sort.Direction.ASC, sort));
+        List<DocDTO> docDTO = new ArrayList<>();
+        for (Documents document : documents) {
+            DocDTO responseDoc = new DocDTO();
+
+            responseDoc.setDocuments(buildResDocDto(document));
+            responseDoc.setMemberUsername(document.getMember().getUsername());
+
+            setFileDto(responseDoc, document.getId());
+            docDTO.add(responseDoc);
+        }
+
+        return docDTO;
+    }
 
     public void setFileDto(DocDTO docDTO, Long docId) {
         List<DocFile> docFiles = docFileRepository.findByDocumentId(docId);
@@ -191,6 +206,10 @@ public class DocService {
 
     public List<DocDTO> getUpdateDoc() {
         return findAll("updateAt");
+    }
+
+    public List<DocDTO> getUpdateDocReverse() {
+        return findAllReverse("updateAt");
     }
 
     @Transactional
