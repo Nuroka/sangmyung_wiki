@@ -17,6 +17,7 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, like_co
   const token = authInstance();
   console.log(like_count);
   console.log("is_like: ", is_like);
+  const [boardCommentListKey, setBoardCommentListKey] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [showUpdateForm, setShowUpdateForm] = useState(false); // 수정 폼을 보여줄지 여부를 관리하는 상태 추가
   const moveToUpdate = () => {
@@ -24,12 +25,6 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, like_co
   };
 
   const [loginUser, setLoginUser] = useState();
-  // if (!token) {
-  //   setLoginUser(false);
-  // } else {
-  //   setLoginUser(true);
-  // }
-
 
   const deleteBoard = async () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
@@ -44,6 +39,11 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, like_co
 
   const moveToList = () => {
     navigate("/board");
+  };
+
+  const handleAddComment = () => {
+    // 새로운 댓글이 추가되면 BoardCommentList 컴포넌트를 다시 렌더링하기 위해 상태 업데이트
+    setBoardCommentListKey(prevKey => prevKey + 1);
   };
 
   return (
@@ -82,7 +82,7 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, like_co
                   <hr/>
                 </div>
                 {/*<CommentList boardId={id} />*/}
-                <BoardCommentList boardId={id}/>
+                <BoardCommentList key={boardCommentListKey} boardId={id} onAddComment={handleAddComment} />
                 {/*<hr/>*/}
 
               </div>
