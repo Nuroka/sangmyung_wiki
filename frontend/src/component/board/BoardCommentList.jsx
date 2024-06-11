@@ -9,6 +9,9 @@ const BoardCommentList = ({ boardId, onAddComment }) => {
     const [boardComments, setBoardComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isAddCommentClicked, setIsAddCommentClicked] = useState(0);
+    const [isDeleteCommentClicked, setIsDeleteCommentClicked] = useState(0);
+
+
 
     useEffect(() => {
         const fetchComments = async () => {
@@ -21,12 +24,21 @@ const BoardCommentList = ({ boardId, onAddComment }) => {
             }
         };
         fetchComments();
-    }, [boardId, isAddCommentClicked]); // 의존성 배열에 isAddCommentClicked 추가
+    }, [boardId, isAddCommentClicked, isDeleteCommentClicked]); // 의존성 배열에 isAddCommentClicked 추가
 
     const handleAddComment = (newComment) => {
         // 새로운 댓글을 추가한 후 상태만 업데이트
         setIsAddCommentClicked(prev => prev + 1);
     };
+
+    const handleDeleteComment = () => {
+        // 새로운 댓글을 추가한 후 상태만 업데이트
+        setIsDeleteCommentClicked(prev => prev + 1);
+    };
+
+    useEffect(() => {
+
+    }, [boardComments]);
 
     return (
         <div>
@@ -46,7 +58,7 @@ const BoardCommentList = ({ boardId, onAddComment }) => {
                                     <span>{comment.create_at}</span>
                                 </div>
                                 <EditComment commentId={comment.comment_id} initialContent={comment.content} boardId={boardId} />
-                                <DeleteComment commentId={comment.comment_id} />
+                                <DeleteComment boardId={boardId} commentId={comment.comment_id} onDelete={handleDeleteComment}/>
                             </div>
                         ))
                     )}
