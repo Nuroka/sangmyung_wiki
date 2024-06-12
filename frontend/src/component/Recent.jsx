@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Recent() {
-  const url = "/docs/recent";
+  const url = "/docs/recent/reverse";
 
   const navigate = useNavigate();
 

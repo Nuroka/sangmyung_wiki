@@ -14,7 +14,9 @@ export default function EditDoc() {
       .put(url, { content: doc.content, doc_id: state.id, file: [] })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("/");
+          navigate("/doc", {
+            state: { id: state.id },
+          });
         } else {
           throw new Error();
         }
