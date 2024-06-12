@@ -46,11 +46,12 @@ public class MemberController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<String> login(HttpServletResponse response, @RequestBody LoginDTO form){
+    public ResponseEntity<Long> login(HttpServletResponse response, @RequestBody LoginDTO form){
         Member member = new Member();
         member = memberService.login(form.getUsername(), form.getPassword());
         jwtProvider.sendAccessToken(response, jwtProvider.create(member.getEmail()));
-        return ResponseEntity.ok().body("access_token 헤더 설정 완료");
+        Member memberId = memberRepository.findByUsername(form.getUsername());
+        return ResponseEntity.ok().body(memberId.getId());
     }
 
     @GetMapping("/signin/email")

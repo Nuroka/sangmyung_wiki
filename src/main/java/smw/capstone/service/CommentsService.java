@@ -8,6 +8,7 @@ import smw.capstone.DTO.request.ReqUpdateCommentDTO;
 import smw.capstone.DTO.response.ResponseCommentsDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
+import smw.capstone.entity.Board;
 import smw.capstone.entity.Comments;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.CommentsRepository;
@@ -28,9 +29,9 @@ public class CommentsService {
     public List<ResponseCommentsDTO> getAllComment(Long idx) {
 
         List<Comments> findComments = commentsRepository.findByBoard(boardService.getBoardById(idx));
-        if (findComments.isEmpty()) {
-            throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS);
-        }
+//        if (findComments.isEmpty()) {
+//            throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS);
+//        }
         List<ResponseCommentsDTO> responseCommentsDTOS = new ArrayList<>();
         for (Comments comment : findComments) {
             ResponseCommentsDTO responseCommentsDTO = setResponseCommentsDTO(comment);
@@ -81,13 +82,16 @@ public class CommentsService {
         comments.updateContent(reqUpdateCommentDTO.getContent());
     }
 
+    @Transactional
     public void deleteComment(Long idx, Member member) {
         Comments comments = commentsRepository.findById(idx)
                 .orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS));
-        if (!comments.getMember().equals(member)) {
+        if (!comments.getMember().getId().equals(member.getId())) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS_BY_MEMBER);
         }
 
         commentsRepository.delete(comments);
     }
+
+
 }

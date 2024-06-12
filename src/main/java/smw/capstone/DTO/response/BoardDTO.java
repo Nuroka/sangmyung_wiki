@@ -21,5 +21,7 @@ public class BoardDTO {
     private LocalDate updateAt;
     private LocalDate createAt;
     private  String content;
-    private int likes;
+    private int likeCount;
+    private int commentsCount;
+    private boolean isLike;
 }

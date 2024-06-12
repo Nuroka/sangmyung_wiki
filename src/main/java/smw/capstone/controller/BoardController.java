@@ -1,5 +1,6 @@
 package smw.capstone.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.response.BoardDTO;
 import smw.capstone.DTO.request.BoardUploadDTO;
 import smw.capstone.DTO.request.BoarUpdatedDTO;
+import smw.capstone.DTO.response.LikeDTO;
 import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.entity.Member;
 import smw.capstone.service.BoardService;
+import smw.capstone.service.LikeService;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final LikeService likeService;
 
     /**
      * 게시물 추가
@@ -50,8 +54,8 @@ public class BoardController {
      * 게시물 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<BoardDTO> getOneBoard(@RequestParam("idx") Long id) {
-        return ResponseEntity.ok().body(boardService.getOneBoard(id));
+    public ResponseEntity<BoardDTO> getOneBoard(@RequestParam("idx") Long id, Long memberId) {
+        return ResponseEntity.ok().body(boardService.getOneBoard(id, memberId));
     }
 
     /**
@@ -88,5 +92,24 @@ public class BoardController {
     @GetMapping("/popular")
     public ResponseEntity<?> getPopularBoard() {
         return ResponseEntity.ok().body(boardService.getPopularBoard());
+    }
+
+    @GetMapping("/like")
+    public ResponseEntity<?> getLikes(@RequestParam("idx") Long boardId, @CurrentUser Member member) {
+        System.out.println(boardId);
+        if (!likeService.isMemberLike(boardId, member)) {
+            //사용자가 좋아요를 눌러서 like가 증가하는 경우
+            //DB에서 좋아요 수 찾아서 return
+            likeService.doLike(boardId, member);
+
+        } else {
+            //사용자가 좋아요를 취소하는 경우
+            //DB에 좋아요 취소하고 like 감소
+            likeService.deleteLike(boardId, member);
+        }
+
+        //isLike가 true이면 사용자가 하트는 취소하는 경우 -> 클라이언트에게 false로 반환
+        LikeDTO likeDTO = new LikeDTO(!likeService.isMemberLike(boardId, member), likeService.findLikesCount(boardId));
+        return ResponseEntity.ok().body(likeDTO);
     }
 }

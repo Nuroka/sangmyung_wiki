@@ -1,7 +1,12 @@
 package smw.capstone.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.response.BoardDTO;
@@ -10,9 +15,11 @@ import smw.capstone.DTO.request.BoarUpdatedDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.entity.Board;
+import smw.capstone.entity.Comments;
 import smw.capstone.entity.Like;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.BoardRepository;
+import smw.capstone.repository.CommentsRepository;
 import smw.capstone.repository.LikeRepository;
 import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
@@ -21,15 +28,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional(readOnly = true)
 public class BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final LikeRepository likeRepository;
+    private final CommentsRepository commentsRepository;
 
     @Transactional
     public void saveBoard(BoardUploadDTO boardUploadDTO, Member member) {
+        System.out.println("member: " + member);
         if(member == null) {
             throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
         }
@@ -58,8 +68,13 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    public BoardDTO getOneBoard(Long boardId) {
+    public BoardDTO getOneBoard(Long boardId, Long memberId) {
         Board board = getBoardById(boardId);
+        Member member = memberRepository.findById(memberId);
+
+        boolean isLike = likeRepository.findByMemberAndBoard(member, board) != null;
+
+        List<Comments> findComments = commentsRepository.findByBoard(board);
         return BoardDTO.builder()
                 .boardId(board.getId())
                 .memberName(board.getMember().getUsername())
@@ -67,7 +82,9 @@ public class BoardService {
                 .boardTitle(board.getTitle())
                 .content(board.getContent())
                 .createAt(board.getCreateAt())
-                .likes(board.getLikes()).build();
+                .likeCount(likeRepository.findByBoard(board).size())
+                .commentsCount(findComments.size())
+                .isLike(isLike).build();
     }
 
     @Transactional
@@ -125,8 +142,10 @@ public class BoardService {
                             .updateAt(board.getUpdateAt())
                             .memberName(board.getMember().getUsername())
                             .content(board.getContent())
-                            .likes(board.getLikes()).build());
+                            .likeCount(likeRepository.findByBoard(board).size()).build());
         }
         return responseBoardDTO;
     }
+    
+
 }
