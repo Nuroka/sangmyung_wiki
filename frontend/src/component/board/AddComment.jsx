@@ -20,6 +20,10 @@ const AddComment = ({ boardId, onAddComment }) => {
 
     const handleAddComment = async () => {
         try {
+            if (localStorage.getItem("memberId") == null){
+                window.alert("로그인 후 이용해주세요.");
+                return ;
+            }
             await authInstance.post("/comment", comment);
             setComment({ ...comment, content: "" }); // 입력 필드 초기화
             alert("댓글이 추가되었습니다.");

@@ -19,10 +19,11 @@ const BoardDetail = () => {
   });
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const memberId = localStorage.getItem("memberId");
   const getBoard = async () => {
     const resp = await (
       await authInstance.get("/board/one", {
-        params: { idx: searchParams.get("id") },
+        params: { idx: searchParams.get("id"), memberId: memberId },
       })
     ).data;
     setBoard(resp);

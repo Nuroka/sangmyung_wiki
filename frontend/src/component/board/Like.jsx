@@ -9,6 +9,11 @@ const LikeButton = ({ boardId, countLike, isLike }) => {
     const [liked, setLiked] = useState(isLike);
     const [likes, setLikes] = useState(countLike);
     const token = getAuthToken();
+    console.log("islike init:", isLike);
+    const [likeData, setLikeData] = useState({
+        like: isLike,
+        count: countLike
+    });
     console.log("islik변하기전: " + isLike);
 
     // useEffect(() => {
@@ -31,8 +36,17 @@ const LikeButton = ({ boardId, countLike, isLike }) => {
 
     const handleLike = async (e) => {
         e.preventDefault();
-        await authInstance.get(`/board/like`, { params: { idx: boardId } });
-        setLiked(!liked); // Update liked based on the previous state
+        if (localStorage.getItem("memberId") == null) {
+            window.alert("로그인 후 이용해주세요.")
+            return ;
+        }
+
+        const res = await authInstance.get(`/board/like`, { params: { idx: boardId } });
+        console.log(res.data);
+        setLikeData(res.data);
+        setLiked(likeData.like)
+        setLikes(likeData.count)
+        // setLiked(!liked); // Update liked based on the previous state
         console.log("likecd: " + liked);
         setLikes(liked ? likes - 1 : likes + 1); // Update likes based on the previous state
     };

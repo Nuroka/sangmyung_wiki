@@ -29,6 +29,8 @@ export default function Login() {
           const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
+          console.log(res.data);
+          localStorage.setItem("memberId", res.data);
           navigate(state ? state.pathname : "/", { state: state?.state });
         } else {
           throw new Error();

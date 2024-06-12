@@ -7,6 +7,7 @@ export function getAuthToken() {
 export function removeAuthToken() {
   sessionStorage.removeItem("token");
   localStorage.removeItem("token");
+  localStorage.removeItem("memberId");
 }
 
 export function checkAuth() {
