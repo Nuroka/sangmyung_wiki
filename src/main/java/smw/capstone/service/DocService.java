@@ -128,19 +128,24 @@ public List<DocDTO> findAllReverse(String sort) {
                 .id(document.getId()).build();
     }
 
-    public DocsIdDTO getMyDocs(Member member) {
-        DocsIdDTO dosIdDTO = new DocsIdDTO();
+    public List<DocDTO> getMyDocs(Member member) {
+        List<DocDTO> docDto = new ArrayList<>();
         try {
             Member findMember = memberRepository.findById(member.getId()); //임시 데이터, 실행 오류 방지
             List<Documents> documents = docRepository.findByMember(findMember);
             for (Documents document : documents) {
-                dosIdDTO.getDocsIdList().add(document.getId());
+                DocDTO responseDoc = new DocDTO();
+                responseDoc.setDocuments(buildResDocDto(document)); //리스트로 된 id 순차적으로 add
+
+                setFileDto(responseDoc, document.getId()); //docid와 연관된 file리스트
+
+                docDto.add(responseDoc);
             }
         } catch (NullPointerException e) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC);
         }
 
-        return dosIdDTO;
+        return docDto;
     }
 
     @Transactional
