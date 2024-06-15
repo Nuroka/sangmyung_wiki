@@ -29,6 +29,15 @@ export default function DropdownImageTrigger() {
       hidden: !isLogin,
     },
     {
+      key: "mydocs",
+      text: "내문서 확인하기",
+      onClick: () => {
+        navigate("/mydocs");
+        setIsOpen(false);
+      },
+      hidden: !isLogin,
+    },
+    {
       key: "logout",
       text: "로그아웃",
       onClick: () => {
@@ -76,7 +85,7 @@ export default function DropdownImageTrigger() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.3 }}
         >
           {options.map((option, index) => (
             <motion.li
