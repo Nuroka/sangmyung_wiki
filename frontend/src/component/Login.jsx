@@ -51,20 +51,8 @@ export default function Login() {
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2 className={styles.loginTitle}>로그인</h2>
       {globalError && <p>{globalError.message}</p>}
-      <LoginForm
-        label="Username"
-        type="text"
-        id="username"
-        value={formData.username}
-        handleChange={handleChange}
-      />
-      <LoginForm
-        label="Password"
-        type="password"
-        id="password"
-        value={formData.password}
-        handleChange={handleChange}
-      />
+      <LoginForm label="Username" type="text" id="username" value={formData.username} handleChange={handleChange} />
+      <LoginForm label="Password" type="password" id="password" value={formData.password} handleChange={handleChange} />
       <div className={styles.loginD}>
         <input
           className={`${styles.rememberMe}`}
@@ -77,7 +65,7 @@ export default function Login() {
           자동 로그인
         </label>
         <span> </span>
-        <NavLink className={`${styles.link} ${styles.find}`} to="/findID">
+        <NavLink className={`${styles.link} ${styles.find}`} to="/findAccount">
           [아이디/비밀번호 찾기]
         </NavLink>
       </div>
