@@ -19,9 +19,6 @@ export default function CreateAccount() {
 
   return (
     <>
-      <h2 className={styles.loginTitle}>
-        <b>계정 만들기</b>
-      </h2>
       {!email && (
         <EmailAuthForm authUrl={authUrls} handleResult={handleEmailAuth}>
           <AllowedEmailMessage />

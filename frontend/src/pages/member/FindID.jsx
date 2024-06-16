@@ -17,10 +17,7 @@ export default function FindID() {
 
   return (
     <>
-      <h2>계정 찾기</h2>
-      {!username && (
-        <EmailAuthForm authUrl={authUrls} handleResult={handleEmailAuth} />
-      )}
+      {!username && <EmailAuthForm authUrl={authUrls} handleResult={handleEmailAuth} />}
       {username && <FindIdResult username={username} />}
     </>
   );

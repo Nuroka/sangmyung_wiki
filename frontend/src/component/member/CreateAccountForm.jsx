@@ -39,7 +39,7 @@ export default function CreateAccountId({ email }) {
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("/created", {
+          navigate("signin/created", {
             state: { username: formData.username },
             replace: true,
           });
