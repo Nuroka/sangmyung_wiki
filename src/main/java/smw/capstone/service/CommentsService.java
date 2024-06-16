@@ -52,6 +52,7 @@ public class CommentsService {
     ResponseCommentsDTO setResponseCommentsDTO(Comments comment) {
         return ResponseCommentsDTO.builder()
                 .memberName(comment.getMember().getUsername())
+                .memberId(comment.getMember().getId())
                 .commentId(comment.getId())
                 .content(comment.getContent())
                 .createAt(comment.getCreateAt())

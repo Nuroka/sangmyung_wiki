@@ -82,6 +82,7 @@ public class BoardService {
                 .boardTitle(board.getTitle())
                 .content(board.getContent())
                 .createAt(board.getCreateAt())
+                .memberId(board.getMember().getId())
                 .likeCount(likeRepository.findByBoard(board).size())
                 .commentsCount(findComments.size())
                 .isLike(isLike).build();

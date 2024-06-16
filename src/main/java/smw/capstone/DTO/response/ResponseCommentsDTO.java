@@ -19,6 +19,7 @@ public class ResponseCommentsDTO {
 
     private Long commentId;
     private String memberName;
+    private Long memberId;
     private String content;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;

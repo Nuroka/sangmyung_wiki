@@ -109,7 +109,7 @@ public class BoardController {
         }
 
         //isLike가 true이면 사용자가 하트는 취소하는 경우 -> 클라이언트에게 false로 반환
-        LikeDTO likeDTO = new LikeDTO(!likeService.isMemberLike(boardId, member), likeService.findLikesCount(boardId));
+        LikeDTO likeDTO = new LikeDTO(likeService.isMemberLike(boardId, member), likeService.findLikesCount(boardId));
         return ResponseEntity.ok().body(likeDTO);
     }
 }
