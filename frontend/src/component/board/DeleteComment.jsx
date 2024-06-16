@@ -3,7 +3,8 @@ import { authInstance } from "../../util/api";
 import commentStyles from "./Comment.module.css";
 import boardStyles from "./Board.module.css";
 
-const DeleteComment = ({ boardId, commentId, onDelete }) => {
+const DeleteComment = ({ boardId, commentId, onDelete, memberId }) => {
+    const loginMemberId = localStorage.getItem("memberId");
   const handleDeleteComment = async () => {
     try {
         const response = await authInstance.delete(`/comment/delete?idx=${commentId}`);
@@ -13,10 +14,15 @@ const DeleteComment = ({ boardId, commentId, onDelete }) => {
         console.error("실패", error);
     }
   };
-
-  return (
-    <button className={`${commentStyles.deleteBtn}`} onClick={handleDeleteComment}>삭제</button>
-  );
+    // loginMemberId와 memberId가 일치할 때만 삭제 버튼을 보여줍니다.
+    return (
+        loginMemberId == memberId && (
+            <button className={commentStyles.deleteBtn} onClick={handleDeleteComment}>
+                삭제
+            </button>
+        )
+    );
 };
+
 
 export default DeleteComment;

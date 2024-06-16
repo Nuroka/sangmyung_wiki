@@ -146,6 +146,7 @@ path {
     border-radius: 10px;
     border: none;
     /*display: inline-block;*/
+    cursor: pointer;
 }
 
 .addCommentInput2 {

@@ -25,9 +25,10 @@ const AddComment = ({ boardId, onAddComment }) => {
                 return ;
             }
             await authInstance.post("/comment", comment);
-            setComment({ ...comment, content: "" }); // 입력 필드 초기화
             alert("댓글이 추가되었습니다.");
-            onAddComment(); // 부모 컴포넌트로 새 댓글 추가 알림
+            onAddComment(comment); // 부모 컴포넌트로 새 댓글 추가 알림
+            setComment({ ...comment, content: "" }); // 입력 필드 초기화
+
         } catch (error) {
             console.error("Error adding comment:", error);
             alert("댓글 추가 중 오류가 발생했습니다.");

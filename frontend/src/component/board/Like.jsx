@@ -5,34 +5,19 @@ import { getAuthToken } from "../../util/auth";
 // import { Stomp } from '@stomp/stompjs';
 import { authInstance } from "../../util/api";
 
-const LikeButton = ({ boardId, countLike, isLike }) => {
+const LikeButton = ({ boardId, countLike, isLike, onAddLike }) => {
     const [liked, setLiked] = useState(isLike);
     const [likes, setLikes] = useState(countLike);
     const token = getAuthToken();
     console.log("islike init:", isLike);
     const [likeData, setLikeData] = useState({
-        like: isLike,
+        like: isLike, //사용자가 좋아요한 게시물이면 true, 아니면 false
         count: countLike
     });
-    console.log("islik변하기전: " + isLike);
-
-    // useEffect(() => {
-    //     const socket = new SockJS('http://localhost:9090/board/like');
-    //     const stompClient = Stomp.over(socket);
-    //     const token = authInstance;
-    //     const handleLikeMessage = (response) => {
-    //         const newLikes = JSON.parse(response.body);
-    //         setLikes(newLikes);
-    //     };
-    //
-    //     stompClient.connect({ Authorization: `Bearer ${token}` }, () => {
-    //         stompClient.subscribe('/topic/likes', handleLikeMessage);
-    //     });
-    //
-    //     return () => {
-    //         stompClient.disconnect();
-    //     };
-    // }, [token]); // token만을 의존성 배열에 남겨두고 liked는 제거
+    useEffect(() => {
+        setLiked(isLike);
+        setLikes(countLike);
+    }, [isLike, countLike])
 
     const handleLike = async (e) => {
         e.preventDefault();
@@ -42,13 +27,15 @@ const LikeButton = ({ boardId, countLike, isLike }) => {
         }
 
         const res = await authInstance.get(`/board/like`, { params: { idx: boardId } });
-        console.log(res.data);
-        setLikeData(res.data);
-        setLiked(likeData.like)
-        setLikes(likeData.count)
-        // setLiked(!liked); // Update liked based on the previous state
-        console.log("likecd: " + liked);
-        setLikes(liked ? likes - 1 : likes + 1); // Update likes based on the previous state
+        const updatedLikeData = res.data;
+        // 좋아요 상태와 개수 업데이트
+        setLikeData(updatedLikeData);
+        setLiked(updatedLikeData.like); //true이면 사용자가 좋아요를 눌러서 색이 빨간색으로 변하고 1증가
+        console.log("서버에서 가져온 liked: ", liked)
+
+        // 좋아요 개수 업데이트
+        setLikes(prevLikes => updatedLikeData.like ? prevLikes + 1 : prevLikes - 1);// Update likes based on the previous state
+        onAddLike();
     };
 
 

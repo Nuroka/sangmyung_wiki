@@ -10,6 +10,7 @@ const BoardDetail = () => {
     board_id: "",
     board_title: "",
     member_name: "ex",
+    member_id:"1",
     update_at: "00-00-00",
     create_at: "00-00-00",
     content: "",
@@ -45,6 +46,7 @@ const BoardDetail = () => {
           id={board.board_id}
           title={board.board_title}
           member_name={board.member_name}
+          member_id={board.member_id}
           update_at={board.update_at}
           create_at={board.create_at}
           contents={board.content}

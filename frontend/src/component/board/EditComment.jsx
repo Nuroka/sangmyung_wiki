@@ -4,9 +4,10 @@ import boardStyles from "./Board.module.css";
 import commentStyles from "./Comment.module.css"
 import TextareaAutosize from 'react-textarea-autosize';
 
-const EditComment = ({ commentId, initialContent, boardId}) => {
+const EditComment = ({ commentId, initialContent, boardId, memberId}) => {
   const [content, setContent] = useState(initialContent);
   const [click, setClick] = useState(false);
+    const loginMemberId = localStorage.getItem("memberId");
 
   const handleEditComment = async () => {
     try {
@@ -18,6 +19,10 @@ const EditComment = ({ commentId, initialContent, boardId}) => {
       window.alert("댓글 수정이 완료되었습니다");
     } catch (error) {
       console.error("실패", error);
+        console.log(error.response.status);
+      if(error.response.status == 400) {
+          window.alert("댓글을 삭제할 권한이 없습니다.")
+      }
     }
   };
 
@@ -32,19 +37,14 @@ const EditComment = ({ commentId, initialContent, boardId}) => {
             readOnly={!click}
             minRows={1}
         />
-      {/*<textarea*/}
-      {/*    className={`${boardStyles.addCommentInput} ${commentStyles.updateComment}`}*/}
-      {/*    value={content}*/}
-      {/*    onChange={(e) => setContent(e.target.value)}*/}
-      {/*    placeholder="수정"*/}
-      {/*    readOnly={!click} // click 상태에 따라 readOnly 속성을 토글*/}
-      {/*/>*/}
-        <button
+          {loginMemberId == memberId && (
+              <button
             className={`${commentStyles.updateCommentBtn} ${commentStyles.transparentButton}`}
             onClick={() => setClick(true)} // 클릭 시 수정 가능 상태로 변경
         >
           수정
         </button>
+          )}
         <button
             className={`${commentStyles.updateCommentBtn} ${commentStyles.completeBtn}`}
             onClick={handleEditComment}

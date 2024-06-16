@@ -79,10 +79,15 @@
     width: 40vw;
     border-radius: 0;
     height: 40px;
-    background-color: #e5ecf4;
+    /*background-color: #e5ecf4;*/
 }
+
+
 
 textarea {
     resize: none; /* Disable resizing */
 }
 
+textarea[readonly] {
+    cursor: default;
+}
