@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as DocIcon } from "../../img/doc.svg";
 
 export default function RecentEditedDocs({ log }) {
   const navigate = useNavigate();
@@ -11,13 +12,13 @@ export default function RecentEditedDocs({ log }) {
 
   return (
     <>
-      <td onClick={handleClick}>{log.documents.title}</td>
-      <td>{log.member_username}</td>
-      <td>
-        {log.documents.create_at}
-        <br />
-        {log.documents.update_at}
+      <td onClick={handleClick}>
+        {log.documents.title}
+        &nbsp;
+        <DocIcon />
       </td>
+      <td>{log.member_username}</td>
+      <td>{log.documents.update_at}</td>
       <br />
     </>
   );

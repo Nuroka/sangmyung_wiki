@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { defaultInstance } from "../../util/api";
-import styles from "../docs/Docs.module.css";
+import styles from "../docs/RecentEditedLog.module.css";
 
 const DocsLog = () => {
   let url = "/docs/log";
 
   const initialDocsLogData = [
-    { id: 1, date: "2024-02-22", time: "19:28:14", changes: "r003", editor: "User3" },
-    { id: 2, date: "2024-02-21", time: "14:25:14", changes: "r002", editor: "User2" },
-    { id: 3, date: "2024-02-19", time: "12:25:13", changes: "r001", editor: "User1" },
+    {
+      id: 1,
+      date: "2024-02-22",
+      time: "19:28:14",
+      changes: "r003",
+      editor: "User3",
+    },
+    {
+      id: 2,
+      date: "2024-02-21",
+      time: "14:25:14",
+      changes: "r002",
+      editor: "User2",
+    },
+    {
+      id: 3,
+      date: "2024-02-19",
+      time: "12:25:13",
+      changes: "r001",
+      editor: "User1",
+    },
   ];
 
   const [docsLogData, setDocsLogData] = useState(initialDocsLogData);
@@ -59,8 +77,9 @@ const DocsLog = () => {
       <div>
         {initialDocsLogData.map((log, index) => (
           <p key={index}>
-            &bull; {log.date} {log.time} (<span onClick={() => goToDocument(log.id)}>보기</span> | ) {log.changes}{" "}
-            {log.editor}
+            &bull; {log.date} {log.time} (
+            <span onClick={() => goToDocument(log.id)}>보기</span> | ){" "}
+            {log.changes} {log.editor}
           </p>
         ))}
       </div>

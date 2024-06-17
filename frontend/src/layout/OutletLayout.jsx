@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import styles from "../component/Login.module.css";
+import styles from "./OutletLayout.module.css";
 
 export default function OutletLayout({ title }) {
   return (
-    <>
-      <h3 className={styles.loginTitle}>{title}</h3>
+    <div>
+      <h2 className={styles.title}>{title}</h2>
       <Outlet />
-    </>
+    </div>
   );
 }
