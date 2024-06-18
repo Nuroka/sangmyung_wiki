@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 import MyDocsList from "../../component/docs/MyDocsList";
 import { authInstance } from "../../util/api";
-// import Pagination from "../../component/Pagination";
+import outlet from "../../layout/OutletLayout.module.css";
+import PaginateBox from "../../component/PaginateBox";
 
 /**
  * todo
@@ -54,7 +55,7 @@ export default function MyDocs() {
 
   return (
     <>
-      <h2>내 문서</h2>
+      <h2 className={outlet.title}>내 문서</h2>
       <br />
       {status && (
         <p>
@@ -62,7 +63,7 @@ export default function MyDocs() {
           <br />
         </p>
       )}
-      {/* <Pagination limit={}/> */}
+      {/* <PaginateBox limit={}/> */}
       <MyDocsList docs={data} handleDelete={handleDelete} />
       {!data && <p>로딩 중....</p>}
       {error && <p>{error.message}</p>}

@@ -1,0 +1,34 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  height: 90px;
+  margin: 8px;
+  text-align: left;
+  background-color: #004896;
+  color: white;
+  font-size: 36px;
+  font-weight: 100;
+}
+
+.title {
+  padding-left: 20px;
+  width: 70%;
+}
+
+.create {
+  width: 16%;
+  text-align: center;
+}
+
+.thFirst {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.thLast {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}

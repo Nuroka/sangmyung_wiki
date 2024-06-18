@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import styles from "./MyDoc.module.css";
+
 export default function MyDoc({ doc, handleDelete }) {
   const navigate = useNavigate();
 
@@ -8,19 +10,22 @@ export default function MyDoc({ doc, handleDelete }) {
   };
 
   return (
-    <tr>
+    <tr className={styles.tr}>
       <td
         onClick={() => {
           navigate("/doc", {
             state: { id: doc.id },
           });
         }}
+        className={styles.title}
       >
-        {doc.title}
+        &bull; {doc.title}
       </td>
-      <td>{doc.create_at}</td>
-      <td>
-        <button onClick={handleClick}>삭제하기</button>
+      <td className={styles.create}>{doc.create_at}</td>
+      <td className={styles.delete}>
+        <button onClick={handleClick} className={styles.deleteBtn}>
+          삭제
+        </button>
       </td>
     </tr>
   );
