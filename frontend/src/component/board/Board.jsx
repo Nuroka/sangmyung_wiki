@@ -12,7 +12,7 @@ import BoardCommentList from "./BoardCommentList";
 import AddComment from "./AddComment";
 
 
-const Board = ({ id, title, member_name, update_at, create_at, contents, likes, memberId }) => {
+const Board = ({ id, title, member_name, update_at, create_at, contents, likes, memberId, likeState }) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showUpdateForm, setShowUpdateForm] = useState(false); // 수정 폼을 보여줄지 여부를 관리하는 상태 추가
@@ -75,8 +75,7 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes, 
 
                 <div>
                   <span>댓글</span> {/*댓글 수 백엔드 측에서 받아서 보여주기 */}
-                  <LikeBtn/>
-                  <span className={boardStyles.count}>{likes}</span>
+                  <LikeBtn boardId={id} likeCount={likes} likeState={likeState}/>
                   {/*<AddComment boardId={id} />*/}
                   <div className={boardStyles.commentContainer}>
                     {/* 댓글 내용 */}

@@ -13,8 +13,9 @@ const BoardDetail = () => {
     update_at: "00-00-00",
     create_at: "00-00-00",
     content: "",
-    likes: "",
-    member_id: 1
+    member_id: 1,
+    like: "",
+    like_count:0
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const [storedMemberId, setStoredMemberId] = useState(null);
@@ -63,7 +64,8 @@ const BoardDetail = () => {
           update_at={board.update_at}
           create_at={board.create_at}
           contents={board.content}
-          likes={board.likes}
+          likes={board.like_count}
+          likeState={board.like}
           memberId={board.member_id}
         />
       )}
