@@ -5,10 +5,6 @@ import styles from "./MyDoc.module.css";
 export default function MyDoc({ doc, handleDelete }) {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    handleDelete(doc.id);
-  };
-
   return (
     <tr className={styles.tr}>
       <td
@@ -23,7 +19,10 @@ export default function MyDoc({ doc, handleDelete }) {
       </td>
       <td className={styles.create}>{doc.create_at}</td>
       <td className={styles.delete}>
-        <button onClick={handleClick} className={styles.deleteBtn}>
+        <button
+          onClick={() => handleDelete(doc.id)}
+          className={styles.deleteBtn}
+        >
           삭제
         </button>
       </td>
