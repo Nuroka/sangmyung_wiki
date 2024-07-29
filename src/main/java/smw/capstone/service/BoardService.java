@@ -142,6 +142,7 @@ public class BoardService {
                             .createAt(board.getCreateAt())
                             .updateAt(board.getUpdateAt())
                             .memberName(board.getMember().getUsername())
+                            .memberId(board.getMember().getId())
                             .content(board.getContent())
                             .likeCount(likeRepository.findByBoard(board).size()).build());
         }
