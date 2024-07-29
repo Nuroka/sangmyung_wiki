@@ -29,7 +29,7 @@ export default function Login() {
           const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
-          localStorage.setItem("id", res.data)
+          localStorage.setItem("id", res.data);
           navigate(state ? state.pathname : "/", { state: state?.state });
         } else {
           throw new Error();
@@ -52,8 +52,20 @@ export default function Login() {
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <h2 className={styles.loginTitle}>로그인</h2>
       {globalError && <p>{globalError.message}</p>}
-      <LoginForm label="Username" type="text" id="username" value={formData.username} handleChange={handleChange} />
-      <LoginForm label="Password" type="password" id="password" value={formData.password} handleChange={handleChange} />
+      <LoginForm
+        label="Username"
+        type="text"
+        id="username"
+        value={formData.username}
+        handleChange={handleChange}
+      />
+      <LoginForm
+        label="Password"
+        type="password"
+        id="password"
+        value={formData.password}
+        handleChange={handleChange}
+      />
       <div className={styles.loginD}>
         <input
           className={`${styles.rememberMe}`}
@@ -71,12 +83,15 @@ export default function Login() {
         </NavLink>
       </div>
       <div className={styles.loginD}>
-        <button>
+        <button className={styles.button}>
           <NavLink className={`${styles.loginBtn} ${styles.link}`} to="/signin">
             계정 생성
           </NavLink>
         </button>
-        <button className={styles.link} onClick={handleLogin}>
+        <button
+          className={`${styles.loginBtn} ${styles.link} ${styles.button}`}
+          onClick={handleLogin}
+        >
           로그인
         </button>
       </div>
