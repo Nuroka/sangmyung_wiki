@@ -9,16 +9,31 @@ const CommentList = ({ boardId }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [storedMemberId, setStoredMemberId] = useSearchParams();
 
   useEffect(() => {
-    fetchComments();
+    const id = searchParams.get("id");
+    const memberId = searchParams.get("member_id");
+
+    setSearchParams(id);
+    setStoredMemberId(memberId);
+
+    if (id && memberId) {
+      fetchComments(id, memberId);
+    } else {
+      console.error("검색 매개변수가 없습니다");
+      setLoading(false);
+    }
   }, []);
 
-  const fetchComments = async () => {
+  const fetchComments = async (id, memberId) => {
     try {
-      const response = await (await authInstance.get(`/comments/board/one`,{params:{ idx: searchParams.get("id")},}));
+    console.log("id와 memberid:", id, memberId)
+      const response = await (await authInstance.get(`/comment/board`,{params:{ idx: id},}));
       setComments(response.data);
       setLoading(false);
+
+
     } catch (error) {
       console.error("실패", error);
     }
@@ -35,7 +50,7 @@ const CommentList = ({ boardId }) => {
         comments.map((comment) => (
           <div key={comment.comment_id}>
             <p>{comment.content}</p>
-            <EditComment commentId={comment.comment_id} initialContent={comment.content} />
+            <EditComment commentId={comment.comment_id} initialContent={comment.content} boardId={searchParams} />
             <DeleteComment commentId={comment.comment_id} />
           </div>
         ))

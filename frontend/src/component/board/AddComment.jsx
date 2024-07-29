@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { authInstance } from "../../util/api";
 import boardStyles from "./Board.module.css";
 
-const AddComment = ({ boardId }) => {
+const AddComment = ({ boardId, storedMemberId }) => {
   const [comment, setComment] = useState({
     board_id: boardId,
     content: ""
@@ -20,7 +20,9 @@ const AddComment = ({ boardId }) => {
 
   const handleAddComment = async () => {
         await authInstance.post("/comment",comment).then((res)=> {
-            alert("성공");
+            alert("댓글이 성공적으로 작성되었습니다.");
+            // 이전 페이지로 돌아가기
+            window.location.href = `/board/one?id=${boardId}&member_id=${storedMemberId}`;
         })
   };
 

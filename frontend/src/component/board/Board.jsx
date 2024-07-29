@@ -84,7 +84,7 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes, 
                   <hr/>
                 </div>
                 {/*<CommentList boardId={id} />*/}
-                <BoardCommentList boardId={id} memberId={storeMemberId}/>
+                <BoardCommentList boardId={id} storedMemberId={storeMemberId}/>
                 {/*<hr/>*/}
 
               </div>

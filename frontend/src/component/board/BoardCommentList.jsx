@@ -9,11 +9,12 @@ import styles from "../Login.module.css";
 import getMemberInfo from "./GetMemberInfo";
 
 
-const BoardCommentList = ({ boardId, memberId }) => {
+const BoardCommentList = ({ boardId, storedMemberId }) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [memberInfo, setMemberInfo] = useState(null);
+    console.log("boardCommentList에서 boarId와 storedMemberId:", boardId, storedMemberId);
 
 
     const [boardComments, setBoardComments] = useState([
@@ -78,7 +79,7 @@ const BoardCommentList = ({ boardId, memberId }) => {
     return (
         <div >
             {/*<p>댓글 작성</p>*/}
-            <AddComment boardId={boardId} />
+            <AddComment boardId={boardId} storedMemberId={storedMemberId} />
             {/*loading comments 는 없어도 될거같아요*/}
             <hr/>
             {boardComments ? (
@@ -97,10 +98,10 @@ const BoardCommentList = ({ boardId, memberId }) => {
                                         <strong><p>{comment.member_name}</p></strong>
                                         <p>{comment.content}</p>
 
-                                        {memberId == comment.memberId && (
+                                        {storedMemberId == comment.member_id && (
                                             <>
-                                                <EditComment commentId={comment.comment_id} initialContent={comment.content} />
-                                                <DeleteComment commentId={comment.comment_id} />
+                                                <EditComment commentId={comment.comment_id} initialContent={comment.content} boardId={boardId} storedMemberId={storedMemberId} />
+                                                <DeleteComment commentId={comment.comment_id} boardId={boardId} storedMemberId={storedMemberId}/>
                                             </>
                                         )}
 
