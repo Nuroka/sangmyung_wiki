@@ -1,7 +1,11 @@
+import { useState } from "react";
 import parse from "html-react-parser";
 import { useNavigate } from "react-router-dom";
+
 import styles from "./Doc.module.css";
 import { checkAuth } from "../../util/auth";
+import Modal from "../Modal";
+import LoginConfirmation from "../LoginConfirmation";
 
 import edit from "../../img/edit.png";
 import lock from "../../img/lock.png";
@@ -9,19 +13,28 @@ import log from "../../img/log.png";
 import create from "../../img/create.png";
 
 export default function Doc({ doc }) {
-  const navigate = useNavigate();
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const isLogin = checkAuth();
+
+  const navigate = useNavigate();
 
   return (
     <div>
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <LoginConfirmation url="/docs/edit" state={doc} />
+      </Modal>
+
       <div className={styles.container}>
         <h1 className={styles.title}>{doc.title}</h1>
         <div className={styles.buttons}>
           <button
             className={styles.edit}
             onClick={() => {
-              navigate("/docs/edit", { state: doc });
+              if (!isLogin) {
+                setModalIsOpen(true);
+              } else {
+                navigate("/docs/edit", { state: doc });
+              }
             }}
           >
             <span>
@@ -44,7 +57,11 @@ export default function Doc({ doc }) {
           <button
             className={styles.create}
             onClick={() => {
-              navigate("/docs/create");
+              if (!isLogin) {
+                setModalIsOpen(true);
+              } else {
+                navigate("/docs/create");
+              }
             }}
           >
             <span>
