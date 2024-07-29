@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +37,13 @@ public class Comments {
     private LocalDateTime createAt;
 
     private LocalDateTime updateAt;
+
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID")
+    private Comments parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<Comments> child = new ArrayList<>();
 
     public void updateContent(String content) {
         this.content = content;
