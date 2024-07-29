@@ -21,22 +21,22 @@ public class main {
         return "index";
     }
 
-    @GetMapping("/recent")
-    public ResponseEntity<List<String>> testRecent() {
-        log.info("recent function called");
-        List<String> testContents = new ArrayList<>();
-        testContents.add("recent Content1");
-        testContents.add("recent Content2");
-        return new ResponseEntity<>(testContents, HttpStatus.OK);
-    }
-
-    @GetMapping("/popular")
-    public ResponseEntity<List<String>> testPopular() {
-        log.info("popular function called");
-        List<String> testContents = new ArrayList<>();
-        testContents.add("popular Content1");
-        testContents.add("popular Content2");
-        return new ResponseEntity<>(testContents, HttpStatus.OK);
-    }
+//    @GetMapping("/recent")
+//    public ResponseEntity<List<String>> testRecent() {
+//        log.info("recent function called");
+//        List<String> testContents = new ArrayList<>();
+//        testContents.add("recent Content1");
+//        testContents.add("recent Content2");
+//        return new ResponseEntity<>(testContents, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/popular")
+//    public ResponseEntity<List<String>> testPopular() {
+//        log.info("popular function called");
+//        List<String> testContents = new ArrayList<>();
+//        testContents.add("popular Content1");
+//        testContents.add("popular Content2");
+//        return new ResponseEntity<>(testContents, HttpStatus.OK);
+//    }
 
 }

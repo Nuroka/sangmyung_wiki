@@ -29,6 +29,7 @@ public class BoardController {
      */
     @PostMapping
     public ResponseEntity<?> saveBoard(@Valid @RequestBody BoardUploadDTO boardUploadDTO, @CurrentUser Member member) {
+
         boardService.saveBoard(boardUploadDTO, member);
         return ResponseEntity.ok().body("커뮤니티에 글이 등록되었습니다.");
     }
@@ -54,7 +55,7 @@ public class BoardController {
      * 게시물 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<BoardDTO> getOneBoard(@RequestParam("idx") Long id, Long memberId) {
+    public ResponseEntity<BoardDTO> getOneBoard(@RequestParam("idx") Long id, @RequestParam("member_id") Long memberId) {
         return ResponseEntity.ok().body(boardService.getOneBoard(id, memberId));
     }
 

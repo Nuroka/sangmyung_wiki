@@ -25,7 +25,7 @@ public class CommentController {
      * 댓글 가져오기
      */
     @GetMapping("/board")
-    public ResponseEntity<List<ResponseCommentsDTO>> getAllComment(Long idx) {
+    public ResponseEntity<List<ResponseCommentsDTO>> getAllComment(@RequestParam("idx") Long idx) {
         return ResponseEntity.ok().body(commentsService.getAllComment(idx));
     }
 
@@ -34,7 +34,7 @@ public class CommentController {
      * 댓글 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<ResponseCommentsDTO> getComment(Long idx) {
+    public ResponseEntity<ResponseCommentsDTO> getComment(@RequestParam("idx") Long idx) {
         return ResponseEntity.ok().body(commentsService.getCommentById(idx));
     }
 

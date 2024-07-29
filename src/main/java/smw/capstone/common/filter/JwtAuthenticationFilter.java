@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String[] urls = {"/user", "/recent", "/popular","/signin/email", "/signin/email/1", "/signin/email/2",
             "/signin/ID", "/find/ID", "/find/ID/1", "/find/ID/2","/docs/search", "/docs/all", "/docs/recommend", "/doc", "/comment/one", "/comment/board", "/board/one", "/board/popular",
-            "/docs/recent", "/board/all"
+            "/docs/recent", "/board/all", "/docs/recent/reverse"
     };
     public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
