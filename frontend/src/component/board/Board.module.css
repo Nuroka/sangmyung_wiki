@@ -16,19 +16,12 @@
 .bodyFont {
     font-weight: 400;
     font-family: "SUIT-Regular";
-    font-size: 1rem;
-    width: 60vw;
+    font-size: 2vmin;
 }
-
-.bodyFont div:nth-of-type(1) {
-    position: relative;
-}
-
 
 .titleInput {
     height: 45px;
     width: 50vw;
-
 }
 .font {
     font-weight: 400;
@@ -38,22 +31,18 @@
     margin-bottom: 0;
     font-weight: 400;
     font-size: 1.7rem;
-}
 
-.bodyFont span:nth-of-type(1){
-    margin-bottom: 10px;
 }
 
 .boardContent {
     resize: none;
     border-radius: 10px;
     width:55vw;
-
+    margin-top: 25px;
     font-family: "SUIT-Regular";
     font-weight: 400;
     font-size: 2vmin;
-    line-height: 4vmin;
-    padding: 10px 30px 10px 30px;
+    padding: 10px 30px 0 30px;
 }
 
 .boardBtn {
@@ -65,44 +54,14 @@
 hr {
     margin-left: 0;
     width: 60vw;
-    border-top: 1px solid #FFFFFF;
 }
-
-hr:last-child {
-    border-top: 1px solid;
-}
-
 
 .createAt {
-    position: absolute;
-    right: 0;
-    margin-right: 20px;
+    margin-left: 48vw;
 }
 
 .likeBtn {
-    /*margin-left: 83px;*/
-    position: relative;
-    padding: 0;
-    margin-top: 10px;
-    width: 500px;
-}
-
-.likeBtn span {
-    margin-left: 30px;
-    position: absolute;
-    width: auto;
-    margin-top: 20px
-}
-
-.commentAndLike {
-    position: relative;
-    width: 60vw;
-}
-
-.commentAndLike div:nth-of-type(1){
-    position: absolute;
-    margin-top: 20px;
-    right: 0;
+    margin-left: 83px;
 }
 path {
 
@@ -140,54 +99,21 @@ path {
 }
 
 .addCommentInput {
-    /*margin-top: 50px;*/
-    /*margin-bottom: 20px;*/
+    margin: 0;
+    width: 60vw;
     resize: none;
     border-radius: 10px;
     border: none;
-    /*display: inline-block;*/
-}
-
-.addCommentInput2 {
-    width: 50vw;
 }
 
 .addCommentBtn {
+    left: 50vw;
     margin-top:5px;
-    margin-left: 10px;
-    width: auto;
-    height: 50px;
-    right: 0;
 }
 
 .boardEditBtn {
-    /*margin-left: 20vw;*/
-    /*margin-top: 20px;*/
-    position: relative;
-    height: 40px;
-    width: 60vw;
+    margin-left: 20vw;
 }
-
-.boardEditBtn button {
-    position: absolute;
-    right: 0;
-    width: 4em;
-    height: 2em;
-    margin-top: 20px;
-}
-
-.boardEditBtn button:nth-of-type(3){
-    /*margin-right: 20px;*/
-    margin-right: 0;
-}
-.boardEditBtn button:nth-of-type(2){
-    margin-right: 85px;
-}
-
-.boardEditBtn button:nth-of-type(1){
-    margin-right: 170px;
-}
-
 
 .boardList {
     width: 60vw;
@@ -232,25 +158,25 @@ ul {
     display: inline-block;
 }
 
-/* readOnly 상태일 때의 스타일 */
-textarea[readonly] {
-    opacity: 0.5; /* 투명도 조절 */
-    background-color: #f0f0f0; /* 배경색 변경 */
-    cursor: not-allowed; /* 마우스 커서 변경 */
+.updateComment {
+    font-size: 2vmin;
+    padding: 10px 30px 0 30px;
+    font-family: "SUIT-Regular";
+    width: 55vw;
 }
 
-/* readOnly가 아닌 상태일 때의 스타일 */
-textarea:not([readonly]) {
-    opacity: 1; /* 투명도 조절 */
-    background-color: #ffffff; /* 기본 배경색 */
-    cursor: text; /* 기본 텍스트 커서 */
+.updateCommentBtn {
+    margin: 0;
+    font-size: 1rem;
+    width: 4em;
+    height: 2em;
+    margin-left: 30vw;
 }
 
-.hrStyles {
-    border: none; /* Remove default border */
-    border-top: 1px dashed #ccc; /* Add dashed border on top */
-    margin: 20px 0 0 0; /* Adjust margin as needed */
+.deleteBtn {
+    margin-left: 100px;
 }
+
 
 
 

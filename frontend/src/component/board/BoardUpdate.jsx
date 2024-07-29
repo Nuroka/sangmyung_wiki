@@ -4,7 +4,7 @@ import styles from "../Login.module.css";
 import { authInstance } from "../../util/api";
 import boardStyles from "./Board.module.css";
 
-const BoardUpdate = ({ boardId, initialContent }) => {
+const BoardUpdate = ({ boardId, initialContent, memberId }) => {
   const [content, setContent] = useState(initialContent);
   const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 가져오기
 
@@ -27,7 +27,7 @@ const BoardUpdate = ({ boardId, initialContent }) => {
         // navigate(`/board/one?id=${boardId}`); // navigate 함수 사용
         window.alert("수정이 완료되었습니다");
         // 이전 페이지로 돌아가기
-        window.location.href = `/board/one?id=${boardId}`;
+        window.location.href = `/board/one?id=${boardId}&member_id=${memberId}`;
       } else {
 
         console.error('게시글 수정 실패');
@@ -35,9 +35,6 @@ const BoardUpdate = ({ boardId, initialContent }) => {
     } catch (error) {
       console.error('server response error', error);
     }
-  };
-  const backToDetail = () => {
-      navigate(`/board/one?id=${boardId}`);
   };
 
   useEffect(() => {
@@ -61,9 +58,9 @@ const BoardUpdate = ({ boardId, initialContent }) => {
             수정
           </button>
           {/* 취소 버튼은 필요하지 않은 경우 주석 처리 */}
-           <button className={styles.link} onClick={backToDetail}>
+          {/* <button className={styles.link} onClick={backToDetail}>
           취소
-        </button>
+        </button> */}
         </div>
       </div>
   );

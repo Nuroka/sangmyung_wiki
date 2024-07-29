@@ -13,28 +13,44 @@ const BoardDetail = () => {
     update_at: "00-00-00",
     create_at: "00-00-00",
     content: "",
-    like_count: "",
-    like: false,
-    comments_count: 0
+    likes: "",
+    member_id: 1
   });
   const [searchParams, setSearchParams] = useSearchParams();
+  const [storedMemberId, setStoredMemberId] = useState(null);
 
   const getBoard = async () => {
-    const resp = await (
-      await authInstance.get("/board/one", {
-        params: { idx: searchParams.get("id") },
-      })
-    ).data;
-    setBoard(resp);
-    console.log(resp);
-    setLoading(false);
+    if (storedMemberId) {
+      console.log("boardDetail: ", storedMemberId);
+      try {
+        const resp = await authInstance.get("/board/one", {
+          params: {
+            idx: searchParams.get("id"),
+            member_id: storedMemberId,
+          },
+        });
+        setBoard(resp.data);
+        console.log(resp.data);
+      } catch (error) {
+        console.error('Error fetching board details:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
+  useEffect(() => {
+    const memberId = localStorage.getItem("id");
+    setStoredMemberId(memberId);
+  }, []);
 
   useEffect(() => {
     getBoard();
-  }, []);
+  }, [storedMemberId]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       {loading ? (
@@ -47,9 +63,8 @@ const BoardDetail = () => {
           update_at={board.update_at}
           create_at={board.create_at}
           contents={board.content}
-          like_count={board.like_count}
-          is_like={board.like}
-          comments_count={board.comments_count}
+          likes={board.likes}
+          memberId={board.member_id}
         />
       )}
       {/*<CommentList boardId={board.board_id} />*/}

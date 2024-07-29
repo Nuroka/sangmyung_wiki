@@ -1,102 +1,104 @@
 .link {
-  text-decoration-line: none;
-  font-family: "SUIT-Regular";
+    text-decoration-line: none;
+    font-family: "SUIT-Regular";
 }
 
 input {
-  width: 50%;
-  margin-top: 23px;
-  height: 2em;
-  border-radius: 10px;
-  border: none;
-  font-size: 2vmin;
+    width: 50%;
+    margin-top: 23px;
+    height: 2em;
+    border-radius: 10px;
+    border: none;
+    font-size: 2vmin;
 }
 
-input[type="checkbox"] {
-  outline: none;
-  cursor: pointer;
+input[type=checkbox] {
+    outline: none;
+    cursor: pointer;
 }
 .login {
-  width: auto;
-  font-size: 2vmin;
-  margin-left: 16px;
-  margin-top: 20px;
+    width: auto;
+    font-size: 2vmin;
+    margin-left: 16px;
+    margin-top: 20px;
 }
 
 .rememberMe {
-  width: 1em;
-  height: 1em;
-  margin-left: 0;
-  border: none;
-  position: relative;
-  top: -3px;
+    width: 1em;
+    height: 1em;
+    margin-left: 0;
+    border: none;
+    position: relative;
+    top: -3px;
 }
 
-.find {
-  margin-top: 23px;
-  font-size: 2vmin;
-  margin-left: 28%;
-  color: inherit;
+.find{
+    margin-top: 23px;
+    font-size: 2vmin;
+    margin-left: 28%;
+    color: inherit;
 }
 
 .loginD {
-  margin-top: 23px;
-  height: auto;
+    margin-top: 23px;
+    height: auto;
 }
 
 .loginA {
-  text-decoration-line: none;
-  color: inherit;
-  position: relative;
-  top: -5px;
+    text-decoration-line: none;
+    color: inherit;
+    position: relative;
+    top: -5px;
 }
 .loginDiv {
-  margin-left: 36px;
+    margin-left: 36px;
 }
 
 .loginTitle {
-  margin-bottom: 39px;
-  color: #004896;
+    margin-bottom: 39px;
+    color: #004896;
 }
 
 button {
-  position: relative;
-  border: none;
-  border-radius: 10px;
-  background: #004896;
-  color: #ffffff;
-  /* left: 28%; */
-  margin-right: 9px;
-  width: 8em;
-  height: 3em;
-  text-decoration-line: none;
-  font-size: 2vmin;
-  cursor: pointer;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    background: #004896;
+    color: #FFFFFF;
+    left: 28%;
+    margin-right: 9px;
+    width: 8em;
+    height: 3em;
+    text-decoration-line: none;
+    font-size: 2vmin;
+    cursor: pointer;
 }
 .loginBtn {
-  color: #ffffff;
-  font-size: 2vmin;
+    color: #FFFFFF;
+    font-size: 2vmin;
 }
 
 label[for="rememberMe"] {
-  position: relative;
-  top: -5px;
+    position: relative;
+    top: -5px;
 }
 
 .writeReInput {
-  width: 40vw;
-  position: relative;
-  display: block;
-  padding-left: 8.5em;
+    width: 40vw;
+    position: relative;
+    display: block;
+    padding-left: 8.5em;
 }
 .writeReBtn {
-  margin-top: 24px;
-  position: relative;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 63%;
+    margin-top: 24px;
+    position: relative;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 63%;
+
 }
+
 
 /*.commentForm {*/
 /*    position: relative;*/

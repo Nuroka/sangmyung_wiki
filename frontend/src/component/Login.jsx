@@ -29,6 +29,7 @@ export default function Login() {
           const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
+          localStorage.setItem("id", res.data)
           navigate(state ? state.pathname : "/", { state: state?.state });
         } else {
           throw new Error();
