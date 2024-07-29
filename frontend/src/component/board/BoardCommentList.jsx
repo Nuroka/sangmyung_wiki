@@ -14,7 +14,6 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [memberInfo, setMemberInfo] = useState(null);
-    console.log("boardCommentList에서 boarId와 storedMemberId:", boardId, storedMemberId);
 
 
     const [boardComments, setBoardComments] = useState([

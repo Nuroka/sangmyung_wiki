@@ -15,7 +15,8 @@ const BoardDetail = () => {
     content: "",
     member_id: 1,
     like: "",
-    like_count:0
+    like_count:0,
+    comments_count:0
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const [storedMemberId, setStoredMemberId] = useState(null);
@@ -67,6 +68,7 @@ const BoardDetail = () => {
           likes={board.like_count}
           likeState={board.like}
           memberId={board.member_id}
+          commentsCount={board.comments_count}
         />
       )}
       {/*<CommentList boardId={board.board_id} />*/}
