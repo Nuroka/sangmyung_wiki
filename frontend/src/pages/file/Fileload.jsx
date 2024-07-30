@@ -1,8 +1,11 @@
 import React from "react";
 import { authInstance } from "../../util/api";
 import UploadForm from "../../component/file/UploadForm";
+import { useNavigate } from "react-router";
 
 export default function Fileload() {
+  const navigate = useNavigate();
+
   const url = "/file";
 
   const handleSubmit = (formData) => {
@@ -32,6 +35,7 @@ export default function Fileload() {
       .then((res) => {
         if (res.status === 200) {
           alert("등록완료");
+          navigate("/");
         } else {
           throw new Error();
         }

@@ -53,7 +53,11 @@ const router = createBrowserRouter([
               { path: "write", element: <BoardWrite /> },
             ],
           },
-          { path: "file", element: <Fileload /> },
+          {
+            path: "file",
+            element: <OutletLayout title="파일 올리기" />,
+            children: [{ index: true, element: <Fileload /> }],
+          },
           { path: "mypage", element: <MyPage /> },
           { path: "member/update", element: <UpdatePw /> },
           { path: "logout", element: <Logout /> },

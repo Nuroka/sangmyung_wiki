@@ -12,6 +12,7 @@ export default function UploadForm({ onSubmit }) {
       <label htmlFor="file">파일 선택:</label>
       <input type="file" id="file" name="file" accept="image/*" required />
       <br />
+      <br />
       <label htmlFor="fileName">파일 이름 </label>
       <br />
       <input type="text" id="fileName" name="fileName" required />
