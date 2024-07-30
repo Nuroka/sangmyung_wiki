@@ -2,17 +2,13 @@ import { useState } from "react";
 import { defaultInstance } from "../../util/api";
 import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
-import { useNavigate } from "react-router-dom";
-import { isEqualsToOtherValue, isPassword, isUserName } from "../../util/validations";
+import {
+  isEqualsToOtherValue,
+  isPassword,
+  isUserName,
+} from "../../util/validations";
 
-/**
- * todo
- * 아이디 중복 체크
- * 뒤로가기 막기
- */
-export default function CreateAccountId({ email }) {
-  const navigate = useNavigate();
-
+export default function CreateAccountId({ email, handleResult }) {
   const url = "/signin/ID";
 
   const [formData, setFormData] = useState({
@@ -30,7 +26,7 @@ export default function CreateAccountId({ email }) {
   const validUsername = isUserName(formData.username);
   const validPassword = isPassword(formData.password);
   const isSame = isEqualsToOtherValue(formData.password, confirmPassword);
-  const isValid = validUsername && validPassword && isSame && !duplicated;
+  const isValid = validUsername && validPassword && isSame && duplicated;
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -39,10 +35,7 @@ export default function CreateAccountId({ email }) {
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("signin/created", {
-            state: { username: formData.username },
-            replace: true,
-          });
+          handleResult(formData.username);
         } else {
           throw new Error();
         }
@@ -110,9 +103,16 @@ export default function CreateAccountId({ email }) {
         <div>
           <label htmlFor="password">암호</label>
           <br />
-          <input type="password" id="password" value={formData.password} onChange={handleChange} />
+          <input
+            type="password"
+            id="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
         </div>
-        {!validPassword && <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>}
+        {!validPassword && (
+          <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>
+        )}
         <br />
         <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label>
@@ -132,7 +132,9 @@ export default function CreateAccountId({ email }) {
           type="submit"
           disabled={!isValid}
         >
-          <p className={`${styles.link} ${styles.loginBtn}`}>{isValid ? "가입" : "가입 불가"}</p>
+          <p className={`${styles.link} ${styles.loginBtn}`}>
+            {isValid ? "가입" : "가입 불가"}
+          </p>
         </button>
       </form>
     </div>

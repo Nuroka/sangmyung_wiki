@@ -13,12 +13,10 @@ import RecentEdited from "./pages/docs/RecentEdited";
 import FindAccount from "./pages/member/FindAccount";
 import FindID from "./pages/member/FindID";
 import FindPW from "./pages/member/FindPW";
-import FindPWAuth from "./pages/member/FindPWAuth";
 import MyPage from "./pages/member/MyPage";
 import UpdatePw from "./pages/member/UpdatePw";
 import Logout from "./pages/Logout";
 import CreateAccount from "./pages/member/CreateAccount";
-import AccountCreated from "./pages/member/AccountCreated";
 import DocsLog from "./pages/docs/DocsLog";
 import Doc from "./pages/docs/Doc";
 import EditDoc from "./pages/docs/EditDoc";
@@ -34,7 +32,6 @@ import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
 import MyDocs from "./pages/docs/MyDocs";
-import FindPwResult from "./component/member/FindPwResult";
 
 const router = createBrowserRouter([
   {
@@ -72,14 +69,15 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
           { path: "user", element: <Login /> },
-          { path: "findAccount", element: <FindAccount /> }, // 계정 / 비밀번호 찾기 선택
           {
             path: "signin",
             element: <OutletLayout title="계정 만들기" />,
-            children: [
-              { index: true, element: <CreateAccount /> },
-              { path: "created", element: <AccountCreated /> },
-            ],
+            children: [{ index: true, element: <CreateAccount /> }],
+          },
+          {
+            path: "findAccount",
+            element: <OutletLayout title="계정 / 비밀번호 찾기" />,
+            children: [{ index: true, element: <FindAccount /> }],
           },
           {
             path: "findID",
@@ -89,11 +87,7 @@ const router = createBrowserRouter([
           {
             path: "findPW",
             element: <OutletLayout title="비밀번호 찾기" />,
-            children: [
-              { index: true, element: <FindPW /> },
-              { path: "auth", element: <FindPWAuth /> },
-              { path: "result", element: <FindPwResult /> },
-            ],
+            children: [{ index: true, element: <FindPW /> }],
           },
         ],
       },

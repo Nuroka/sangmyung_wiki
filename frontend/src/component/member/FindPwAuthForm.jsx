@@ -26,7 +26,7 @@ export default function FindPwAuthForm({ data, handleResult }) {
         setIsFetching(false);
         if (res.status === 200) {
           alert("인증 성공");
-          handleResult(res);
+          handleResult(true);
         } else {
           throw new Error();
         }
@@ -52,7 +52,12 @@ export default function FindPwAuthForm({ data, handleResult }) {
       <form id="form" onSubmit={handleSubmitCode}>
         <label htmlFor="code">인증번호</label>
         <br />
-        <input type="text" name="code" onChange={handleChange} disabled={isFetching} />
+        <input
+          type="text"
+          name="code"
+          onChange={handleChange}
+          disabled={isFetching}
+        />
         <button type="submit" disabled={isFetching}>
           {isFetching ? "인증 중..." : "인증"}
         </button>
