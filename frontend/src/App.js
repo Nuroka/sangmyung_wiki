@@ -32,6 +32,7 @@ import AuthRoute from "./util/AuthRoute";
 import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
 import MyDocs from "./pages/docs/MyDocs";
+import RandomDoc from "./pages/docs/RandomDoc";
 
 const router = createBrowserRouter([
   {
@@ -101,7 +102,8 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Home /> },
           { path: "docs/log", element: <DocsLog /> },
-          { path: "docs/recommend", element: <Doc /> },
+          { path: "docs/recommend/random", element: <Doc /> },
+          { path: "docs/recommend", element: <RandomDoc /> },
           { path: "docs/recent", element: <RecentEdited /> },
           { path: "docs/:id", element: <Doc /> },
         ],
