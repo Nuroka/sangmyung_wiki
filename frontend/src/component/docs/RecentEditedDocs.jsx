@@ -5,9 +5,7 @@ export default function RecentEditedDocs({ log }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/doc", {
-      state: { id: log.documents.id },
-    });
+    navigate("/docs/" + log.documents.id);
   };
 
   return (

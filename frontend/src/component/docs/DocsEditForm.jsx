@@ -9,7 +9,6 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
     title: detail ? detail.title : "",
     content: detail ? detail.content : "",
   });
-  const [error, setError] = useState();
 
   const handleChange = (event) => {
     setDoc({
@@ -19,18 +18,11 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
   };
 
   function handleSubmit() {
-    if (doc.title == "") {
-      setError("제목을 입력해주세요");
-    } else if (doc.content == "") {
-      setError("내용을 입력해주세요");
-    } else {
-      onSubmit({ ...doc });
-    }
+    onSubmit({ ...doc });
   }
 
   return (
     <div>
-      {error && <p>{error}</p>}
       <div>
         <style>
           {`

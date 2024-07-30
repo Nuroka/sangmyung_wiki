@@ -99,7 +99,7 @@ const router = createBrowserRouter([
           { path: "docs/log", element: <DocsLog /> },
           { path: "docs/recommend", element: <Doc /> },
           { path: "docs/recent", element: <RecentEdited /> },
-          { path: "doc", element: <Doc /> },
+          { path: "docs/:id", element: <Doc /> },
         ],
       },
     ],

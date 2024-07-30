@@ -9,9 +9,7 @@ export default function MyDoc({ doc, handleDelete }) {
     <tr className={styles.tr}>
       <td
         onClick={() => {
-          navigate("/doc", {
-            state: { id: doc.id },
-          });
+          navigate("/docs/" + doc.id);
         }}
         className={styles.title}
       >

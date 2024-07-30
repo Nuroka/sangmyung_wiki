@@ -82,9 +82,7 @@ export default function Search() {
               className={styles.suggestion}
               onClick={() => {
                 setDropdownVisible(false);
-                navigate("/doc", {
-                  state: { id: suggestion.id },
-                });
+                navigate("/docs/" + suggestion.id);
               }}
             >
               <SuggestionIcon />

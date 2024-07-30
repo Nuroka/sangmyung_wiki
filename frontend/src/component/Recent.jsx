@@ -53,9 +53,7 @@ export default function Recent() {
                   delay: index * 0.1,
                 }}
                 onClick={() => {
-                  navigate("/doc", {
-                    state: { id: recent.documents.id },
-                  });
+                  navigate("/docs/" + recent.documents.id);
                 }}
               >
                 {recent.documents.title.length > 15
