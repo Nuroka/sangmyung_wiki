@@ -71,7 +71,6 @@ export default function MyDocs() {
         <DeletedConfirmation onConfirm={() => setDeletedDoc(false)} />
       </Modal>
       <h2 className={outlet.title}>내 문서</h2>
-      <br />
       <MyDocsList docs={data} handleDelete={handleDelete} />
       {!data && <p>로딩 중....</p>}
       {error && <p>{error.message}</p>}

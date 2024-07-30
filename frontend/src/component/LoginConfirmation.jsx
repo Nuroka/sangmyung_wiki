@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as InvisibleIcon } from "../img/invisible.svg";
-import styles from "./LoginConfirmation.module.css";
+import styles from "./ModalContent.module.css";
 
 export default function LoginConfirmation({ url, state }) {
   const navigate = useNavigate();
