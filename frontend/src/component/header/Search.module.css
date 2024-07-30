@@ -16,6 +16,13 @@
   border: none;
   background-color: #efefef;
   font-size: 2vmin;
+  padding-left: 20px;
+  outline: none;
+}
+
+.search:focus {
+  border-radius: 20px 20px 0px 0px;
+  outline: none;
 }
 
 .searchIcon {
@@ -32,19 +39,29 @@
   top: 84px;
   left: 65vw;
   width: 28vw;
-  background: white;
+  background-color: #efefef;
   border: 1px solid #efefef;
   border-top: none;
   z-index: 1;
   max-height: 200px;
   overflow-y: auto;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .suggestion {
   padding: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .suggestion:hover {
-  background: #f0f0f0;
+  background: #ffffff;
+}
+
+.suggestionIcon {
+  width: 16px;
+  height: 16px;
 }
