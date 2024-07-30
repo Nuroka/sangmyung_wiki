@@ -83,7 +83,9 @@ export default function Login() {
         </NavLink>
       </div>
       <div className={styles.loginD}>
-        <button className={styles.button}>
+        <button
+          className={`${styles.loginBtn} ${styles.link} ${styles.button}`}
+        >
           <NavLink className={`${styles.loginBtn} ${styles.link}`} to="/signin">
             계정 생성
           </NavLink>
