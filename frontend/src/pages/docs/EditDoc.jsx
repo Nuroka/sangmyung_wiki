@@ -22,7 +22,7 @@ export default function EditDoc() {
         }
       })
       .catch(function (e) {
-        throw new Error();
+        alert("수정 권한이 없습니다");
       });
   };
 

@@ -42,7 +42,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <AuthRoute />, // 로그인 후 접근 가능
-        errorElement: <ErrorPage />,
         children: [
           {
             path: "/board",
