@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { authInstance } from "../../util/api";
 import boardStyles from "./Board.module.css";
 
-const EditComment = ({ commentId, initialContent, boardId, storedMemberId }) => {
+const EditComment = ({ commentId, initialContent, boardId, storedMemberId, parentId }) => {
   const [content, setContent] = useState(initialContent);
   const [click, setClick] = useState(false);
   console.log("boardId:", boardId, "storedMemberId: ", storedMemberId);
