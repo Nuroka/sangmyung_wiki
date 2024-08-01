@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { authInstance } from "../../util/api";
 import boardStyles from "./Board.module.css";
 
-const AddComment = ({ boardId, storedMemberId }) => {
+const AddComment = ({ parentId, boardId, storedMemberId }) => {
   const [comment, setComment] = useState({
     board_id: boardId,
-    content: ""
+    content: "",
+    parentId: parentId || null
   });
 
   const { board_id, content } = comment;
