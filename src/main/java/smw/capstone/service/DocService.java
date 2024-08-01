@@ -19,6 +19,7 @@ import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static smw.capstone.common.exception.CustomErrorCode.EXIST_DOC_TITLE;
@@ -68,6 +69,10 @@ public class DocService {
 
     public List<DocDTO> findAll(String sort) {
         List<Documents> documents = docRepository.findAll(Sort.by(Sort.Direction.DESC, sort));
+        for (Documents d : documents){
+            System.out.println(d.getTitle());
+        }
+
         List<DocDTO> docDTO = new ArrayList<>();
         for (Documents document : documents) {
             DocDTO responseDoc = new DocDTO();
@@ -121,9 +126,9 @@ public List<DocDTO> findAllReverse(String sort) {
     public ResponseDocDTO buildResDocDto(Documents document) {
         return ResponseDocDTO.builder()
                 .title(document.getTitle())
-                .updateAt(document.getUpdateAt())
+                .updateAt(LocalDate.from(document.getUpdateAt()))
                 .memberUsername(document.getMember().getUsername())
-                .createAt(document.getCreateAt())
+                .createAt(LocalDate.from(document.getCreateAt()))
                 .content(document.getContent())
                 .id(document.getId()).build();
     }
@@ -173,7 +178,7 @@ public List<DocDTO> findAllReverse(String sort) {
         List<String> fileNames = new ArrayList<>();
 
         docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName(), member);
-        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now());
+        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDateTime.now());
         List<DocFile> docFileList = docFileRepository.findByDocument(findDoc);
         for (DocFile docFile : docFileList) {
             fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
@@ -197,8 +202,8 @@ public List<DocDTO> findAllReverse(String sort) {
         ResponseDocDTO responseDocDTO = ResponseDocDTO.builder()
                 .id(randDoc.getId())
                 .title(randDoc.getTitle())
-                .createAt(randDoc.getCreateAt())
-                .updateAt(randDoc.getUpdateAt())
+                .createAt(LocalDate.from(LocalDateTime.from(randDoc.getCreateAt())))
+                .updateAt(LocalDate.from(LocalDateTime.from(randDoc.getUpdateAt())))
                 .memberUsername(randDoc.getMember().getUsername())
                 .content(randDoc.getContent())
                 .build();
@@ -241,8 +246,8 @@ public List<DocDTO> findAllReverse(String sort) {
                 .title(reqCreateDoc.getTitle())
                 .member(member)
                 .content(reqCreateDoc.getContent())
-                .createAt(LocalDate.now())
-                .updateAt(LocalDate.now()).build());
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now()).build());
 
     }
 
