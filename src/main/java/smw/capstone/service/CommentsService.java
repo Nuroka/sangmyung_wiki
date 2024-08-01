@@ -1,10 +1,13 @@
 package smw.capstone.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.DTO.request.ReqCommentDTO;
 import smw.capstone.DTO.request.ReqUpdateCommentDTO;
+import smw.capstone.DTO.response.CommentDTO;
 import smw.capstone.DTO.response.ResponseCommentsDTO;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
@@ -26,19 +29,34 @@ public class CommentsService {
     public final CommentsRepository commentsRepository;
     public final BoardService boardService;
 
-    public List<ResponseCommentsDTO> getAllComment(Long idx) {
+    public Result getAllComment(Long idx) {
 
         List<Comments> findComments = commentsRepository.findByBoard(boardService.getBoardById(idx));
 //        if (findComments.isEmpty()) {
 //            throw new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS);
 //        }
+        List<CommentDTO> resComments = new ArrayList<>();
         List<ResponseCommentsDTO> responseCommentsDTOS = new ArrayList<>();
         for (Comments comment : findComments) {
-            ResponseCommentsDTO responseCommentsDTO = setResponseCommentsDTO(comment);
-            responseCommentsDTOS.add(responseCommentsDTO);
-        }
-        return responseCommentsDTOS;
+            if(comment.getParent() != null){
+                continue;
+            }
+            ResponseCommentsDTO responseCommentsDTO = setResponseCommentsDTO(comment);//부모 댓글 info 초기화
+            List<ResponseCommentsDTO> child = getChildCommentList(comment);
+            CommentDTO  res = new CommentDTO();
+            res.setChild(child);
+            res.setParent(responseCommentsDTO);
+            resComments.add(res);
 
+        }
+        return new Result(resComments);
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public class Result<T> {
+        private T data;
     }
 
     public ResponseCommentsDTO getCommentById(Long idx) {
@@ -56,7 +74,8 @@ public class CommentsService {
                 .commentId(comment.getId())
                 .content(comment.getContent())
                 .createAt(comment.getCreateAt())
-                .updateAt(comment.getUpdateAt()).build();
+                .updateAt(comment.getUpdateAt())
+                .build();
     }
 
     @Transactional
@@ -95,4 +114,12 @@ public class CommentsService {
     }
 
 
+    public List<ResponseCommentsDTO> getChildCommentList(Comments parent) {
+        List<ResponseCommentsDTO> childCommentList = new ArrayList<>();
+        List<Comments> childComments = commentsRepository.findByParent(parent);
+        for (Comments c : childComments) {
+            childCommentList.add(setResponseCommentsDTO(c));
+        }
+        return childCommentList;
+    }
 }

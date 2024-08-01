@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.request.ReqCommentDTO;
 import smw.capstone.DTO.request.ReqUpdateCommentDTO;
+import smw.capstone.DTO.response.CommentDTO;
 import smw.capstone.DTO.response.ResponseCommentsDTO;
 import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.entity.Member;
@@ -25,7 +26,7 @@ public class CommentController {
      * 댓글 가져오기
      */
     @GetMapping("/board")
-    public ResponseEntity<List<ResponseCommentsDTO>> getAllComment(Long idx) {
+    public ResponseEntity<CommentsService.Result> getAllComment(@RequestParam("idx") Long idx) {
         return ResponseEntity.ok().body(commentsService.getAllComment(idx));
     }
 
@@ -34,9 +35,18 @@ public class CommentController {
      * 댓글 하나 가져오기
      */
     @GetMapping("/one")
-    public ResponseEntity<ResponseCommentsDTO> getComment(Long idx) {
+    public ResponseEntity<ResponseCommentsDTO> getComment(@RequestParam("idx") Long idx) {
         return ResponseEntity.ok().body(commentsService.getCommentById(idx));
     }
+
+//    /**
+//     * 자식 댓글 가져오기
+//     * 부모 id를 가지고 연관된 자식 리스트 반환
+//     */
+//    @GetMapping("/child")
+//    public ResponseEntity<List<ResponseCommentsDTO>> getChileComment(@RequestParam("idx") Long parentId) {
+//        return ResponseEntity.ok().body(commentsService.getChildCommentList(parentId));
+//    }
 
     /**
      * 댓글 추가

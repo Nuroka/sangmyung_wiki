@@ -11,4 +11,6 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
     public List<Comments> findByBoard(Board board);
 
+    public List<Comments> findByParent(Comments parent);
+
 }
