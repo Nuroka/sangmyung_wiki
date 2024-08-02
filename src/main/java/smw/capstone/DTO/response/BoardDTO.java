@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -19,8 +20,8 @@ public class BoardDTO {
     private String boardTitle;
     private String memberName;
     private Long memberId;
-    private LocalDate updateAt;
-    private LocalDate createAt;
+    private LocalDateTime updateAt;
+    private LocalDateTime createAt;
     private  String content;
     private int likeCount;
     private int commentsCount;

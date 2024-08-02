@@ -24,8 +24,8 @@ public class TestDataInit {
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
 
-    @PostConstruct
-    @Transactional
+//    @PostConstruct
+//    @Transactional
     public void init() {
         Member member = new Member();
         member.setUsername("test");
