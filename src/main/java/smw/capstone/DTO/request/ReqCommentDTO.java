@@ -14,4 +14,6 @@ public class ReqCommentDTO {
     private Long boardId;
     @NotBlank
     private String content;
+
+    private Long parentId;
 }

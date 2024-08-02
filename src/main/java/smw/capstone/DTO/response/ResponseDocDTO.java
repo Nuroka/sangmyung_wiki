@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Builder
@@ -22,8 +23,8 @@ public class ResponseDocDTO {
 
     private String content;
 
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
 }

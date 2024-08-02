@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -30,9 +31,9 @@ public class Board {
 
     @ColumnDefault("0")
     private int likes;
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;

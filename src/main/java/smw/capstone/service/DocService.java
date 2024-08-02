@@ -19,6 +19,7 @@ import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static smw.capstone.common.exception.CustomErrorCode.EXIST_DOC_TITLE;
@@ -173,7 +174,7 @@ public List<DocDTO> findAllReverse(String sort) {
         List<String> fileNames = new ArrayList<>();
 
         docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName(), member);
-        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDate.now());
+        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDateTime.now());
         List<DocFile> docFileList = docFileRepository.findByDocument(findDoc);
         for (DocFile docFile : docFileList) {
             fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
@@ -241,8 +242,8 @@ public List<DocDTO> findAllReverse(String sort) {
                 .title(reqCreateDoc.getTitle())
                 .member(member)
                 .content(reqCreateDoc.getContent())
-                .createAt(LocalDate.now())
-                .updateAt(LocalDate.now()).build());
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now()).build());
 
     }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +35,14 @@ public class Documents {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
     @OneToMany(mappedBy = "document", orphanRemoval = true)
     private List<DocFile> docFileList = new ArrayList<DocFile>();
 
-    public void updateDoc(String content, LocalDate updateAt) {
+    public void updateDoc(String content, LocalDateTime updateAt) {
         this.content = content;
         this.updateAt = updateAt;
     }

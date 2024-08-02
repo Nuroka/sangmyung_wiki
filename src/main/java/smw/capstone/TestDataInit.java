@@ -12,6 +12,7 @@ import smw.capstone.repository.MemberRepository;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class TestDataInit {
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
 
-    @PostConstruct
-    @Transactional
+//    @PostConstruct
+//    @Transactional
     public void init() {
         Member member = new Member();
         member.setUsername("test");
@@ -40,8 +41,8 @@ public class TestDataInit {
          */
         Documents documents = Documents.builder()
                 .content("content")
-                .createAt(LocalDate.now())
-                .updateAt(LocalDate.now())
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .member(member)
                 .title("title").build();
         docRepository.save(documents);

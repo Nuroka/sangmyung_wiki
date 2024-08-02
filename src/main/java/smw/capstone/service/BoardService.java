@@ -23,6 +23,7 @@ import smw.capstone.repository.CommentsRepository;
 import smw.capstone.repository.LikeRepository;
 import smw.capstone.repository.MemberRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class BoardService {
         boardRepository.save(Board.builder()
                 .content(boardUploadDTO.getContent())
                 .title(boardUploadDTO.getBoardTitle())
-                .createAt(LocalDate.now())
+                .createAt(LocalDateTime.now())
                 .likes(0)
                 .member(findMember)
                 .build());
