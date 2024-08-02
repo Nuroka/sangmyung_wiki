@@ -80,12 +80,16 @@ public class CommentsService {
 
     @Transactional
     public ResponseCommentsDTO saveComment(ReqCommentDTO reqCommentDTO, Member member) {
-
+        Comments parent = null;
+        if (reqCommentDTO.getParentId() != null){
+            parent = commentsRepository.findById(reqCommentDTO.getParentId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_COMMENTS));
+        }
         Comments comments = Comments.builder()
                 .board(boardService.getBoardById(reqCommentDTO.getBoardId()))
                 .content(reqCommentDTO.getContent())
                 .createAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
+                .parent(parent)
                 .member(member).build();
         commentsRepository.save(comments);
 
