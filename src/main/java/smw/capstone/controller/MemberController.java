@@ -28,15 +28,12 @@ public class MemberController {
 
 
     @RequestMapping("/mypage")
-    public ResponseEntity<Member> getUser() {
-        Member member = memberRepository.findByUsername("test");
-
-        return ResponseEntity.ok(member);
-    }
-
-    @GetMapping("/user")
-    public LoginDTO user() {
-        return new LoginDTO();
+    public ResponseEntity<?> getUser(@CurrentUser Member member) {
+        MemberInfoDTO build = MemberInfoDTO.builder()
+                .username(member.getUsername())
+                .email(member.getEmail())
+                .build();
+        return ResponseEntity.ok().body(build);
     }
 
     @PostMapping("/user")
