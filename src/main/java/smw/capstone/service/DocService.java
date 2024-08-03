@@ -126,9 +126,9 @@ public List<DocDTO> findAllReverse(String sort) {
     public ResponseDocDTO buildResDocDto(Documents document) {
         return ResponseDocDTO.builder()
                 .title(document.getTitle())
-                .updateAt(LocalDate.from(document.getUpdateAt()))
+                .updateAt(document.getUpdateAt())
                 .memberUsername(document.getMember().getUsername())
-                .createAt(LocalDate.from(document.getCreateAt()))
+                .createAt(document.getCreateAt())
                 .content(document.getContent())
                 .id(document.getId()).build();
     }
@@ -202,8 +202,8 @@ public List<DocDTO> findAllReverse(String sort) {
         ResponseDocDTO responseDocDTO = ResponseDocDTO.builder()
                 .id(randDoc.getId())
                 .title(randDoc.getTitle())
-                .createAt(LocalDate.from(LocalDateTime.from(randDoc.getCreateAt())))
-                .updateAt(LocalDate.from(LocalDateTime.from(randDoc.getUpdateAt())))
+                .createAt(randDoc.getCreateAt())
+                .updateAt(randDoc.getUpdateAt())
                 .memberUsername(randDoc.getMember().getUsername())
                 .content(randDoc.getContent())
                 .build();
