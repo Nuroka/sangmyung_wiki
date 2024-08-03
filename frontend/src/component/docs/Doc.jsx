@@ -6,6 +6,7 @@ import styles from "./Doc.module.css";
 import { checkAuth } from "../../util/auth";
 import Modal from "../Modal";
 import LoginConfirmation from "../LoginConfirmation";
+import { parseDate } from "../../util/parse";
 
 import edit from "../../img/edit.png";
 import lock from "../../img/lock.png";
@@ -71,7 +72,7 @@ export default function Doc({ doc }) {
           </button>
         </div>
       </div>
-      <p className={styles.update}>최근 수정 일자: {doc.update_at}</p>
+      <p className={styles.update}>최근 수정 일자: {parseDate(doc.update_at)}</p>
       <br />
       <br />
       <div className={styles.content}>{parse(doc.content)}</div>

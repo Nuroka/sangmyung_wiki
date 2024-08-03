@@ -4,7 +4,6 @@ import { authInstance } from "../../util/api";
 import styles from "../Login.module.css";
 import boardStyles from "./Board.module.css";
 
-
 const BoardWrite = () => {
   const navigate = useNavigate();
 
@@ -36,8 +35,6 @@ const BoardWrite = () => {
 
   return (
     <div className={`${styles.loginDiv} ${styles.loginD} `}>
-      <h3 className={styles.loginTitle}>커뮤니티</h3>
-      <hr />
       <h3 className={boardStyles.subTitle}>글쓰기</h3>
       <div>
         <div className={boardStyles.tag}>
