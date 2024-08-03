@@ -1,6 +1,7 @@
 package smw.capstone.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,9 +60,14 @@ public class MemberRepository {
     }
 
     public String findCode(String email) {
-        SigninCode signinCode = em.createQuery("select s from SigninCode s where s.Email=:email", SigninCode.class).setParameter("email", email).getSingleResult();
-
-        return signinCode.getCertification_Code();
+        try {
+            return em.createQuery("select s from SigninCode s where s.Email=:email", SigninCode.class)
+                    .setParameter("email", email)
+                    .getSingleResult()
+                    .getCertification_Code();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public SigninCode findsignincode(String code){

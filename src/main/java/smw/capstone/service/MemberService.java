@@ -1,7 +1,6 @@
 package smw.capstone.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +13,6 @@ import smw.capstone.entity.Member;
 import smw.capstone.entity.SigninCode;
 import smw.capstone.repository.MemberRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,19 +63,22 @@ public class MemberService {
 
     @Transactional
     public void signin_sendNumber(String email) {
-            //인증코드 생성 함수
-            String code = emailProvider.randomCode();
-            //함수 호출될때 들어온 email로 code 발송
-            emailProvider.sendCertificationMail(email, code);
-            //email, code를 SigininCode Table에 저장
-            SigninCode target = new SigninCode();
-            target.setEmail(email);
-            target.setCertification_Code(code);
-            mr.certificate_process(target);
+        removeExistCertification(email);
+        //인증코드 생성 함수
+        String code = emailProvider.randomCode();
+        //함수 호출될때 들어온 email로 code 발송
+        emailProvider.sendCertificationMail(email, code);
+        //email, code를 SigininCode Table에 저장
+        SigninCode target = new SigninCode();
+        target.setEmail(email);
+        target.setCertification_Code(code);
+        target.setTime(LocalDateTime.now());
+        mr.certificate_process(target);
     }
 
     @Transactional
     public void findid_sendNumber(String email) {
+        removeExistCertification(email);
         try {
             Member m = mr.findMemberByEmail(email);
         }catch(Exception e){
@@ -97,6 +98,7 @@ public class MemberService {
 
     @Transactional
     public void findpw_sendNumber(String email, String username) {
+        removeExistCertification(email);
         try {
             Member m = mr.findMemberByEmail(email);
         }catch(Exception e){
@@ -148,6 +150,14 @@ public class MemberService {
             mr.saveEmaillog(emaillog);
 
             return true;
+        }
+    }
+
+    private void removeExistCertification(String email) {
+        //기존 인증 코드 제거
+        String existCertification = mr.findCode(email);
+        if (existCertification != null) {
+            mr.removeSigninCode(mr.findsignincode(existCertification));
         }
     }
 }

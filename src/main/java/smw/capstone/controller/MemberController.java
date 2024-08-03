@@ -3,15 +3,12 @@ package smw.capstone.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.LoginDTO;
-import smw.capstone.DTO.request.EmailDTO;
-import smw.capstone.DTO.request.FindPwDTO;
-import smw.capstone.DTO.request.NewPWDTO;
-import smw.capstone.DTO.request.SignUpRequestDTO;
+import smw.capstone.DTO.request.*;
+import smw.capstone.DTO.response.MemberInfoDTO;
+import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.common.provider.JwtProvider;
@@ -19,9 +16,6 @@ import smw.capstone.entity.Member;
 import smw.capstone.entity.Type;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.MemberService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @Slf4j
@@ -54,12 +48,6 @@ public class MemberController {
         return ResponseEntity.ok().body(memberId.getId());
     }
 
-    @GetMapping("/signin/email")
-    public ResponseEntity<EmailDTO> email() {
-        EmailDTO email = new EmailDTO();
-        return ResponseEntity.ok().body(email);
-    }
-
     @PostMapping("/signin/email/1")
     public ResponseEntity<?> certificateEmail(@RequestBody EmailDTO form){
         String email = form.getEmail();
@@ -76,9 +64,6 @@ public class MemberController {
         return memberService.certificate(email, code);
     }
 
-    @GetMapping("/signin/ID")
-    public SignUpRequestDTO signupform(){ return new SignUpRequestDTO(); }
-
     @PostMapping("/signin/ID")
     public ResponseEntity<?> signup(@RequestBody SignUpRequestDTO form){
         Member member = new Member();
@@ -92,12 +77,6 @@ public class MemberController {
         return memberService.register(member);
     }
 
-    @GetMapping("/find/ID")
-    public ResponseEntity<EmailDTO> findId(){
-        EmailDTO email = new EmailDTO();
-        return ResponseEntity.ok().body(email);
-    }
-
     @PostMapping("/find/ID/1")
     public ResponseEntity<?> findingID(@RequestBody EmailDTO form){
         String email = form.getEmail();
@@ -106,11 +85,6 @@ public class MemberController {
         return ResponseEntity.ok().body("인증번호가 전송되었습니다.");
     }
 
-    @GetMapping("/find/ID/2")
-    public ResponseEntity<EmailDTO> findID2(){
-        EmailDTO email = new EmailDTO();
-        return ResponseEntity.ok().body(email);
-    }
     @PostMapping("/find/ID/2")
     public ResponseEntity<String> findingID2(@RequestBody EmailDTO form) {
         String email = form.getEmail();
@@ -122,13 +96,7 @@ public class MemberController {
         return ResponseEntity.ok().body("사용자의 아이디는 '" + member.getUsername() + "' 입니다.");
     }
 
-    @GetMapping("/find/pw/1")
-    public ResponseEntity<FindPwDTO> findPW(){
-        FindPwDTO findPwDTO = new FindPwDTO();
-        return ResponseEntity.ok().body(findPwDTO);
-    }
-
-    @PostMapping("/fing/pw/1")
+    @PostMapping("/find/pw/1")
     public ResponseEntity<?> findPW2(@RequestBody FindPwDTO form){
         String email = form.getEmail();
         String username = form.getUsername();
@@ -152,11 +120,6 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/find/pw/3")
-    public ResponseEntity<NewPWDTO> findPW3(){
-        NewPWDTO form = new NewPWDTO();
-        return ResponseEntity.ok().body(form);
-    }
     @PostMapping("/find/pw/3")
     public ResponseEntity<String> findingPW3(@RequestBody Member member, @RequestBody NewPWDTO form){
         if(form.getPw().equals(form.getPw2())){
