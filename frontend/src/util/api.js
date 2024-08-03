@@ -30,21 +30,23 @@ const axiosAuthAPI = (url, options = {}) => {
     },
   });
   instance.defaults.withCredentials = true;
+
+  // 요청 전에 Authorization 헤더를 추가하는 인터셉터
+  instance.interceptors.request.use(
+    function (config) {
+      const accessToken = localStorage.getItem("token"); // 또는 sessionStorage
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
   return instance;
 };
 
 export const defaultInstance = axiosAPI(BASE_URL);
 export const authInstance = axiosAuthAPI(BASE_URL);
-
-authInstance.interceptors.request.use(
-  function (config) {
-    const accessToken = getAuthToken();
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
