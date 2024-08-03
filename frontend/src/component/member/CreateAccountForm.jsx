@@ -2,11 +2,7 @@ import { useState } from "react";
 import { defaultInstance } from "../../util/api";
 import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
-import {
-  isEqualsToOtherValue,
-  isPassword,
-  isUserName,
-} from "../../util/validations";
+import { isEqualsToOtherValue, isPassword, isUserName } from "../../util/validations";
 
 export default function CreateAccountId({ email, handleResult }) {
   const url = "/signin/ID";
@@ -26,7 +22,7 @@ export default function CreateAccountId({ email, handleResult }) {
   const validUsername = isUserName(formData.username);
   const validPassword = isPassword(formData.password);
   const isSame = isEqualsToOtherValue(formData.password, confirmPassword);
-  const isValid = validUsername && validPassword && isSame && duplicated;
+  const isValid = validUsername && validPassword && isSame && !duplicated;
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -47,6 +43,9 @@ export default function CreateAccountId({ email, handleResult }) {
   }
 
   const handleChange = (event) => {
+    if (event.target.id === "username") {
+      setDuplicated(true);
+    }
     setFormData({
       ...formData,
       [event.target.id]: event.target.value,
@@ -61,7 +60,7 @@ export default function CreateAccountId({ email, handleResult }) {
     event.preventDefault();
     setGlobalError();
     defaultInstance
-      .post("/authId", formData.email)
+      .post("/duplicate", { username: formData.username })
       .then(function (res) {
         if (res.status === 200) {
           setDuplicated(false);
@@ -70,7 +69,7 @@ export default function CreateAccountId({ email, handleResult }) {
         }
       })
       .catch(function (e) {
-        setGlobalError({ message: "아이디와 비밀번호를 확인해주세요." });
+        setGlobalError({ message: "이미 사용중인 아이디입니다." });
         console.log(e);
       });
   }
@@ -103,16 +102,9 @@ export default function CreateAccountId({ email, handleResult }) {
         <div>
           <label htmlFor="password">암호</label>
           <br />
-          <input
-            type="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <input type="password" id="password" value={formData.password} onChange={handleChange} />
         </div>
-        {!validPassword && (
-          <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>
-        )}
+        {!validPassword && <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>}
         <br />
         <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label>
@@ -132,9 +124,7 @@ export default function CreateAccountId({ email, handleResult }) {
           type="submit"
           disabled={!isValid}
         >
-          <p className={`${styles.link} ${styles.loginBtn}`}>
-            {isValid ? "가입" : "가입 불가"}
-          </p>
+          <p className={`${styles.link} ${styles.loginBtn}`}>{isValid ? "가입" : "가입 불가"}</p>
         </button>
       </form>
     </div>

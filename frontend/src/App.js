@@ -60,7 +60,11 @@ const router = createBrowserRouter([
             children: [{ index: true, element: <Fileload /> }],
           },
           { path: "mypage", element: <MyPage /> },
-          { path: "member/update", element: <UpdatePw /> },
+          {
+            path: "member/update",
+            element: <OutletLayout title="비밀번호 변경" />,
+            children: [{ index: true, element: <UpdatePw /> }],
+          },
           { path: "logout", element: <Logout /> },
           { path: "docs/edit", element: <EditDoc /> },
           { path: "docs/create", element: <CreateDoc /> },
