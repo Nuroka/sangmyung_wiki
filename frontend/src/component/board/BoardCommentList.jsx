@@ -3,9 +3,9 @@ import { authInstance } from "../../util/api";
 import AddComment from "./AddComment";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteComment";
-import AddReply from "./AddReply"; // 대댓글 추가 컴포넌트
-import EditReply from "./EditReply"; // 대댓글 수정 컴포넌트
-import DeleteReply from "./DeleteComment"; // 대댓글 삭제 컴포넌트
+//import AddReply from "./AddReply"; // 대댓글 추가 컴포넌트
+//import EditReply from "./EditReply"; // 대댓글 수정 컴포넌트
+//import DeleteReply from "./DeleteComment"; // 대댓글 삭제 컴포넌트
 import { useSearchParams } from "react-router-dom";
 import boardStyles from "./Board.module.css";
 import styles from "../Login.module.css";
