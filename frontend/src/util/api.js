@@ -7,14 +7,28 @@ export const queryClient = new QueryClient();
 
 const BASE_URL = "http://13.209.117.61:8080";
 
-const axiosAPI = (url, options) => {
-  const instance = axios.create({ baseURL: url, ...options });
+const axiosAPI = (url, options = {}) => {
+  const instance = axios.create({
+    baseURL: url,
+    ...options,
+    headers: {
+      ...options.headers,
+      "Content-Security-Policy": "upgrade-insecure-requests",
+    },
+  });
   return instance;
 };
 
 // Auth Required
-const axiosAuthAPI = (url, options) => {
-  const instance = axios.create({ baseURL: url, ...options });
+const axiosAuthAPI = (url, options = {}) => {
+  const instance = axios.create({
+    baseURL: url,
+    ...options,
+    headers: {
+      ...options.headers,
+      "Content-Security-Policy": "upgrade-insecure-requests",
+    },
+  });
   instance.defaults.withCredentials = true;
   return instance;
 };
