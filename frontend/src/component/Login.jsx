@@ -26,8 +26,7 @@ export default function Login() {
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          // 응답 데이터에서 토큰 추출
-          const accessToken = res.data.token; // 실제 응답 구조에 맞게 수정 필요
+          const accessToken = res.headers.get("Authorization");
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem("token", accessToken);
           localStorage.setItem("id", res.data); // 사용자 ID도 저장
