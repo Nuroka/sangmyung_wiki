@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import smw.capstone.DTO.LoginDTO;
 import smw.capstone.DTO.request.*;
@@ -29,6 +30,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 
     private Map<String, String> store = new ConcurrentHashMap<>();
 
@@ -127,8 +129,7 @@ public class MemberController {
             String memberEmail = store.getOrDefault(form.getUuid(), null);
             if (memberEmail != null) {
                 Member member = memberService.findByEmail(memberEmail);
-                member.setPassword(form.getPw());
-                memberService.update(member);
+                memberService.updatePw(member, form.getPw());
                 store.remove(form.getUuid());
             }
         } else {
@@ -140,11 +141,10 @@ public class MemberController {
 
     @PostMapping("/member/update")
     public ResponseEntity<?> updatePw(@CurrentUser Member member, @RequestBody UpdatePwDTO form) {
-        if (!form.getPw().equals(member.getPassword())) {
+        if (!passwordEncoder.matches(form.getPw(), member.getPassword())) {
             throw new BusinessException(CustomErrorCode.NOT_MATCHED_PASSWORD);
         }
-        member.setPassword(form.getPw2());
-        memberService.update(member);
+        memberService.updatePw(member, form.getPw2());
 
         return ResponseEntity.ok().body("변경완료");
     }

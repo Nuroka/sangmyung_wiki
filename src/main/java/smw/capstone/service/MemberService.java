@@ -2,6 +2,7 @@ package smw.capstone.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.common.exception.BusinessException;
@@ -24,9 +25,11 @@ public class MemberService {
     private final MemberRepository mr;
     private final EmailProvider emailProvider;
     private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public ResponseEntity<?> register(Member member) {
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         mr.save(member);
         return ResponseEntity.ok().body("회원가입 완료되었습니다.");
     }
@@ -41,7 +44,7 @@ public class MemberService {
         Member requestmember = mr.findByUsername(id);
         if (requestmember == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER);
-        } else if (!requestmember.getPassword().equals(pw)) {
+        } else if (!passwordEncoder.matches(pw, requestmember.getPassword())) {
             throw new BusinessException(CustomErrorCode.NOT_LOGIN);
         } else {
             jwtProvider.create(requestmember.getEmail());
@@ -55,10 +58,15 @@ public class MemberService {
         mr.update(member);
     }
 
+    @Transactional
+    public void updatePw(Member member, String newPw) {
+        member.setPassword(passwordEncoder.encode(newPw));
+        mr.update(member);
+    }
+
     public Member findByUsername(String username) {
         return mr.findByUsername(username);
     }
-
 
     @Transactional
     public void signin_sendNumber(String email) {
