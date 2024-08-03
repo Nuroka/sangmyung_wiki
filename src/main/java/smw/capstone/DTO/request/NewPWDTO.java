@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class NewPWDTO {
+
     @NotBlank
-    @Email
-    @JsonProperty("newpw")
+    @JsonProperty("pw")
     private String pw;
 
-    @NotBlank @JsonProperty("newpw2")
+    @NotBlank
+    @JsonProperty("pw2")
     private String pw2;
+
+    @NotBlank
+    private String uuid;
 }

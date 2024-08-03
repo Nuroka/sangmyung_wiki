@@ -24,7 +24,6 @@ public class MemberService {
     private final MemberRepository mr;
     private final EmailProvider emailProvider;
     private final JwtProvider jwtProvider;
-    Member member = new Member();
 
     @Transactional
     public ResponseEntity<?> register(Member member) {
@@ -99,13 +98,11 @@ public class MemberService {
     @Transactional
     public void findpw_sendNumber(String email, String username) {
         removeExistCertification(email);
-        try {
-            Member m = mr.findMemberByEmail(email);
-        }catch(Exception e){
+        Member m = mr.findMemberByEmail(email);
+        if (m == null) {
             throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL);
         }
-        Member m = mr.findMemberByEmail(email);
-        if(m.getUsername().equals(username)) {
+        if (m.getUsername().equals(username)) {
             //인증코드 생성 함수
             String code = emailProvider.randomCode();
             //함수 호출될때 들어온 email로 code 발송
@@ -116,7 +113,7 @@ public class MemberService {
             target.setCertification_Code(code);
             target.setTime(LocalDateTime.now());
             mr.certificate_process(target);
-        }else{
+        } else {
             throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL_USERNAME);
         }
     }

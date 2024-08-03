@@ -17,6 +17,10 @@ import smw.capstone.entity.Type;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.MemberService;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +30,7 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
 
+    private Map<String, String> store = new ConcurrentHashMap<>();
 
     @RequestMapping("/mypage")
     public ResponseEntity<?> getUser(@CurrentUser Member member) {
@@ -97,32 +102,36 @@ public class MemberController {
     public ResponseEntity<?> findPW2(@RequestBody FindPwDTO form){
         String email = form.getEmail();
         String username = form.getUsername();
-        Member member = new Member();
         memberService.findpw_sendNumber(email, username);
 
         return ResponseEntity.ok().body("인증번호가 발송되었습니다.");
     }
 
     @PostMapping("/find/pw/2")
-    public ResponseEntity<Member> findingPW2(@RequestBody FindPwDTO form) {
+    public ResponseEntity<?> findingPW2(@RequestBody FindPwDTO form) {
         String email = form.getEmail();
         String code = form.getCode();
 
+        String uuid = UUID.randomUUID().toString();
         if (memberService.certificate_v2(email, code)) {
             Member member = memberService.findByEmail(email);
-
-            return ResponseEntity.ok().body(member);
-        }else{
-            return null;
+            store.put(uuid, member.getEmail());
         }
+
+        return ResponseEntity.ok().body(uuid);
     }
 
     @PostMapping("/find/pw/3")
-    public ResponseEntity<String> findingPW3(@RequestBody Member member, @RequestBody NewPWDTO form){
-        if(form.getPw().equals(form.getPw2())){
-            member.setPassword(form.getPw());
-            memberService.update(member);
-        }else{
+    public ResponseEntity<String> findingPW3(@RequestBody NewPWDTO form){
+        if (form.getPw().equals(form.getPw2())) {
+            String memberEmail = store.getOrDefault(form.getUuid(), null);
+            if (memberEmail != null) {
+                Member member = memberService.findByEmail(memberEmail);
+                member.setPassword(form.getPw());
+                memberService.update(member);
+                store.remove(form.getUuid());
+            }
+        } else {
             throw new BusinessException(CustomErrorCode.NOT_MATCHED_PASSWORD);
         }
 

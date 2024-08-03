@@ -76,7 +76,6 @@ public class MemberRepository {
     }
 
     public Member findMemberByEmail(String email) {
-        Member member = em.createQuery("select m from Member m where m.Email=:email", Member.class).setParameter("email", email).getSingleResult();
-        return member;
+        return em.createQuery("select m from Member m where m.Email=:email", Member.class).setParameter("email", email).getSingleResult();
     }
 }
