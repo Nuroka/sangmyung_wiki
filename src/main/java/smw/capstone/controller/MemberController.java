@@ -131,4 +131,23 @@ public class MemberController {
 
         return ResponseEntity.ok().body("비밀번호 변경이 완료되었습니다. 바뀐 비밀번호로 로그인해주세요.");
     }
+
+    @PostMapping("/member/update")
+    public ResponseEntity<?> updatePw(@CurrentUser Member member, @RequestBody UpdatePwDTO form) {
+        if (!form.getPw().equals(member.getPassword())) {
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_PASSWORD);
+        }
+        member.setPassword(form.getPw2());
+        memberService.update(member);
+
+        return ResponseEntity.ok().body("변경완료");
+    }
+
+    @PostMapping("/duplicate")
+    public ResponseEntity<?> checkDuplicate(@RequestBody FindPwDTO form) {
+        if (memberService.findByUsername(form.getUsername()) != null) {
+            throw new BusinessException(CustomErrorCode.EXIST_USERNAME);
+        }
+        return ResponseEntity.ok().body("사용 가능한 아이디입니다.");
+    }
 }

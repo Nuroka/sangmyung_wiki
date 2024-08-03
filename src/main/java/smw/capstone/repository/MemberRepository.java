@@ -39,12 +39,13 @@ public class MemberRepository {
     @Transactional
     public void removeSigninCode(SigninCode signinCode){em.remove(em.contains(signinCode) ? signinCode : em.merge(signinCode));}
 
-    public Member findByUsername(String username){
-        List<Member> result = em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getResultList();
-        if(result == null){
-            throw new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER);
-        }else{
-            return em.createQuery("select m from Member m where m.Username=:username", Member.class).setParameter("username", username).getSingleResult();
+    public Member findByUsername(String username) {
+        try {
+            return em.createQuery("select m from Member m where m.Username=:username", Member.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 

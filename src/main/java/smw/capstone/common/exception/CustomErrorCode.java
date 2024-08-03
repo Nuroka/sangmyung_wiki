@@ -23,6 +23,7 @@ public enum CustomErrorCode{
     NOT_MATCHED_EMAIL(HttpStatus.BAD_REQUEST, "등록된 이메일이 존재하지 않습니다."),
     NOT_MATCHED_EMAIL_USERNAME(HttpStatus.BAD_REQUEST, "이메일과 아이디가 일치하지 않습니다."),
     NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "존재하지 않는 회원입니다."),
+    EXIST_USERNAME(HttpStatus.BAD_REQUEST, "이미 존재하는 아이디입니다."),
     NOT_MATCHED_CODE(HttpStatus.BAD_REQUEST, "인증번호가 틀렸습니다."),
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "로그인정보가 틀렸습니다."),
     EXIST_DOC_TITLE(HttpStatus.BAD_REQUEST, "이미 존재하는 제목입니다. 문서를 생성할 수 없습니다."),
