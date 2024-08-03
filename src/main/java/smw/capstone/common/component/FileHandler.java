@@ -76,7 +76,7 @@ public class FileHandler {
                 files = Files.builder()
                         .storedFileName(path + "/" + newFileName)
                         .Category(saveFiles.getCategory())
-                        .Name(saveFiles.getFileName())
+                        .Name(newFileName)
                         .License(saveFiles.getLicense())
                         .Summary(saveFiles.getSummary())
                         .member(member) //나중에 회원정보 넣기
