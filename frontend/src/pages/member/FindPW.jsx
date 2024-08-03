@@ -10,6 +10,8 @@ export default function FindPW() {
     email: "",
     username: "",
   });
+
+  const [uuid, setUuid] = useState(null);
   const [step, setStep] = useState(0);
 
   function handleCheckId(form) {
@@ -27,13 +29,16 @@ export default function FindPW() {
     }
   }
 
+  function handleCheckEmail(uuid) {
+    setUuid(uuid);
+    setStep((prev) => prev + 1);
+  }
+
   return (
     <>
       {step === 0 && <FindPwAuth handleResult={handleCheckId} />}
-      {step === 1 && (
-        <FindPwAuthForm data={formData} handleResult={handleStep} />
-      )}
-      {step === 2 && <FindPwChangeForm handleResult={handleStep} />}
+      {step === 1 && <FindPwAuthForm data={formData} handleResult={handleCheckEmail} />}
+      {step === 2 && <FindPwChangeForm uuid={uuid} handleResult={handleStep} />}
       {step === 3 && <FindPwResult username={formData.username} />}
     </>
   );

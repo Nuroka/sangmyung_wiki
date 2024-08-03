@@ -26,7 +26,7 @@ export default function FindPwAuthForm({ data, handleResult }) {
         setIsFetching(false);
         if (res.status === 200) {
           alert("인증 성공");
-          handleResult(true);
+          handleResult(res.data);
         } else {
           throw new Error();
         }

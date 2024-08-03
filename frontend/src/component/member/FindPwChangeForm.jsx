@@ -6,7 +6,7 @@ import styles from "../Login.module.css";
 import { authInstance } from "../../util/api";
 import { isPassword, isEqualsToOtherValue } from "../../util/validations";
 
-export default function FindPwChangeForm({ handleResult }) {
+export default function FindPwChangeForm({ uuid, handleResult }) {
   const url = "/find/pw/3";
 
   const [globalError, setGlobalError] = useState();
@@ -14,6 +14,7 @@ export default function FindPwChangeForm({ handleResult }) {
   const [formData, setFormData] = useState({
     pw: "",
     pw2: "",
+    uuid: uuid,
   });
 
   const isSame = isEqualsToOtherValue(formData.pw, formData.pw2);
