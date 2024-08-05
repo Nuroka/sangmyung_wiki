@@ -23,26 +23,42 @@
     height: 45px;
     width: 50vw;
 }
+
 .font {
     font-weight: 400;
 }
 
 .subTitle {
-    margin-bottom: 0;
+    margin: 5px;
     font-weight: 400;
     font-size: 1.7rem;
+}
 
+.createContainer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin: 5px;
+}
+
+.writer{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.createAt {
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .boardContent {
     resize: none;
-    border-radius: 10px;
     width:55vw;
-    margin-top: 25px;
+    margin: 25px 0;
     font-family: "SUIT-Regular";
     font-weight: 400;
     font-size: 2vmin;
-    padding: 10px 30px 0 30px;
+    padding: 10px 30px 10px 30px;
 }
 
 .boardBtn {
@@ -56,16 +72,20 @@ hr {
     width: 60vw;
 }
 
-.createAt {
-    margin-left: 48vw;
-}
-
 .likeBtn {
-    margin-left: 83px;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
 }
-path {
 
-    padding-top: 10px;
+.likeBtn svg {
+    cursor: pointer;
+    fill: gray;
+    margin-right: 8px;
+}
+
+path {
+    padding-top: 0;
 }
 
 .count {
@@ -73,12 +93,17 @@ path {
 }
 
 .commentContainer {
+    height: 3.8vw;
     width: 60vw;
-    background: #FFFFFF;
     border-radius: 10px;
-
     line-height: 60px;
-    margin-top: 19px;
+    margin: 19px 0;
+    background: #FFFFFF;
+}
+
+
+.commentContainer hr {
+    width: 58vw;
 }
 
 .comment span:nth-of-type(2n+1) {
@@ -91,28 +116,33 @@ path {
 
 .comment {
     padding-left: 10px;
-
 }
 
-.commentContainer hr {
-    width: 58vw;
+.countContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .addCommentInput {
-    margin: 0;
-    width: 60vw;
+    margin: 5px 0;
+    width: 50vw;
     resize: none;
     border-radius: 10px;
     border: none;
 }
 
 .addCommentBtn {
-    left: 50vw;
     margin-top:5px;
 }
 
 .boardEditBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
     margin-left: 20vw;
+    margin-right: 1vw;
 }
 
 .boardList {
@@ -155,31 +185,61 @@ ul {
 }
 
 .btnDiv {
-    display: inline-block;
+    display: flex; /* Flexbox를 사용하여 가로로 정렬 */
+    align-items: center; /* 세로 축 정렬 */
+    gap: 10px; /* 요소 간 간격 */
 }
 
 .updateComment {
+    height: 2.8vw;
+    width: 60vw;
     font-size: 2vmin;
-    padding: 10px 30px 0 30px;
+    padding: 10px 30px;
     font-family: "SUIT-Regular";
-    width: 55vw;
+    margin: 0; /* 기본 여백 제거 */
 }
 
 .updateCommentBtn {
-    margin: 0;
     font-size: 1rem;
-    width: 4em;
-    height: 2em;
-    margin-left: 30vw;
+    width: auto; /* 버튼 크기를 글자 크기에 맞추기 위해 auto로 설정 */
+    padding: 10px 20px; /* 버튼 내부 여백을 설정하여 크기 조정 */
+    height: auto; /* 기본 높이 설정 */
+    margin-left: 0; /* 왼쪽 여백 제거 */
 }
 
 .deleteBtn {
     margin-left: 100px;
 }
 
+/* 여기부터 새로 작성한 부분 */
 
+.commentListContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
 
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.commentUserID {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
 
+.commentText {
+    font-size: 1rem;
+    margin: 5px 0;
+}
 
-
+.commentActions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+}

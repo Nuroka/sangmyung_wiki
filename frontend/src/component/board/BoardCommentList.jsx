@@ -3,12 +3,8 @@ import { authInstance } from "../../util/api";
 import AddComment from "./AddComment";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteComment";
-//import AddReply from "./AddReply"; // 대댓글 추가 컴포넌트
-//import EditReply from "./EditReply"; // 대댓글 수정 컴포넌트
-//import DeleteReply from "./DeleteComment"; // 대댓글 삭제 컴포넌트
 import { useSearchParams } from "react-router-dom";
 import boardStyles from "./Board.module.css";
-import styles from "../Login.module.css";
 import getMemberInfo from "./GetMemberInfo";
 
 const BoardCommentList = ({ boardId, storedMemberId }) => {
@@ -17,6 +13,7 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [memberInfo, setMemberInfo] = useState(null);
     const [boardComments, setBoardComments] = useState([]);
+    const [editingCommentId, setEditingCommentId] = useState(null);
 
     // useEffect(() => {
     //     const fetchMemberInfo = async () => {
@@ -29,15 +26,15 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
     //     };
     //     fetchMemberInfo();
     // }, []);
-
+    
     useEffect(() => {
-        getAllComments()
+        getAllComments();
     }, []);
 
     const getAllComments = async () => {
         try {
             const res = await authInstance.get(`comment/board`, { params: { idx: boardId } });
-            setBoardComments(res.data.data);  // data를 바로 설정
+            setBoardComments(res.data.data); // data를 바로 설정
             console.log("chld: ", res.data.data);
             setLoading(false);
         } catch (e) {
@@ -49,12 +46,19 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
             }
             setLoading(false);
         }
-    }
+    };
+
+    const handleEditClick = (commentId) => {
+        setEditingCommentId(commentId); // 수정 모드 활성화
+    };
+
+    const handleEditComplete = () => {
+        setEditingCommentId(null); // 수정 모드 종료
+        getAllComments(); // 댓글 목록 갱신
+    };
 
     return (
         <div>
-            <AddComment parentId={null} boardId={boardId} storedMemberId={storedMemberId} />
-            <hr/>
             {boardComments.length > 0 ? (
                 <div className={boardStyles.bodyFont}>
                     {loading ? (
@@ -63,25 +67,26 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
                         <p>{errorMessage}</p>
                     ) : (
                         <div>
-                            {boardComments.length == 0 ? (
+                            {boardComments.length === 0 ? (
                                 <p>아직 댓글이 없습니다.</p>
                             ) : (
                                 boardComments.map(({ parent, child }) => (
-                                    <div key={parent.comment_id}>
-                                        <strong><p>{parent.member_name}</p></strong>
-                                        <p>{parent.content}</p>
-
-                                        {storedMemberId == parent.member_id && (
-                                            <>
+                                    <div className={boardStyles.commentListContainer} key={parent.comment_id}>
+                                        <div className={boardStyles.commentHeader}>
+                                            <strong><p className={boardStyles.commentUserID}>{parent.member_name}</p></strong>
+                                            {storedMemberId == parent.member_id && (
+                                            <div className={boardStyles.commentActions}>
                                                 <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} />
                                                 <DeleteComment commentId={parent.comment_id} boardId={boardId} storedMemberId={storedMemberId} />
-                                            </>
-                                        )}
+                                            </div>
+                                            )}
+                                        </div>
+                                        <p className={boardStyles.commentText}>{parent.content}</p>
 
                                         {/* 대댓글 표시 */}
-                                        <div className={styles.replyContainer}>
+                                        <div className={boardStyles.replyContainer}>
                                             {child && child.map((reply) => (
-                                                <div key={reply.comment_id} className={styles.reply}>
+                                                <div key={reply.comment_id} className={boardStyles.reply}>
                                                     <strong><p>{reply.member_name}</p></strong>
                                                     <p>{reply.content}</p>
 

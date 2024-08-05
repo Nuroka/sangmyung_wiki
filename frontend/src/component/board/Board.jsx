@@ -50,8 +50,10 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes, 
       <div>
         <hr />
         <h3 className={boardStyles.subTitle}>{title}</h3>
-        <span>{member_name}</span>
-        <span className={boardStyles.createAt}>{parseDate(create_at)}</span>
+        <div className={boardStyles.createContainer}>
+          <span className={boardStyles.writer}>{member_name}</span>
+          <span className={boardStyles.createAt}>{parseDate(create_at)}</span>
+        </div>
         <hr />
         {showUpdateForm ? ( // 수정 폼이 보이면 아래 코드 블록이 보이지 않도록 조건부 렌더링
           <BoardUpdate boardId={id} initialContent={contents} memberId={storeMemberId} /> // 수정 폼
