@@ -5,7 +5,7 @@ import { getAuthToken } from "./auth";
 
 export const queryClient = new QueryClient();
 
-const BASE_URL = "/api";
+const BASE_URL = "http://localhost:9090/api";
 
 const axiosAPI = (url, options = {}) => {
   const instance = axios.create({
