@@ -18,7 +18,6 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
   };
 
   function handleSubmit() {
-    console.log({ ...doc });
     onSubmit({ ...doc });
   }
 
@@ -43,7 +42,7 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
           <input
             id="title"
             type="text"
-            placeholder="title"
+            placeholder="제목"
             value={doc.title}
             onChange={handleChange}
             disabled={edit}

@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { defaultInstance } from "../../util/api";
 
-export default function FindPwAuth() {
-  const navigate = useNavigate();
+export default function FindPwAuth({ handleResult }) {
   const url = "/find/pw/1";
 
   const [formData, setFormData] = useState({
@@ -20,13 +18,12 @@ export default function FindPwAuth() {
 
     setError();
     setIsFetching(true);
+
     defaultInstance
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("/findPW/auth", {
-            state: { ...formData },
-          });
+          handleResult({ ...formData });
         } else {
           throw new Error();
         }
@@ -50,12 +47,22 @@ export default function FindPwAuth() {
       <form id="form" onSubmit={handleSubmitEmail}>
         <label>이메일</label>
         <br />
-        <input type="email" name="email" onChange={handleChange} disabled={isFetching} />
+        <input
+          type="email"
+          name="email"
+          onChange={handleChange}
+          disabled={isFetching}
+        />
         <br />
         <br />
         <label>아이디</label>
         <br />
-        <input type="text" name="username" onChange={handleChange} disabled={isFetching} />
+        <input
+          type="text"
+          name="username"
+          onChange={handleChange}
+          disabled={isFetching}
+        />
         <button type="submit" disabled={isFetching}>
           {isFetching ? "전송 중" : "전송"}
         </button>

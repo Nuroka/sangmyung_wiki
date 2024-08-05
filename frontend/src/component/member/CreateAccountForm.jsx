@@ -2,17 +2,9 @@ import { useState } from "react";
 import { defaultInstance } from "../../util/api";
 import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
-import { useNavigate } from "react-router-dom";
 import { isEqualsToOtherValue, isPassword, isUserName } from "../../util/validations";
 
-/**
- * todo
- * 아이디 중복 체크
- * 뒤로가기 막기
- */
-export default function CreateAccountId({ email }) {
-  const navigate = useNavigate();
-
+export default function CreateAccountId({ email, handleResult }) {
   const url = "/signin/ID";
 
   const [formData, setFormData] = useState({
@@ -39,10 +31,7 @@ export default function CreateAccountId({ email }) {
       .post(url, { ...formData })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("signin/created", {
-            state: { username: formData.username },
-            replace: true,
-          });
+          handleResult(formData.username);
         } else {
           throw new Error();
         }
@@ -54,6 +43,9 @@ export default function CreateAccountId({ email }) {
   }
 
   const handleChange = (event) => {
+    if (event.target.id === "username") {
+      setDuplicated(true);
+    }
     setFormData({
       ...formData,
       [event.target.id]: event.target.value,
@@ -68,7 +60,7 @@ export default function CreateAccountId({ email }) {
     event.preventDefault();
     setGlobalError();
     defaultInstance
-      .post("/authId", formData.email)
+      .post("/duplicate", { username: formData.username })
       .then(function (res) {
         if (res.status === 200) {
           setDuplicated(false);
@@ -77,7 +69,7 @@ export default function CreateAccountId({ email }) {
         }
       })
       .catch(function (e) {
-        setGlobalError({ message: "아이디와 비밀번호를 확인해주세요." });
+        setGlobalError({ message: "이미 사용중인 아이디입니다." });
         console.log(e);
       });
   }

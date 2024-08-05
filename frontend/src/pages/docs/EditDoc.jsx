@@ -14,15 +14,13 @@ export default function EditDoc() {
       .put(url, { content: doc.content, doc_id: state.id, file: [] })
       .then(function (res) {
         if (res.status === 200) {
-          navigate("/doc", {
-            state: { id: state.id },
-          });
+          navigate("/docs/" + state.id);
         } else {
           throw new Error();
         }
       })
       .catch(function (e) {
-        throw new Error();
+        alert("수정 권한이 없습니다");
       });
   };
 

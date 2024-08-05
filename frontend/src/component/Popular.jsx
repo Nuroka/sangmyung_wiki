@@ -16,7 +16,7 @@ export default function Popular() {
       return response.data;
     },
     retry: 1,
-    refetchInterval: 1 * 10 * 1000,
+    refetchInterval: 1 * 60 * 1000,
     staleTime: 1 * 60 * 1000,
     refetchIntervalInBackground: false,
   });

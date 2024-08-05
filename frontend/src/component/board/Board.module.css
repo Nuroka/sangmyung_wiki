@@ -16,43 +16,48 @@
 .bodyFont {
     font-weight: 400;
     font-family: "SUIT-Regular";
-    font-size: 1rem;
-    width: 60vw;
+    font-size: 2vmin;
 }
-
-.bodyFont div:nth-of-type(1) {
-    position: relative;
-}
-
 
 .titleInput {
     height: 45px;
     width: 50vw;
-
 }
+
 .font {
     font-weight: 400;
 }
 
 .subTitle {
-    margin-bottom: 0;
+    margin: 5px;
     font-weight: 400;
     font-size: 1.7rem;
 }
 
-.bodyFont span:nth-of-type(1){
-    margin-bottom: 10px;
+.createContainer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin: 5px;
+}
+
+.writer{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.createAt {
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .boardContent {
     resize: none;
-    border-radius: 10px;
     width:55vw;
-
+    margin: 25px 0;
     font-family: "SUIT-Regular";
     font-weight: 400;
     font-size: 2vmin;
-    line-height: 4vmin;
     padding: 10px 30px 10px 30px;
 }
 
@@ -65,48 +70,22 @@
 hr {
     margin-left: 0;
     width: 60vw;
-    border-top: 1px solid #FFFFFF;
-}
-
-hr:last-child {
-    border-top: 1px solid;
-}
-
-
-.createAt {
-    position: absolute;
-    right: 0;
-    margin-right: 20px;
 }
 
 .likeBtn {
-    /*margin-left: 83px;*/
-    position: relative;
-    padding: 0;
-    margin-top: 10px;
-    width: 500px;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
 }
 
-.likeBtn span {
-    margin-left: 30px;
-    position: absolute;
-    width: auto;
-    margin-top: 20px
+.likeBtn svg {
+    cursor: pointer;
+    fill: gray;
+    margin-right: 8px;
 }
 
-.commentAndLike {
-    position: relative;
-    width: 60vw;
-}
-
-.commentAndLike div:nth-of-type(1){
-    position: absolute;
-    margin-top: 20px;
-    right: 0;
-}
 path {
-
-    padding-top: 10px;
+    padding-top: 0;
 }
 
 .count {
@@ -114,12 +93,17 @@ path {
 }
 
 .commentContainer {
+    height: 3.8vw;
     width: 60vw;
-    background: #FFFFFF;
     border-radius: 10px;
-
     line-height: 60px;
-    margin-top: 19px;
+    margin: 19px 0;
+    background: #FFFFFF;
+}
+
+
+.commentContainer hr {
+    width: 58vw;
 }
 
 .comment span:nth-of-type(2n+1) {
@@ -132,62 +116,34 @@ path {
 
 .comment {
     padding-left: 10px;
-
 }
 
-.commentContainer hr {
-    width: 58vw;
+.countContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .addCommentInput {
-    /*margin-top: 50px;*/
-    /*margin-bottom: 20px;*/
+    margin: 5px 0;
+    width: 50vw;
     resize: none;
     border-radius: 10px;
     border: none;
-    /*display: inline-block;*/
-}
-
-.addCommentInput2 {
-    width: 50vw;
 }
 
 .addCommentBtn {
     margin-top:5px;
-    margin-left: 10px;
-    width: auto;
-    height: 50px;
-    right: 0;
 }
 
 .boardEditBtn {
-    /*margin-left: 20vw;*/
-    /*margin-top: 20px;*/
-    position: relative;
-    height: 40px;
-    width: 60vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-left: 20vw;
+    margin-right: 1vw;
 }
-
-.boardEditBtn button {
-    position: absolute;
-    right: 0;
-    width: 4em;
-    height: 2em;
-    margin-top: 20px;
-}
-
-.boardEditBtn button:nth-of-type(3){
-    /*margin-right: 20px;*/
-    margin-right: 0;
-}
-.boardEditBtn button:nth-of-type(2){
-    margin-right: 85px;
-}
-
-.boardEditBtn button:nth-of-type(1){
-    margin-right: 170px;
-}
-
 
 .boardList {
     width: 60vw;
@@ -229,31 +185,61 @@ ul {
 }
 
 .btnDiv {
-    display: inline-block;
+    display: flex; /* Flexbox를 사용하여 가로로 정렬 */
+    align-items: center; /* 세로 축 정렬 */
+    gap: 10px; /* 요소 간 간격 */
 }
 
-/* readOnly 상태일 때의 스타일 */
-textarea[readonly] {
-    opacity: 0.5; /* 투명도 조절 */
-    background-color: #f0f0f0; /* 배경색 변경 */
-    cursor: not-allowed; /* 마우스 커서 변경 */
+.updateComment {
+    height: 2.8vw;
+    width: 60vw;
+    font-size: 2vmin;
+    padding: 10px 30px;
+    font-family: "SUIT-Regular";
+    margin: 0; /* 기본 여백 제거 */
 }
 
-/* readOnly가 아닌 상태일 때의 스타일 */
-textarea:not([readonly]) {
-    opacity: 1; /* 투명도 조절 */
-    background-color: #ffffff; /* 기본 배경색 */
-    cursor: text; /* 기본 텍스트 커서 */
+.updateCommentBtn {
+    font-size: 1rem;
+    width: auto; /* 버튼 크기를 글자 크기에 맞추기 위해 auto로 설정 */
+    padding: 10px 20px; /* 버튼 내부 여백을 설정하여 크기 조정 */
+    height: auto; /* 기본 높이 설정 */
+    margin-left: 0; /* 왼쪽 여백 제거 */
 }
 
-.hrStyles {
-    border: none; /* Remove default border */
-    border-top: 1px dashed #ccc; /* Add dashed border on top */
-    margin: 20px 0 0 0; /* Adjust margin as needed */
+.deleteBtn {
+    margin-left: 100px;
 }
 
+/* 여기부터 새로 작성한 부분 */
 
+.commentListContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
 
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.commentUserID {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
 
+.commentText {
+    font-size: 1rem;
+    margin: 5px 0;
+}
 
+.commentActions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+}

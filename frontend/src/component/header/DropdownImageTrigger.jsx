@@ -38,6 +38,15 @@ export default function DropdownImageTrigger() {
       hidden: !isLogin,
     },
     {
+      key: "file",
+      text: "파일 올리기",
+      onClick: () => {
+        navigate("/file");
+        setIsOpen(false);
+      },
+      hidden: !isLogin,
+    },
+    {
       key: "logout",
       text: "로그아웃",
       onClick: () => {

@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 
+import DeleteConfirmation from "../../component/docs/DeleteConfirmation";
+import DeletedConfirmation from "../../component/docs/DeletedConfirmation";
 import MyDocsList from "../../component/docs/MyDocsList";
 import { authInstance } from "../../util/api";
 import outlet from "../../layout/OutletLayout.module.css";
-import PaginateBox from "../../component/PaginateBox";
+import Modal from "../../component/Modal";
 
-/**
- * todo
- * pagination
- * loader
- */
 export default function MyDocs() {
   const [data, setData] = useState();
   const [error, setError] = useState();
-  const [status, setStatus] = useState();
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [deletedDoc, setDeletedDoc] = useState(false);
+  const [docToDelete, setDocToDelete] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,14 +36,23 @@ export default function MyDocs() {
   }, []);
 
   const handleDelete = async (id) => {
-    const url = "/docs?id=" + id;
-    setStatus(false);
+    setDocToDelete(id);
+    setModalIsOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    const url = "/docs?id=" + docToDelete;
+
+    setModalIsOpen(false);
+
     try {
       authInstance.post(url).then(function (res) {
         if (res.status === 200) {
-          const newData = data.filter((data) => data.documents.id !== id);
+          const newData = data.filter(
+            (data) => data.documents.id !== docToDelete
+          );
           setData(newData);
-          setStatus(true);
+          setDeletedDoc(true);
         } else {
           throw new Error();
         }
@@ -55,15 +64,13 @@ export default function MyDocs() {
 
   return (
     <>
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <DeleteConfirmation onConfirm={confirmDelete} />
+      </Modal>
+      <Modal open={deletedDoc} onClose={() => setDeletedDoc(false)}>
+        <DeletedConfirmation onConfirm={() => setDeletedDoc(false)} />
+      </Modal>
       <h2 className={outlet.title}>내 문서</h2>
-      <br />
-      {status && (
-        <p>
-          삭제 성공!
-          <br />
-        </p>
-      )}
-      {/* <PaginateBox limit={}/> */}
       <MyDocsList docs={data} handleDelete={handleDelete} />
       {!data && <p>로딩 중....</p>}
       {error && <p>{error.message}</p>}

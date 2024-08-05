@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
 
 export default function Home() {
-  return <Navigate to={"/doc"} state={{ id: 1 }} />;
+  return <Navigate to={"/docs/1"} />;
 }
