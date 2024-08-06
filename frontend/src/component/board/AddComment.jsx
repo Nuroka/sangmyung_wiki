@@ -29,7 +29,7 @@ const AddComment = ({ parentId, boardId, storedMemberId }) => {
 
 
   return (
-    <div>
+    <div className={boardStyles.commentContainer}>
       <input className={boardStyles.addCommentInput}
         type="text"
         name="content"

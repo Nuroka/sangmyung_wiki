@@ -82,26 +82,27 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
                                             )}
                                         </div>
                                         <p className={boardStyles.commentText}>{parent.content}</p>
+                                        <hr className={boardStyles.line}/>
 
                                         {/* 대댓글 표시 */}
-                                        <div className={boardStyles.replyContainer}>
+                                        <div>
                                             {child && child.map((reply) => (
-                                                <div key={reply.comment_id} className={boardStyles.reply}>
-                                                    <strong><p>{reply.member_name}</p></strong>
-                                                    <p>{reply.content}</p>
-
-                                                    {storedMemberId == reply.member_id && (
-                                                        <>
-                                                            <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} parentId={parent.comment_id} />
-                                                            <DeleteComment replyId={reply.comment_id} parentId={parent.comment_id} />
-                                                        </>
-                                                    )}
+                                                <div className={boardStyles.replyContainer} key={reply.comment_id}>
+                                                    <div className={boardStyles.commentHeader}>
+                                                        <strong><p className={boardStyles.commentUserID}>{reply.member_name}</p></strong>
+                                                        {storedMemberId == reply.member_id && (
+                                                            <div className={boardStyles.commentActions}>
+                                                                <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} parentId={parent.comment_id} />
+                                                                <DeleteComment replyId={reply.comment_id} parentId={parent.comment_id} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <p className={boardStyles.commentText}>@{parent.member_name} {reply.content}</p>
+                                                    <hr className={boardStyles.line}/>
                                                 </div>
                                             ))}
                                         </div>
                                         <AddComment parentId={parent.comment_id} boardId={boardId} storedMemberId={storedMemberId} />
-
-                                        <hr/>
                                     </div>
                                 ))
                             )}

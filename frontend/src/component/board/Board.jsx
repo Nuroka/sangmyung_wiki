@@ -81,16 +81,18 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes, 
               </button>
             )}
             <div>
-              <span>댓글 {commentsCount}</span> {/*댓글 수 백엔드 측에서 받아서 보여주기 */}
-              <LikeBtn boardId={id} likeCount={likes} likeState={likeState} />
-              {/*<AddComment boardId={id} />*/}
-              <div className={boardStyles.commentContainer}>{/* 댓글 내용 */}</div>
+              <div className={boardStyles.countContainer}>
+                <span>댓글 {commentsCount}</span> {/*댓글 수 백엔드 측에서 받아서 보여주기 */}
+                <LikeBtn boardId={id} likeCount={likes} likeState={likeState} />
+              </div>
+              <AddComment boardId={id} />
+              <div>{/* 댓글 내용 */}</div>
               <hr />
             </div>
             {/*<CommentList boardId={id} />*/}
             <BoardCommentList boardId={id} storedMemberId={storeMemberId} />
             {/*<hr/>*/}
-            <span className={boardStyles.createAt}>{parseDate(create_at)}</span>
+            {/* <span className={boardStyles.createAt}>{parseDate(create_at)}</span> */}
           </div>
         )}
       </div>
