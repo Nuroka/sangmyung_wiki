@@ -196,8 +196,8 @@ public List<DocDTO> findAllReverse(String sort) {
         /*사용자가 볼 수 있는 문서인가 확인*/
         List<Documents> documents = docRepository.findAll();
 
-        int rand = (int) (Math.random() * documents.size() + 1);
-        Documents randDoc = docRepository.getReferenceById((long) rand);
+        int rand = (int) (Math.random() * documents.size());
+        Documents randDoc = documents.get(rand);
 
         ResponseDocDTO responseDocDTO = ResponseDocDTO.builder()
                 .id(randDoc.getId())
@@ -207,7 +207,7 @@ public List<DocDTO> findAllReverse(String sort) {
                 .memberUsername(randDoc.getMember().getUsername())
                 .content(randDoc.getContent())
                 .build();
-        List<FileDTO> fileDTOList = fileService.findFilesByDocId((long) rand);
+        List<FileDTO> fileDTOList = fileService.findFilesByDocId(randDoc.getId());
 
         return  DocDTO.builder()
                 .documents(responseDocDTO)
