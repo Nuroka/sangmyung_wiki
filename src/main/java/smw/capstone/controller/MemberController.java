@@ -54,6 +54,9 @@ public class MemberController {
 
     @PostMapping("/signin/email/1")
     public ResponseEntity<?> certificateEmail(@RequestBody EmailDTO form){
+        if (memberService.findByEmail(form.getEmail()) != null) {
+            throw new BusinessException(CustomErrorCode.EXIST_USERNAME);
+        }
         String email = form.getEmail();
         memberService.signin_sendNumber(email);
 
@@ -83,6 +86,9 @@ public class MemberController {
 
     @PostMapping("/find/ID/1")
     public ResponseEntity<?> findingID(@RequestBody EmailDTO form){
+        if (memberService.findByEmail(form.getEmail()) == null) {
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL);
+        }
         String email = form.getEmail();
         memberService.findid_sendNumber(email);
 
@@ -102,6 +108,9 @@ public class MemberController {
 
     @PostMapping("/find/pw/1")
     public ResponseEntity<?> findPW2(@RequestBody FindPwDTO form){
+        if (memberService.findByEmail(form.getEmail()) == null) {
+            throw new BusinessException(CustomErrorCode.NOT_MATCHED_EMAIL);
+        }
         String email = form.getEmail();
         String username = form.getUsername();
         memberService.findpw_sendNumber(email, username);
