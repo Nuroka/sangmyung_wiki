@@ -20,7 +20,8 @@ export default function EditDoc() {
         }
       })
       .catch(function (e) {
-        alert("수정 권한이 없습니다");
+        alert(e.response.data.message);
+        navigate("/docs/" + state.id);
       });
   };
 

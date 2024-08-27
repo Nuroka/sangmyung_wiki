@@ -27,7 +27,7 @@ export default function CreateDoc() {
           }
         })
         .catch(function (e) {
-          setError("이미 등록된 문서입니다.");
+          setError(e.response.data.message);
         });
     }
   };

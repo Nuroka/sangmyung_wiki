@@ -10,6 +10,7 @@ input {
   border-radius: 10px;
   border: none;
   font-size: 2vmin;
+  margin-right: 20px;
 }
 
 input[type="checkbox"] {

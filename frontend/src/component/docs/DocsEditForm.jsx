@@ -64,7 +64,10 @@ export default function DocsEditForm({ onSubmit, detail, edit }) {
           }}
         />
       </div>
-      <button onClick={handleSubmit}>저장</button>
+      <br />
+      <button style={{ float: "right", marginRight: "3vw" }} onClick={handleSubmit}>
+        저장
+      </button>
     </div>
   );
 }
