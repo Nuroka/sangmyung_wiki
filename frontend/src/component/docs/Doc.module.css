@@ -97,3 +97,10 @@
   width: 1.3vw;
   padding-top: 3px;
 }
+
+.content img {
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
