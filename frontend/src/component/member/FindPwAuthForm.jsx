@@ -33,8 +33,7 @@ export default function FindPwAuthForm({ data, handleResult }) {
       })
       .catch(function (e) {
         setIsFetching(false);
-        setError({ message: "코드 인증 실패! 다시 시도해 주세요." });
-        console.log(e);
+        setError({ message: e.response.data.message });
       });
   }
 
@@ -47,17 +46,12 @@ export default function FindPwAuthForm({ data, handleResult }) {
 
   return (
     <>
-      {error && <p>{error.message}</p>}
+      {error && <p style={{ marginBottom: "10px", color: "red" }}>{error.message}</p>}
       <EmailAuthMessage email={formData.email} />
       <form id="form" onSubmit={handleSubmitCode}>
         <label htmlFor="code">인증번호</label>
         <br />
-        <input
-          type="text"
-          name="code"
-          onChange={handleChange}
-          disabled={isFetching}
-        />
+        <input type="text" name="code" onChange={handleChange} disabled={isFetching} />
         <button type="submit" disabled={isFetching}>
           {isFetching ? "인증 중..." : "인증"}
         </button>
