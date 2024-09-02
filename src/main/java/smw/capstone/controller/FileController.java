@@ -12,6 +12,7 @@ import smw.capstone.DTO.request.ReqCreateDoc;
 import smw.capstone.DTO.request.ReqUpdateDocDTO;
 import smw.capstone.DTO.response.DocDTO;
 import smw.capstone.DTO.response.DocsIdDTO;
+import smw.capstone.DTO.response.ResponseDocDTO;
 import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.entity.Member;
 import smw.capstone.service.DocService;
@@ -133,5 +134,13 @@ public class FileController {
     @GetMapping("/doc")
     public ResponseEntity<?> getOneDoc(Long id) {
         return ResponseEntity.ok().body(docService.getDoc(id));
+    }
+
+    /**
+     * 문서역사
+     */
+    @GetMapping("/docs/log")
+    public ResponseEntity<List<ResponseDocDTO>> getDocLog(){
+        return ResponseEntity.ok().body(docService.getDocLog());
     }
 }

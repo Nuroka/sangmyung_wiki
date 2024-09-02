@@ -265,4 +265,14 @@ public List<DocDTO> findAllReverse(String sort) {
 
         return docDto;
     }
+
+    //문서 전체 반환하기
+    public List<ResponseDocDTO> getDocLog() {
+        List<Documents> documents = docRepository.findAll();
+        List<ResponseDocDTO> resDocDTO = new ArrayList<>();
+        for (Documents doc : documents) {
+            resDocDTO.add(buildResDocDto(doc));
+        }
+        return resDocDTO;
+    }
 }

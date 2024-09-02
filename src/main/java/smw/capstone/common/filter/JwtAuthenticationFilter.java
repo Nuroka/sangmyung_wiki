@@ -29,7 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/duplicate", "/find/ID/1", "/find/ID/2", "/find/pw/1", "/find/pw/2", "/find/pw/3",
             "/doc", "/docs/search", "/docs/all", "/docs/recommend", "/docs/recent",
             "/comment/one", "/comment/board",
-            "/board/one", "/board/popular", "/board/all"
+            "/board/one", "/board/popular", "/board/all",
+            "/docs/log"
     };
 
     public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {
