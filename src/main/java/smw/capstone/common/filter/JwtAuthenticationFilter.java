@@ -24,13 +24,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
-    private static final String[] urls = {"/user",
-            "/signin/email", "/signin/email/1", "/signin/email/2", "/signin/ID",
-            "/duplicate", "/find/ID/1", "/find/ID/2", "/find/pw/1", "/find/pw/2", "/find/pw/3",
-            "/doc", "/docs/search", "/docs/all", "/docs/recommend", "/docs/recent",
-            "/comment/one", "/comment/board",
-            "/board/one", "/board/popular", "/board/all",
-            "/docs/log"
+    private static final String[] urls = {"/api/user",
+            "/api/signin/email", "/api/signin/email/1", "/api/signin/email/2", "/api/signin/ID",
+            "/api/duplicate", "/api/find/ID/1", "/api/find/ID/2", "/api/find/pw/1", "/api/find/pw/2", "/api/find/pw/3",
+            "/api/doc", "/api/docs/search", "/api/docs/all", "/api/docs/recommend", "/api/docs/recent",
+            "/api/comment/one", "/api/comment/board",
+            "/api/board/one", "/api/board/popular", "/api/board/all",
+            "/api/docs/log"
     };
 
     public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {

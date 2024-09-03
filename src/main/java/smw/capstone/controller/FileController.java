@@ -25,6 +25,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api")
 public class FileController {
 
     private final FileService fileService;
@@ -123,7 +124,7 @@ public class FileController {
     /**
      * 최근 변경 내역 역순
      */
-    @GetMapping("/docs/recent/reverse")
+    @GetMapping("/api/docs/recent/reverse")
     public ResponseEntity<List<DocDTO>> getUpdateDocReverse() {
         return ResponseEntity.ok().body(docService.getUpdateDocReverse());
     }

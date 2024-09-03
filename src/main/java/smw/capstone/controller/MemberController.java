@@ -23,6 +23,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
+@RequestMapping("/api")
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {

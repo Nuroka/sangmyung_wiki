@@ -44,21 +44,21 @@ public class SecurityConfig {
 //                                .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/favicon.ico")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/user")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/signin/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/user")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/signin/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/docs/search")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/docs/all")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/docs/recommend")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/docs/edit")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/doc")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/comment/board")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/comment")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/board")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/search")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/all")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/recommend")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/edit")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/doc")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/comment/board")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/comment")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/board")).permitAll()
 //                                .requestMatchers(new AntPathRequestMatcher("/board/one")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/board/popular")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/docs/recent")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/board/all")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/board/popular")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/recent")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/board/all")).permitAll()
 
                                 .anyRequest().permitAll());
 
@@ -69,10 +69,10 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
 
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .requestMatchers(new AntPathRequestMatcher("/user"))
-                .requestMatchers(new AntPathRequestMatcher("/recent"))
-                .requestMatchers(new AntPathRequestMatcher("/popular"))
-                .requestMatchers(new AntPathRequestMatcher("/signin/**"));
+                .requestMatchers(new AntPathRequestMatcher("/api/user"))
+                .requestMatchers(new AntPathRequestMatcher("/api/recent"))
+                .requestMatchers(new AntPathRequestMatcher("/api/popular"))
+                .requestMatchers(new AntPathRequestMatcher("/api/signin/**"));
     }
 }
 
