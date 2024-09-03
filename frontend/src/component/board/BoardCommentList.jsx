@@ -74,14 +74,21 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
                                     <div className={boardStyles.commentListContainer} key={parent.comment_id}>
                                         <div className={boardStyles.commentHeader}>
                                             <strong><p className={boardStyles.commentUserID}>{parent.member_name}</p></strong>
-                                            {storedMemberId == parent.member_id && (
-                                            <div className={boardStyles.commentActions}>
-                                                <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} />
-                                                <DeleteComment commentId={parent.comment_id} boardId={boardId} storedMemberId={storedMemberId} />
-                                            </div>
+                                            {storedMemberId == parent.member_id}
+                                        </div>
+                                        <div className={boardStyles.commentActions}>
+                                            {editingCommentId === parent.comment_id ? (
+                                                <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} onEditComplete={handleEditComplete}/>
+                                            ) : (
+                                                <div>
+                                                    <p className={boardStyles.commentText}>{parent.content}</p>
+                                                    <div>
+                                                        <button className={boardStyles.updateCommentBtn} onClick={() => handleEditClick(parent.comment_id)}>수정</button>
+                                                        <DeleteComment commentId={parent.comment_id} boardId={boardId} storedMemberId={storedMemberId} />
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
-                                        <p className={boardStyles.commentText}>{parent.content}</p>
                                         <hr className={boardStyles.line}/>
 
                                         {/* 대댓글 표시 */}
@@ -90,14 +97,21 @@ const BoardCommentList = ({ boardId, storedMemberId }) => {
                                                 <div className={boardStyles.replyContainer} key={reply.comment_id}>
                                                     <div className={boardStyles.commentHeader}>
                                                         <strong><p className={boardStyles.commentUserID}>{reply.member_name}</p></strong>
-                                                        {storedMemberId == reply.member_id && (
-                                                            <div className={boardStyles.commentActions}>
-                                                                <EditComment commentId={parent.comment_id} initialContent={parent.content} boardId={boardId} storedMemberId={storedMemberId} parentId={parent.comment_id} />
-                                                                <DeleteComment replyId={reply.comment_id} parentId={parent.comment_id} />
+                                                        {storedMemberId == reply.member_id}
+                                                    </div>
+                                                    <div className={boardStyles.commentActions}>
+                                                        {editingCommentId === reply.comment_id ? (
+                                                            <EditComment commentId={reply.comment_id} initialContent={reply.content} boardId={boardId} storedMemberId={storedMemberId} parentId={parent.comment_id} onEditComplete={handleEditComplete}/>
+                                                        ) : (
+                                                            <div>
+                                                                <p className={boardStyles.commentText}><span className={boardStyles.parent_member_name}>@{parent.member_name}</span> {reply.content}</p>
+                                                                <div>
+                                                                    <button className={boardStyles.updateCommentBtn} onClick={() => handleEditClick(reply.comment_id)}>수정</button>
+                                                                    <DeleteComment commentId={reply.comment_id} boardId={boardId} storedMemberId={storedMemberId} />
+                                                                </div>
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <p className={boardStyles.commentText}>@{parent.member_name} {reply.content}</p>
                                                     <hr className={boardStyles.line}/>
                                                 </div>
                                             ))}
