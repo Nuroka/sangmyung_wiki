@@ -35,7 +35,7 @@ const BoardWrite = () => {
 
   return (
     <div className={`${styles.loginDiv} ${styles.loginD} `}>
-      <h3 className={boardStyles.subTitle}>글쓰기</h3>
+      <h3 className={boardStyles.title}>글쓰기</h3>
       <div>
         <div className={boardStyles.tag}>
         <span>제목</span>

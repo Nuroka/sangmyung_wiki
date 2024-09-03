@@ -13,10 +13,17 @@
     font-weight: 400;
     display: inline-block;
 }
+
 .bodyFont {
     font-weight: 400;
     font-family: "SUIT-Regular";
     font-size: 2vmin;
+}
+
+.title{
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 10px;
 }
 
 .titleInput {
@@ -31,7 +38,7 @@
 .subTitle {
     margin: 5px;
     font-weight: 400;
-    font-size: 1.7rem;
+    font-size: 1.2rem;
 }
 
 .createContainer {
@@ -54,15 +61,19 @@
 .boardContent {
     resize: none;
     width:55vw;
-    margin: 25px 0;
+    margin: 20px 0;
     font-family: "SUIT-Regular";
     font-weight: 400;
     font-size: 2vmin;
-    padding: 10px 30px 10px 30px;
+    padding: 30px 30px;
+    border-radius: 10px;
 }
 
 .boardBtn {
+    display: flex;
+    justify-content: flex-end;
     padding-left: 30vw;
+    margin-right: 30px;
     font-weight: 400;
     font-size: 1em;
 }
@@ -185,26 +196,33 @@ ul {
 }
 
 .btnDiv {
-    display: flex; /* Flexbox를 사용하여 가로로 정렬 */
-    align-items: center; /* 세로 축 정렬 */
-    gap: 10px; /* 요소 간 간격 */
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .updateComment {
-    height: 2.8vw;
-    width: 60vw;
+    height: 2.2vw;
+    width: 50vw;
     font-size: 2vmin;
     padding: 10px 30px;
     font-family: "SUIT-Regular";
-    margin: 0; /* 기본 여백 제거 */
+    margin: 0;
 }
 
-.updateCommentBtn {
-    font-size: 1rem;
+.updateCommentBtn, .deleteCommentBtn {
+    font-size: 0.8rem;
     width: auto;
-    padding: 10px 20px;
     height: auto;
-    margin-left: 0;
+    background: transparent;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.updateCommentBtn:hover, .deleteCommentBtn:hover {
+    text-decoration: underline;
 }
 
 .commentListContainer {
@@ -219,6 +237,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .commentUserID {
@@ -226,17 +245,23 @@ ul {
     font-weight: bold;
 }
 
-.commentText {
+.parent_member_name{
     font-size: 1rem;
-    margin: 5px 0;
+    margin: 5px 5px 5px 0;
+    font-weight: bold;
 }
 
-.commentActions {
-    /* position: absolute; */
-    top: 10px;
-    right: 10px;
-    display: flex;
+.commentText {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+/* .commentActions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+} */
 
 .replyContainer{
     margin-left:20px;
@@ -247,4 +272,12 @@ ul {
     width: 58vw;
     margin-top: 10px;
     color:#ccc;
+}
+
+.hrSpacing {
+    margin: 6px 0;
+}
+
+.editCompleteBtn{
+    height: 50px;
 }

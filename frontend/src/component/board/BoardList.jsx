@@ -47,7 +47,7 @@ const BoardList = () => {
           <span className={boardStyles.properties}>추천수</span>
           <span className={boardStyles.properties}>등록 시간</span>
         </div>
-        <hr />
+        <hr className={boardStyles.hrSpacing}/>
         <ul>
           {boardList.map((board) => (
             // map 함수로 데이터 출력

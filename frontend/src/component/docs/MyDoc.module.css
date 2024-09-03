@@ -17,12 +17,12 @@
 }
 
 .deleteBtn {
-  width: 86px;
-  height: 50px;
+  width: 82px;
+  height: 42px;
   background-color: white;
   color: black;
   font-family: "SUIT-Regular";
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .deleteBtn:hover {
