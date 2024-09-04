@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/doc", "/docs/search", "/docs/all", "/docs/recommend", "/docs/recent",
             "/comment/one", "/comment/board",
             "/board/one", "/board/popular", "/board/all",
-            "/docs/log"
+            "/docs/log"/*, "/file", "/img-url"*/
     };
 
     public JwtAuthenticationFilter(MemberRepository memberRepository, JwtProvider jwtProvider) {
@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try{
             for (String url:urls) {
-                if(request.getRequestURI().equals(url) || request.getMethod().equals("OPTIONS")) {
+                if(request.getRequestURI().contains(url) || request.getMethod().equals("OPTIONS")) {
                     filterChain.doFilter(request, response);
                     return;
                 }

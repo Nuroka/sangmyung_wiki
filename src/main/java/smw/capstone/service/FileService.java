@@ -1,7 +1,12 @@
 package smw.capstone.service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +23,14 @@ import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
 import smw.capstone.repository.FileRepository;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 @Service
 @RequiredArgsConstructor
@@ -31,24 +41,28 @@ public class FileService {
     private final FileRepository fileRepository;
     private final FileHandler fileHandler;
     private final DocFileRepository docFileRepository;
+    private final AmazonS3Client amazonS3Client;
 
-    @Transactional
-    public Files savefiles(FileUploadDTO file, MultipartFile newFile, Member member) throws Exception {
-        if (member == null) {
-            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
-        }
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
-        Files files = fileHandler.parseFileInfo(file, newFile, member);
-
-        if (files == null) {
-            //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
-            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
-        }
-        else {
-            fileRepository.save(files);
-        }
-        return files;
-    }
+//    @Transactional
+//    public Files savefiles(FileUploadDTO file, MultipartFile newFile, Member member) throws Exception {
+//        if (member == null) {
+//            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+//        }
+//
+//        Files files = fileHandler.parseFileInfo(file, newFile, member);
+//
+//        if (files == null) {
+//            //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
+//            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
+//        }
+//        else {
+//            fileRepository.save(files);
+//        }
+//        return files;
+//    }
 
     public List<Files> findAllFiles() {
         return fileRepository.findAll();
@@ -94,4 +108,97 @@ public class FileService {
         return fileRepository.findByMember(member);
     }
 
+    @Transactional
+    public Files saveFile(MultipartFile file, FileUploadDTO fileDto, Member member) throws IOException {
+
+        if (member == null) {
+            throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
+        }
+
+
+        Files files = Files.builder()
+                .storedFileName(uploadFileToS3(file, member.getUsername()))
+                .Category(fileDto.getCategory())
+                .Name(fileDto.getFileName() + member.getUsername())
+                .License(fileDto.getLicense())
+                .Summary(fileDto.getSummary())
+                .member(member) //나중에 회원정보 넣기
+                .build();
+
+        if (files == null) {
+            //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
+        }
+        else {
+            fileRepository.save(files);
+        }
+        return files;
+
+    }
+
+    public String uploadFileToS3(MultipartFile file, String username) throws IOException {
+
+        if (file == null || file.isEmpty()) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
+        }
+        byte[] originalImageBytes;
+        try {
+            originalImageBytes = file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            originalImageBytes = file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] compressedImageBytes = compressImage(originalImageBytes);
+
+        String fileName=file.getOriginalFilename();
+        String fileUrl= "https://" + bucket +username + fileName;
+        ObjectMetadata metadata= new ObjectMetadata();
+        metadata.setContentType(file.getContentType());
+        metadata.setContentLength(file.getSize());
+        amazonS3Client.putObject(bucket,fileName,file.getInputStream(),metadata);
+        return fileUrl;
+
+    }
+
+    public static byte[] compressImage(byte[] data) {
+        Deflater deflater = new Deflater();
+        deflater.setLevel(Deflater.BEST_COMPRESSION);
+        deflater.setInput(data);
+        deflater.finish();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] tmp = new byte[4 * 1024];
+        while (!deflater.finished()) {
+            int size = deflater.deflate(tmp);
+            outputStream.write(tmp, 0, size);
+        }
+        try {
+            outputStream.close();
+        } catch (Exception ignored) {
+
+        }
+        return outputStream.toByteArray();
+    }
+
+    public static byte[] decompressImage(byte[] data) {
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] tmp = new byte[4*1024];
+        try {
+            while (!inflater.finished()) {
+                int count = inflater.inflate(tmp);
+                outputStream.write(tmp, 0, count);
+            }
+            outputStream.close();
+        }catch (Exception ignored){
+
+        }
+        return outputStream.toByteArray();
+    }
 }

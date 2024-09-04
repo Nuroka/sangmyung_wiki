@@ -31,6 +31,7 @@ public class Files {
 
     private String storedFileName;
 
+
     @OneToMany(mappedBy = "file", orphanRemoval = true)
     private List<DocFile> docFileList = new ArrayList<DocFile>();
 }
