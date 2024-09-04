@@ -140,7 +140,7 @@ public class FileService {
         files = Files.builder()
                 .storedFileName(uploadFileToS3(file, member.getUsername()))
                 .Category(fileDto.getCategory())
-                .Name(fileDto.getFileName() + member.getUsername() + originalFileExtension)
+                .name(fileDto.getFileName() + member.getUsername() + originalFileExtension)
                 .License(fileDto.getLicense())
                 .Summary(fileDto.getSummary())
                 .member(member) //나중에 회원정보 넣기

@@ -2,6 +2,7 @@ package smw.capstone;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import smw.capstone.entity.*;
@@ -23,6 +24,7 @@ public class TestDataInit {
     private final FileRepository fileRepository;
     private final DocRepository docRepository;
     private final DocFileRepository docFileRepository;
+    private final PasswordEncoder passwordEncoder;
 
 //    @PostConstruct
 //    @Transactional
@@ -30,7 +32,7 @@ public class TestDataInit {
         Member member = new Member();
         member.setUsername("test");
         member.setEmail("test@naver.com");
-        member.setPassword("test");
+        member.setPassword(passwordEncoder.encode("test"));
         member.setType(Type.USER);
         member.setStudent_Id(12345678);
 
@@ -56,7 +58,7 @@ public class TestDataInit {
                 .Category("category")
                 .License("license")
                 .storedFileName("/img/20240230/ex-uuid.jpg")
-                .Name("ex.jpg").build();
+                .name("ex.jpg").build();
 
         Files files2 = Files.builder()
                 .member(member)
@@ -64,7 +66,7 @@ public class TestDataInit {
                 .Category("category")
                 .License("license")
                 .storedFileName("/img/20240230/ex2-uuid.jpg")
-                .Name("ex2.jpg").build();
+                .name("ex2.jpg").build();
 
         Files files3 = Files.builder()
                 .member(member)
@@ -72,7 +74,7 @@ public class TestDataInit {
                 .Category("category")
                 .License("license")
                 .storedFileName("/img/20240230/new-uuid.jpg")
-                .Name("new.jpg").build();
+                .name("new.jpg").build();
         List<Files> newFiles = new ArrayList<>();
         newFiles.add(files1);
         newFiles.add(files2);

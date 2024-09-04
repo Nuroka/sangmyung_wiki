@@ -171,6 +171,6 @@ public class FileController {
         return ResponseEntity.ok().body(fileService.getImageUrl(imgName, member));
     }
 
-    //파일 가져오기
+    //TODO: 파일 가져오기
 
 }

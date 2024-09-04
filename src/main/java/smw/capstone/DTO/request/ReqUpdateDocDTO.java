@@ -26,4 +26,7 @@ public class ReqUpdateDocDTO {
 
     @JsonProperty("file")
     private List<String> fileName;
+
+    @JsonProperty("update_file")
+    private String updateFile;
 }
