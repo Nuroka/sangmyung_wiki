@@ -23,6 +23,7 @@ import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -54,9 +55,10 @@ public class FileController {
     @PostMapping("/file")
     public ResponseEntity<?> uploadFile(
             @RequestParam("file") MultipartFile file,
-            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO
-            /*@CurrentUser Member member*/) throws IOException {
-        Member member = memberRepository.findById(1L);
+            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO,
+            @CurrentUser Member member) throws IOException {
+
+//        Member member = memberRepository.findById(1L);
 
         return ResponseEntity.ok(fileService.saveFile(file, fileUploadDTO, member));
 
@@ -162,4 +164,13 @@ public class FileController {
     public ResponseEntity<List<ResponseDocDTO>> getDocLog(){
         return ResponseEntity.ok().body(docService.getDocLog());
     }
+
+    @GetMapping("/img-url/{imgName}")
+    public ResponseEntity<String> getImgUrl(@PathVariable("imgName") String imgName, @CurrentUser Member member) {
+//        Member member = memberRepository.findById(1L);
+        return ResponseEntity.ok().body(fileService.getImageUrl(imgName, member));
+    }
+
+    //파일 가져오기
+
 }

@@ -17,6 +17,7 @@ import smw.capstone.common.annotation.CurrentUser;
 import smw.capstone.common.component.FileHandler;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
+import smw.capstone.config.S3Config;
 import smw.capstone.entity.DocFile;
 import smw.capstone.entity.Files;
 import smw.capstone.entity.Member;
@@ -26,6 +27,7 @@ import smw.capstone.repository.FileRepository;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +44,7 @@ public class FileService {
     private final FileHandler fileHandler;
     private final DocFileRepository docFileRepository;
     private final AmazonS3Client amazonS3Client;
+    private final S3Config s3Config;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -114,24 +117,36 @@ public class FileService {
         if (member == null) {
             throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
         }
+        String originalFileExtension = null;
+        String contentType = file.getContentType();
+        if (contentType.contains("image/jpeg")) {
+            originalFileExtension = ".jpg";
+        } else if (contentType.contains("image/png")) {
+            originalFileExtension = ".png";
+        } else if (contentType.contains("image/gif")) {
+            originalFileExtension = ".gif";
+        } else { //다른 확장자면 무시
+            //클라이언트에게 오류 코드
+            ;
+        }
+        Files fineFile = fileRepository.findByMemberAndName(member, fileDto.getFileName()+member.getUsername()+originalFileExtension);
+        if (fineFile != null) {
+            throw new BusinessException(CustomErrorCode.EXIST_FILE_TITLE);
+        }
+
+        Files files = null;
 
 
-        Files files = Files.builder()
+        files = Files.builder()
                 .storedFileName(uploadFileToS3(file, member.getUsername()))
                 .Category(fileDto.getCategory())
-                .Name(fileDto.getFileName() + member.getUsername())
+                .Name(fileDto.getFileName() + member.getUsername() + originalFileExtension)
                 .License(fileDto.getLicense())
                 .Summary(fileDto.getSummary())
                 .member(member) //나중에 회원정보 넣기
                 .build();
+        fileRepository.save(files);
 
-        if (files == null) {
-            //파일이  없을 경우: 클라이언트 측에서 파일 데이터가 없을 경우
-            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
-        }
-        else {
-            fileRepository.save(files);
-        }
         return files;
 
     }
@@ -155,12 +170,14 @@ public class FileService {
         }
         byte[] compressedImageBytes = compressImage(originalImageBytes);
 
+
         String fileName=file.getOriginalFilename();
+        System.out.println(fileName);
         String fileUrl= "https://" + bucket +username + fileName;
         ObjectMetadata metadata= new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
-        amazonS3Client.putObject(bucket,fileName,file.getInputStream(),metadata);
+        amazonS3Client.putObject(bucket,username+fileName,file.getInputStream(),metadata);
         return fileUrl;
 
     }
@@ -200,5 +217,11 @@ public class FileService {
 
         }
         return outputStream.toByteArray();
+    }
+
+    public String getImageUrl(String imgName, Member member) {
+        URL url = amazonS3Client.getUrl(bucket, imgName);
+        return url.toString();
+
     }
 }
