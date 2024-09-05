@@ -47,7 +47,7 @@ export default function Doc({ doc }) {
           <button
             className={styles.log}
             onClick={() => {
-              navigate("/docs/log", { state: doc });
+              navigate("/docs/log", { state: doc.id });
             }}
           >
             <span>

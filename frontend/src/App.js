@@ -33,6 +33,7 @@ import UnauthRoute from "./util/UnauthRoute";
 import DefaultRoute from "./util/DefaultRoute";
 import MyDocs from "./pages/docs/MyDocs";
 import RandomDoc from "./pages/docs/RandomDoc";
+import LogDetail from "./component/docs/LogDetail";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Home /> },
           { path: "docs/log", element: <DocsLog /> },
+          { path: "docs/log/detail", element: <LogDetail /> },
           { path: "docs/recommend/random", element: <Doc /> },
           { path: "docs/recommend", element: <RandomDoc /> },
           { path: "docs/recent", element: <RecentEdited /> },
