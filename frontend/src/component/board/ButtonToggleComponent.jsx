@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import styles from './Board.module.css'; // CSS 모듈 임포트
-const BtnToggleComponent = (props) => {
-    const [isVisited, setIsVisited] = useState(false);
+import React, { useState } from "react";
+import styles from "./Board.module.css";
 
-    const handleLike = () => {
-        setIsVisited(!isVisited);
-    };
+const BtnToggleComponent = ({ parameter, onSortByLikes }) => {
+  const [isVisited, setIsVisited] = useState(false);
 
-    return (
-        <button onClick={handleLike} className={isVisited ? styles.visited : ""}>
-            {props.parameter}
-        </button>
-    );
+  const handleLike = () => {
+    setIsVisited(!isVisited);
+    onSortByLikes();
+  };
+
+  return (
+    <button onClick={handleLike} className={isVisited ? styles.visited : ""}>
+      {parameter}
+    </button>
+  );
 };
 
 export default BtnToggleComponent;

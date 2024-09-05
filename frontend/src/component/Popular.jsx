@@ -26,6 +26,9 @@ export default function Popular() {
     visible: { opacity: 1, x: 0, y: 0 },
   };
 
+  // 추천수(like_count)로 내림차순 정렬된 데이터 생성
+  const sortedData = data ? [...data].sort((a, b) => b.like_count - a.like_count) : [];
+
   return (
     <>
       <p className={styles.recentTitle}>인기글</p>
@@ -41,7 +44,7 @@ export default function Popular() {
           {
             <ul className={styles.recent}>
               <AnimatePresence>
-                {data.slice(0, 10).map((popular, index) => (
+                {sortedData.slice(0, 10).map((popular, index) => (
                   <motion.li
                     key={popular.board_id}
                     className={styles.recentItem}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import boardStyles from "./Board.module.css";
-
 import { parseDate } from "../../util/parse";
 import { authInstance } from "../../util/api";
 import styles from "../Login.module.css";
@@ -14,10 +13,16 @@ const BoardList = () => {
   const [memberId, setMemberId] = useState(null);
 
   const getBoardList = async () => {
-    const resp = await await authInstance.get("/board/all"); // 게시글 목록 데이터에 할당
-    setBoardList(resp.data); // boardList 변수에 할당
+    const resp = await authInstance.get("/board/all");
+    setBoardList(resp.data);
     const pngn = resp.pagination;
     console.log(pngn);
+  };
+
+  // 게시글을 추천수 순으로 정렬하는 함수
+  const sortBoardByLikes = () => {
+    const sortedList = [...boardList].sort((a, b) => b.like_count - a.like_count);
+    setBoardList(sortedList);
   };
 
   const moveToWrite = () => {
@@ -25,9 +30,9 @@ const BoardList = () => {
   };
 
   useEffect(() => {
-    getBoardList(); // 게시글 목록 조회 함수 호출
+    getBoardList();
     const storedMemberId = localStorage.getItem("id");
-    console.log(`Retrieved memberId: ${storedMemberId}`); // 확인용 로그
+    console.log(`Retrieved memberId: ${storedMemberId}`);
     setMemberId(storedMemberId);
     console.log(boardList);
   }, []);
@@ -36,7 +41,7 @@ const BoardList = () => {
     <div className={`${styles.loginDiv} ${styles.loginD}`}>
       <div>
         <div className={boardStyles.boardList}>
-          <BtnToggleComponent parameter={"인기글"} />
+          <BtnToggleComponent parameter={"인기글"} onSortByLikes={sortBoardByLikes} />
 
           <button className={styles.link} onClick={moveToWrite}>
             글쓰기
@@ -47,14 +52,12 @@ const BoardList = () => {
           <span className={boardStyles.properties}>추천수</span>
           <span className={boardStyles.properties}>등록 시간</span>
         </div>
-        <hr className={boardStyles.hrSpacing}/>
+        <hr className={boardStyles.hrSpacing} />
         <ul>
           {boardList.map((board) => (
-            // map 함수로 데이터 출력
-            <li key={board} className={boardStyles.boardListContent}>
+            <li key={board.board_id} className={boardStyles.boardListContent}>
               <div className={boardStyles.boardTitlePreview}>
                 <Link to={`/board/one?id=${board.board_id}&member_id=${board.member_id}`}>
-                  {/*<span className={boardStyles.properties}>{board.board_title}</span>*/}
                   <TextWithLimit text={board.board_title} maxLength={6} />
                 </Link>
               </div>
