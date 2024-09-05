@@ -39,11 +39,7 @@ export default function Fileload() {
       })
       .then((res) => {
         if (res.status === 200) {
-          authInstance.get("/img-url/" + res.data.name).then((res) => {
-            alert(res.data);
-            console.log(res);
-          });
-          console.log(res);
+          alert("등록 완료");
           navigate("/");
         } else {
           throw new Error();

@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import styles from "../Login.module.css";
-import findIdAuthStyles from "./FindIdForm.module.css";
 import UserFile from "./UserFile";
 
 export default function MyPageContent({ data }) {
@@ -16,10 +14,7 @@ export default function MyPageContent({ data }) {
       <br />
       <p>
         비밀번호
-        <button
-          className={`${styles.link} ${findIdAuthStyles.findIdFormBtn}`}
-          onClick={() => navigate("/member/update")}
-        >
+        <button style={{ marginLeft: "9vw" }} onClick={() => navigate("/member/update")}>
           비밀번호 변경
         </button>
       </p>
