@@ -76,9 +76,11 @@ const Board = ({ id, title, member_name, update_at, create_at, contents, likes, 
                 </button>
               </div>
             ) : (
-              <button className={`${styles.link} `} onClick={moveToList}>
-                목록
-              </button>
+              <div className={boardStyles.boardEditBtn}>
+                <button className={`${styles.link} `} onClick={moveToList}>
+                  목록
+                </button>
+              </div>
             )}
             <div>
               <div className={boardStyles.countContainer}>
