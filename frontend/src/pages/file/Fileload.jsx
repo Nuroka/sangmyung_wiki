@@ -2,9 +2,12 @@ import React from "react";
 import { authInstance } from "../../util/api";
 import UploadForm from "../../component/file/UploadForm";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 export default function Fileload() {
   const navigate = useNavigate();
+
+  const [isFetching, setIsFetching] = useState(false);
 
   const url = "/file";
 
@@ -26,6 +29,8 @@ export default function Fileload() {
       })
     );
 
+    setIsFetching(true);
+
     authInstance
       .post(url, data, {
         headers: {
@@ -34,13 +39,18 @@ export default function Fileload() {
       })
       .then((res) => {
         if (res.status === 200) {
-          alert("등록완료");
+          authInstance.get("/img-url/" + res.data.name).then((res) => {
+            alert(res.data);
+            console.log(res);
+          });
+          console.log(res);
           navigate("/");
         } else {
           throw new Error();
         }
       })
       .catch((e) => {
+        setIsFetching(false);
         alert("업로드 실패");
         console.error(e);
       });
@@ -48,7 +58,11 @@ export default function Fileload() {
 
   return (
     <>
-      <UploadForm onSubmit={handleSubmit} />
+      <UploadForm onSubmit={handleSubmit}>
+        <button type="submit" disabled={isFetching}>
+          {isFetching ? "저장 중" : "업로드"}
+        </button>
+      </UploadForm>
     </>
   );
 }
