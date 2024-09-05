@@ -17,6 +17,7 @@ import smw.capstone.DTO.response.DocDTO;
 import smw.capstone.DTO.response.DocsIdDTO;
 import smw.capstone.DTO.response.ResponseDocDTO;
 import smw.capstone.common.annotation.CurrentUser;
+import smw.capstone.entity.DocLog;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.DocService;
@@ -164,6 +165,16 @@ public class FileController {
     public ResponseEntity<List<ResponseDocDTO>> getDocLog(){
         return ResponseEntity.ok().body(docService.getDocLog());
     }
+
+    /**
+     * 특정 문서역사: log에서 content모두 가져오기 문서 id
+     */
+    @GetMapping("/docs/log/{doc_id}")
+    public ResponseEntity<List<ResponseDocDTO>> getDocLog(@PathVariable("doc_id") Long docId){
+        return ResponseEntity.ok().body(docService.getDocLogById(docId));
+    }
+
+
 
     @GetMapping("/img-url/{imgName}")
     public ResponseEntity<String> getImgUrl(@PathVariable("imgName") String imgName, @CurrentUser Member member) {

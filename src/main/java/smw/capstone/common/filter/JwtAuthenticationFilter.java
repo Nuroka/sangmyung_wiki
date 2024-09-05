@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try{
             for (String url:urls) {
-                if(request.getRequestURI().equals(url) || request.getMethod().equals("OPTIONS")) {
+                if(request.getRequestURI().equals(url) || request.getMethod().equals("OPTIONS") || request.getRequestURI().contains("/docs/log")) {
                     filterChain.doFilter(request, response);
                     return;
                 }

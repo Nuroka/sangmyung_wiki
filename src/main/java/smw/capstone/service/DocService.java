@@ -1,6 +1,9 @@
 package smw.capstone.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -304,4 +307,29 @@ public List<DocDTO> findAllReverse(String sort) {
         }
         return resDocDTO;
     }
+
+    public List<ResponseDocDTO> getDocLogById(Long docId) {
+//        List<Documents> documents = docLogRepository.findAll();
+        Documents doc = docRepository.findById(docId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
+        List<DocLog> findDogLogs = docLogRepository.findByDocumentsId(doc);
+        List<ResponseDocDTO> resDocLog = new ArrayList<>();
+
+        for (DocLog docLog : findDogLogs) {
+            resDocLog.add(buildResDocDto(docLog, doc));
+        }
+        return resDocLog;
+    }
+
+    public ResponseDocDTO buildResDocDto(DocLog doclog, Documents documents) {
+        return ResponseDocDTO.builder()
+                .title(documents.getTitle())
+                .updateAt(doclog.getTimestamp())
+                .memberUsername(documents.getMember().getUsername())
+                .createAt(documents.getCreateAt())
+                .content(doclog.getLog())
+                .id(doclog.getId()).build();
+    }
+
+
+
 }
