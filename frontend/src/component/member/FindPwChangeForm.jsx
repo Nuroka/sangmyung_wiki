@@ -54,37 +54,19 @@ export default function FindPwChangeForm({ uuid, handleResult }) {
           <label htmlFor="new_password">변경할 비밀번호</label>
           <br />
           <span>
-            <input
-              type="password"
-              id="pw"
-              value={formData.pw}
-              onChange={handleChange}
-            />
-            {!validPassword && (
-              <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>
-            )}
+            <input type="password" id="pw" value={formData.pw} onChange={handleChange} />
+            {!validPassword && <p>8글자 이상, 20글자 이하로 설정해주시기 바랍니다. 빈칸은 사용이 불가합니다.</p>}
           </span>
           <br />
           <br />
           <label htmlFor="confirmPasswordInput">비밀번호 확인</label>
           <br />
-          <input
-            type="password"
-            id="pw2"
-            value={formData.pw2}
-            onChange={handleChange}
-          />
+          <input type="password" id="pw2" value={formData.pw2} onChange={handleChange} />
           {!isSame && <p>암호가 다릅니다.</p>}
           <br />
           <br />
-          <button
-            className={`${findIdAuthStyles.findIdFormBtn} ${styles.link}`}
-            type="submit"
-            disabled={!isValid}
-          >
-            <p className={`${styles.link} ${styles.loginBtn}`}>
-              {isValid ? "변경" : "변경 불가"}
-            </p>
+          <button className={`${findIdAuthStyles.findIdFormBtn} ${styles.link}`} type="submit" disabled={!isValid}>
+            <p className={`${styles.link} ${styles.loginBtn}`}>{isValid ? "변경" : "변경 불가"}</p>
           </button>
         </form>
       </div>

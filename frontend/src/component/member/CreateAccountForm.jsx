@@ -104,7 +104,7 @@ export default function CreateAccountId({ email, handleResult }) {
           <br />
           <input type="password" id="password" value={formData.password} onChange={handleChange} />
         </div>
-        {!validPassword && <p>대,소문자/숫자/특수기호 조합으로 설정해 주시기바랍니다.</p>}
+        {!validPassword && <p>8글자 이상, 20글자 이하로 설정해주시기 바랍니다. 빈칸은 사용이 불가합니다.</p>}
         <br />
         <div>
           <label htmlFor="confirmPasswordInput">암호 확인</label>

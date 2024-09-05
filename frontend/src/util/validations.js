@@ -12,7 +12,8 @@ export function isEmail(value) {
 
 // 아이디
 export function isUserName(value) {
-  return !hasSpace(value);
+  const regex = /^[A-Za-z0-9]+$/;
+  return regex.test(value) && !hasSpace(value);
 }
 
 // 비밀번호
