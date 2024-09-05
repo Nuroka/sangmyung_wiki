@@ -10,3 +10,8 @@ export function parseDate(datetime) {
 
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
+
+export function parseFileName(url) {
+  const parts = url.split("/");
+  return parts[parts.length - 1];
+}

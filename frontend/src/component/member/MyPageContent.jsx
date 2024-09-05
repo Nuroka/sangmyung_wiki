@@ -1,19 +1,18 @@
 import { useNavigate } from "react-router-dom";
-
 import styles from "../Login.module.css";
 import findIdAuthStyles from "./FindIdForm.module.css";
+import UserFile from "./UserFile";
 
 export default function MyPageContent({ data }) {
   const navigate = useNavigate();
 
   return (
     <>
-      <br />
       <p>사용자 이름</p>
-      <p>{data.username}</p>
+      <p>&bull; {data.username}</p>
       <br />
       <p>이메일</p>
-      <p>{data.email}</p>
+      <p>&bull; {data.email}</p>
       <br />
       <p>
         비밀번호
@@ -24,6 +23,8 @@ export default function MyPageContent({ data }) {
           비밀번호 변경
         </button>
       </p>
+      <br />
+      <UserFile fileList={data.filelist} />
     </>
   );
 }

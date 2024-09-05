@@ -1,11 +1,33 @@
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import DocsEditForm from "../../component/docs/DocsEditForm";
 import { authInstance } from "../../util/api";
+import UserFile from "../../component/member/UserFile";
 
 export default function EditDoc() {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const [fileList, setFileList] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      authInstance
+        .get("/mypage")
+        .then(function (res) {
+          if (res.status === 200) {
+            setFileList(res.data.filelist);
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(function (e) {
+          console.log(e);
+        });
+    }
+    fetchData();
+  }, []);
 
   const url = "/docs/edit";
 
@@ -25,5 +47,10 @@ export default function EditDoc() {
       });
   };
 
-  return <DocsEditForm onSubmit={handleSubmit} detail={state} edit={true} />;
+  return (
+    <>
+      <DocsEditForm onSubmit={handleSubmit} detail={state} edit={true} />
+      {fileList && <UserFile fileList={fileList} />}
+    </>
+  );
 }

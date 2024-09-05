@@ -1,0 +1,65 @@
+.title {
+  color: #004896;
+  font-size: 25px;
+}
+
+.copyBtn {
+  position: inherit;
+  background-color: white;
+  width: 5vw;
+  height: 2.5em;
+  color: black;
+  border-radius: 5px;
+  font-size: 2vmin;
+  font-family: "SUIT-Regular";
+}
+
+.copyBtn:hover {
+  background: #706f6f3a;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 95%;
+  text-align: left;
+}
+
+.th {
+  width: 81px;
+  height: 55px;
+  left: 113px;
+  top: 314px;
+
+  font-family: "SUIT-Regular";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+
+  color: #004896;
+
+  padding: 10px;
+  border-bottom: 2px solid #004896;
+}
+
+.tb {
+  height: 58px;
+  border-bottom: 1px solid #004896;
+
+  font-family: "SUIT-Regular";
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.td {
+  text-align: center;
+}
+
+.nameColumn {
+  width: 85%;
+}
+
+.copyColumn {
+  width: 15%;
+  text-align: center;
+}
