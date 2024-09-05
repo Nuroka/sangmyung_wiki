@@ -1,7 +1,9 @@
 package smw.capstone.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +50,9 @@ public class FileService {
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    @Value("${cloud.aws.region.static}")
+    private String region;
 
 //    @Transactional
 //    public Files savefiles(FileUploadDTO file, MultipartFile newFile, Member member) throws Exception {
@@ -173,11 +178,11 @@ public class FileService {
 
         String fileName=file.getOriginalFilename();
         System.out.println(fileName);
-        String fileUrl= "https://" + bucket +username + fileName;
+        String fileUrl= "https://" + bucket +".s3."+ region + ".amazonaws.com/" +username + fileName;
         ObjectMetadata metadata= new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
-        amazonS3Client.putObject(bucket,username+fileName,file.getInputStream(),metadata);
+        amazonS3Client.putObject(new PutObjectRequest(bucket,username+fileName,file.getInputStream(),metadata).withCannedAcl(CannedAccessControlList.PublicRead));
         return fileUrl;
 
     }
@@ -219,9 +224,22 @@ public class FileService {
         return outputStream.toByteArray();
     }
 
-    public String getImageUrl(String imgName, Member member) {
+    public String getImageUrl(String imgName) {
         URL url = amazonS3Client.getUrl(bucket, imgName);
         return url.toString();
 
+    }
+    public List<String> getImageUrlByUser(Member member) {
+        //memberId로 파일 이름 모두 가져오기
+        List<Files> files = fileRepository.findByMember(member);
+        if (files == null || files.isEmpty()) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
+        }
+        List<String> urls = new ArrayList<>();
+
+        for (Files file: files) {
+            urls.add(file.getStoredFileName());
+        }
+        return urls;
     }
 }

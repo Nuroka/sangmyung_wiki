@@ -179,9 +179,16 @@ public class FileController {
     @GetMapping("/img-url/{imgName}")
     public ResponseEntity<String> getImgUrl(@PathVariable("imgName") String imgName, @CurrentUser Member member) {
 //        Member member = memberRepository.findById(1L);
-        return ResponseEntity.ok().body(fileService.getImageUrl(imgName, member));
+        return ResponseEntity.ok().body(fileService.getImageUrl(imgName));
     }
 
+    //유저가 등록한 파일 가져오기
+
     //TODO: 파일 가져오기
+    //유저가 올린 파일 가져오기 -> 대연님이 마이페이지에 띄우기로함
+    @GetMapping("/img-url")
+    public ResponseEntity<List<String>> getImgUrlByUser(@CurrentUser Member member) {
+        return ResponseEntity.ok().body(fileService.getImageUrlByUser(member));
+    }
 
 }
