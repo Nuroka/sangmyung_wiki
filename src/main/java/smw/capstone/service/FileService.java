@@ -225,8 +225,10 @@ public class FileService {
     }
 
     public String getImageUrl(String imgName) {
-        URL url = amazonS3Client.getUrl(bucket, imgName);
-        return url.toString();
+//        URL url = amazonS3Client.getUrl(bucket, imgName);
+        Files findFile = fileRepository.findByName(imgName);
+        return findFile.getStoredFileName();
+
 
     }
     public List<String> getImageUrlByUser(Member member) {
