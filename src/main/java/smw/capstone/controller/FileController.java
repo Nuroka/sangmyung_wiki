@@ -32,7 +32,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api")
+@RequestMapping
 public class FileController {
 
     private final FileService fileService;
@@ -189,7 +189,7 @@ public class FileController {
     //TODO: 파일 가져오기
     //유저가 올린 파일 가져오기 -> 대연님이 마이페이지에 띄우기로함
     @GetMapping("/img-url")
-    public ResponseEntity<List<String>> getImgUrlByUser(@CurrentUser Member member) {
+    public ResponseEntity<List<FileService.ImgDTO>> getImgUrlByUser(@CurrentUser Member member) {
         return ResponseEntity.ok().body(fileService.getImageUrlByUser(member));
     }
 
