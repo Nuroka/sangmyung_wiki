@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping
+@RequestMapping("/api")
 public class main {
 
     @RequestMapping("/?continue")

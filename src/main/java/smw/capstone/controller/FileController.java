@@ -32,7 +32,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping
+@RequestMapping("/api")
 public class FileController {
 
     private final FileService fileService;
