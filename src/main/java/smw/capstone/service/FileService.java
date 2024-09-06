@@ -237,7 +237,7 @@ public class FileService {
     public List<String> getImageUrlByUser(Member member) {
         //memberId로 파일 이름 모두 가져오기
         List<Files> files = fileRepository.findByMember(member);
-        if (files == null || files.isEmpty()) {
+        if (files == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
         }
         List<String> urls = new ArrayList<>();
