@@ -17,7 +17,7 @@ import smw.capstone.service.LikeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/board")
+@RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
 
