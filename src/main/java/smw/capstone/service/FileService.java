@@ -21,9 +21,11 @@ import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
 import smw.capstone.config.S3Config;
 import smw.capstone.entity.DocFile;
+import smw.capstone.entity.Documents;
 import smw.capstone.entity.Files;
 import smw.capstone.entity.Member;
 import smw.capstone.repository.DocFileRepository;
+import smw.capstone.repository.DocRepository;
 import smw.capstone.repository.FileRepository;
 
 import java.io.ByteArrayInputStream;
@@ -46,6 +48,7 @@ public class FileService {
     private final FileHandler fileHandler;
     private final DocFileRepository docFileRepository;
     private final AmazonS3Client amazonS3Client;
+    private final DocRepository docRepository;
     private final S3Config s3Config;
 
     @Value("${cloud.aws.s3.bucket}")
@@ -243,5 +246,21 @@ public class FileService {
             urls.add(file.getStoredFileName());
         }
         return urls;
+    }
+
+    @Transactional
+    public void deleteImg(Member member, String imgName) {
+        //문서에 해당 이미지가 등록되어있다면 삭제 못함
+        //본인이 등록한 이미지인가 확인
+        Files findFile = fileRepository.findByMemberAndName(member, imgName);
+        if (findFile == null) {
+            throw new BusinessException(CustomErrorCode.NOT_EXIST_FILE);
+        }
+
+        List<Documents> fileWithDoc = docRepository.findByFilesId(findFile);
+        if (fileWithDoc.size() > 0) {
+            throw new BusinessException(CustomErrorCode.EXIST_DOC_WITH_FILE);
+        }
+        fileRepository.delete(findFile);
     }
 }

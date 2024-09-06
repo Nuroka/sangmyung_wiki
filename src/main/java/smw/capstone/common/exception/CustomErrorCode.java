@@ -36,6 +36,7 @@ public enum CustomErrorCode{
     NOT_EXIST_COMMENTS_BY_MEMBER(HttpStatus.BAD_REQUEST, "해당 댓글은 멤버가 작성한 댓글이 아닙니다."),
     NOT_MEMBER_FILE(HttpStatus.BAD_REQUEST, "회원이 등록하지 않은 파일이 포함되어 있습니다.. 회원이 등록한 파일 중에서만 업로드 가능합니다."),
     NOT_MATCHED_PASSWORD(HttpStatus.BAD_REQUEST, "두 비밀번호가 일치하지 않습니다."),
+    EXIST_DOC_WITH_FILE(HttpStatus.BAD_REQUEST, "이미지가 포함된 문서가 존재합니다. 먼저 문서에서 해당 이미지를 삭제한 후 시도해 주세요."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
 
     private final HttpStatus status;
