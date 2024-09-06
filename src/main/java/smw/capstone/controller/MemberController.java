@@ -19,12 +19,14 @@ import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.FileService;
 import smw.capstone.service.MemberService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
@@ -40,10 +42,15 @@ public class MemberController {
     @RequestMapping("/mypage")
     public ResponseEntity<?> getUser(@CurrentUser Member member) {
 
+        List<FileService.ImgDTO> imgDto = fileService.getImageUrlByUser(member);
+        List<String> imgUrl = new ArrayList<>();
+        for (FileService.ImgDTO url : imgDto) {
+            imgUrl.add(url.getUrl());
+        }
         MemberInfoDTO build = MemberInfoDTO.builder()
                 .username(member.getUsername())
                 .email(member.getEmail())
-                .filelist(fileService.getImageUrlByUser(member))
+                .filelist(imgUrl)
                 .build();
         return ResponseEntity.ok().body(build);
     }

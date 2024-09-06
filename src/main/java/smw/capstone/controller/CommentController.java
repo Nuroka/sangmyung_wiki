@@ -16,7 +16,7 @@ import smw.capstone.service.CommentsService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comment")
+@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
 
