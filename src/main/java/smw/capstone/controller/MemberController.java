@@ -41,16 +41,11 @@ public class MemberController {
 
     @RequestMapping("/mypage")
     public ResponseEntity<?> getUser(@CurrentUser Member member) {
-
         List<FileService.ImgDTO> imgDto = fileService.getImageUrlByUser(member);
-        List<String> imgUrl = new ArrayList<>();
-        for (FileService.ImgDTO url : imgDto) {
-            imgUrl.add(url.getUrl());
-        }
         MemberInfoDTO build = MemberInfoDTO.builder()
                 .username(member.getUsername())
                 .email(member.getEmail())
-                .filelist(imgUrl)
+                .filelist(imgDto)
                 .build();
         return ResponseEntity.ok().body(build);
     }

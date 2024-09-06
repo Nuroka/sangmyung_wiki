@@ -3,6 +3,7 @@ package smw.capstone.DTO.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import smw.capstone.service.FileService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
 public class MemberInfoDTO {
     private String username;
     private String email;
-    private List<String> filelist = new ArrayList<>();
+    List<FileService.ImgDTO> filelist;
 }
