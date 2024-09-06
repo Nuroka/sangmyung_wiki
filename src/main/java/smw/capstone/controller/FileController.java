@@ -53,18 +53,6 @@ public class FileController {
     private final MemberRepository memberRepository;
 
 
-    @PostMapping("/file")
-    public ResponseEntity<?> uploadFile(
-            @RequestParam("file") MultipartFile file,
-            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO,
-            @CurrentUser Member member) throws IOException {
-
-//        Member member = memberRepository.findById(1L);
-
-        return ResponseEntity.ok(fileService.saveFile(file, fileUploadDTO, member));
-
-    }
-
     /**
      * 문서 id로 가져오기 --사용자 인증 통과후 본인이 작성한 문서만 가져올 수 있음
      *
@@ -174,6 +162,19 @@ public class FileController {
         return ResponseEntity.ok().body(docService.getDocLogById(docId));
     }
 
+    //이미지 파일 crud
+
+    @PostMapping("/file")
+    public ResponseEntity<?> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO,
+            @CurrentUser Member member) throws IOException {
+
+//        Member member = memberRepository.findById(1L);
+
+        return ResponseEntity.ok(fileService.saveFile(file, fileUploadDTO, member));
+
+    }
 
 
     @GetMapping("/img-url/{imgName}")
@@ -189,6 +190,14 @@ public class FileController {
     @GetMapping("/img-url")
     public ResponseEntity<List<String>> getImgUrlByUser(@CurrentUser Member member) {
         return ResponseEntity.ok().body(fileService.getImageUrlByUser(member));
+    }
+
+    //이미지 파일 삭제하기
+    @PostMapping("/img/{imgName}")
+    public ResponseEntity<String> deleteImg(@PathVariable("imgName") String imgName, @CurrentUser Member member) {
+
+        fileService.deleteImg(member, imgName);
+        return ResponseEntity.ok().body(imgName + "이 삭제되었습니다.");
     }
 
 }

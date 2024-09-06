@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import smw.capstone.entity.Documents;
+import smw.capstone.entity.Files;
 import smw.capstone.entity.Member;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface DocRepository extends JpaRepository<Documents, Long> {
     public Optional<Documents> findByIdAndMember(Long id, Member member);
 
     public Documents findByTitle(String title);
+
+    public List<Documents> findByFilesId(Files filesId);
 
 }
