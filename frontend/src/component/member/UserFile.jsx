@@ -37,9 +37,9 @@ export default function UserFile({ fileList }) {
           <tbody>
             {data.map((file, index) => (
               <tr key={index} className={styles.tb}>
-                <td>&bull; {parseFileName(file)}</td>
+                <td>&bull; {file.fileName}</td>
                 <td className={styles.td}>
-                  <button className={styles.copyBtn} onClick={() => handleCopy(file, index)}>
+                  <button className={styles.copyBtn} onClick={() => handleCopy(file.url, index)}>
                     {copiedIndex === index ? "복사완료" : "복사"}
                   </button>
                 </td>
