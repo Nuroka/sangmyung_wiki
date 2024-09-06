@@ -16,6 +16,7 @@ import smw.capstone.common.provider.JwtProvider;
 import smw.capstone.entity.Member;
 import smw.capstone.entity.Type;
 import smw.capstone.repository.MemberRepository;
+import smw.capstone.service.FileService;
 import smw.capstone.service.MemberService;
 
 import java.util.Map;
@@ -31,14 +32,17 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
+    private final FileService fileService;
 
     private Map<String, String> store = new ConcurrentHashMap<>();
 
     @RequestMapping("/mypage")
     public ResponseEntity<?> getUser(@CurrentUser Member member) {
+
         MemberInfoDTO build = MemberInfoDTO.builder()
                 .username(member.getUsername())
                 .email(member.getEmail())
+                .filelist(fileService.getImageUrlByUser(member))
                 .build();
         return ResponseEntity.ok().body(build);
     }
