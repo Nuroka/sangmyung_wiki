@@ -32,7 +32,7 @@ public class Documents {
     @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
     private LocalDateTime createAt;
@@ -42,9 +42,14 @@ public class Documents {
     @OneToMany(mappedBy = "document", orphanRemoval = true)
     private List<DocFile> docFileList = new ArrayList<DocFile>();
 
-    public void updateDoc(String content, LocalDateTime updateAt) {
+    public void updateDoc(String content, LocalDateTime updateAt, Files filesId) {
         this.content = content;
         this.updateAt = updateAt;
+        this.filesId = filesId;
     }
+
+    @OneToOne
+    @JoinColumn(name="files_id")
+    private Files filesId;
 
 }

@@ -18,5 +18,5 @@ public class ReqCreateDoc {
     @NotBlank
     private String content;
     @JsonProperty("file_name")
-    private List<String> fileName;
+    private String fileName;
 }

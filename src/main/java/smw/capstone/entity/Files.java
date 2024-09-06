@@ -21,7 +21,7 @@ public class Files {
     @JoinColumn(name = "Member_Id", nullable = false)
     private Member member;
 
-    private String Name;
+    private String name;
 
     private String License;
 
@@ -30,6 +30,7 @@ public class Files {
     private String Summary;
 
     private String storedFileName;
+
 
     @OneToMany(mappedBy = "file", orphanRemoval = true)
     private List<DocFile> docFileList = new ArrayList<DocFile>();

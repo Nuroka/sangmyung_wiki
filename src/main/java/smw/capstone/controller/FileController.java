@@ -1,8 +1,11 @@
 package smw.capstone.controller;
 
+import com.amazonaws.Response;
+import com.amazonaws.services.s3.AmazonS3Client;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +17,14 @@ import smw.capstone.DTO.response.DocDTO;
 import smw.capstone.DTO.response.DocsIdDTO;
 import smw.capstone.DTO.response.ResponseDocDTO;
 import smw.capstone.common.annotation.CurrentUser;
+import smw.capstone.entity.DocLog;
 import smw.capstone.entity.Member;
+import smw.capstone.repository.MemberRepository;
 import smw.capstone.service.DocService;
 import smw.capstone.service.FileService;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -35,13 +42,28 @@ public class FileController {
      * 파일 업로드
      * TODO: 시큐리티 Authentication 객체 생성하면 api에 적용
      */
+//    @PostMapping("/file")
+//    public ResponseEntity<?> uploadFile(
+//            @Validated @RequestParam("file") MultipartFile file,
+//            @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO,
+//            @CurrentUser Member member
+//    ) throws Exception {
+//        return ok().body(fileService.savefiles(fileUploadDTO, file, member));
+//    }
+    private final AmazonS3Client amazonS3Client;
+    private final MemberRepository memberRepository;
+
+
     @PostMapping("/file")
     public ResponseEntity<?> uploadFile(
-            @Validated @RequestParam("file") MultipartFile file,
+            @RequestParam("file") MultipartFile file,
             @Valid @RequestPart(value = "file_info") FileUploadDTO fileUploadDTO,
-            @CurrentUser Member member
-    ) throws Exception {
-        return ok().body(fileService.savefiles(fileUploadDTO, file, member));
+            @CurrentUser Member member) throws IOException {
+
+//        Member member = memberRepository.findById(1L);
+
+        return ResponseEntity.ok(fileService.saveFile(file, fileUploadDTO, member));
+
     }
 
     /**
@@ -144,4 +166,30 @@ public class FileController {
     public ResponseEntity<List<ResponseDocDTO>> getDocLog(){
         return ResponseEntity.ok().body(docService.getDocLog());
     }
+
+    /**
+     * 특정 문서역사: log에서 content모두 가져오기 문서 id
+     */
+    @GetMapping("/docs/log/{doc_id}")
+    public ResponseEntity<List<ResponseDocDTO>> getDocLog(@PathVariable("doc_id") Long docId){
+        return ResponseEntity.ok().body(docService.getDocLogById(docId));
+    }
+
+
+
+    @GetMapping("/img-url/{imgName}")
+    public ResponseEntity<String> getImgUrl(@PathVariable("imgName") String imgName, @CurrentUser Member member) {
+//        Member member = memberRepository.findById(1L);
+        return ResponseEntity.ok().body(fileService.getImageUrl(imgName));
+    }
+
+    //유저가 등록한 파일 가져오기
+
+    //TODO: 파일 가져오기
+    //유저가 올린 파일 가져오기 -> 대연님이 마이페이지에 띄우기로함
+    @GetMapping("/img-url")
+    public ResponseEntity<List<String>> getImgUrlByUser(@CurrentUser Member member) {
+        return ResponseEntity.ok().body(fileService.getImageUrlByUser(member));
+    }
+
 }

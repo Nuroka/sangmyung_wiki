@@ -15,9 +15,9 @@ import lombok.Getter;
 public class FileUploadDTO {
     @NotBlank
     private String fileName;
-    @NotBlank
+
     private String license;
-    @NotBlank
+
     private String category;
     private String summary;
 }

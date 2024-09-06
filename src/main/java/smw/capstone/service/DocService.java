@@ -1,6 +1,9 @@
 package smw.capstone.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -11,13 +14,9 @@ import smw.capstone.DTO.request.ReqUpdateDocDTO;
 import smw.capstone.DTO.response.*;
 import smw.capstone.common.exception.BusinessException;
 import smw.capstone.common.exception.CustomErrorCode;
-import smw.capstone.entity.DocFile;
-import smw.capstone.entity.Documents;
-import smw.capstone.entity.Files;
-import smw.capstone.entity.Member;
-import smw.capstone.repository.DocFileRepository;
-import smw.capstone.repository.DocRepository;
-import smw.capstone.repository.MemberRepository;
+import smw.capstone.entity.*;
+import smw.capstone.repository.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -36,6 +35,10 @@ public class DocService {
     private final MemberRepository memberRepository;
     private final FileService fileService;
     private final DocFileService docFileService;
+    private final DocLogRepository docLogRepository;
+    private final FileRepository fileRepository;
+    private final DocLogRepository logRepository;
+
 
     public List<DocDTO> getDoc(DocsIdDTO docsIdDTO) {
         List<DocDTO> docDto = new ArrayList<>();
@@ -174,21 +177,37 @@ public List<DocDTO> findAllReverse(String sort) {
         if (member == null) {
             throw new BusinessException(CustomErrorCode.ACCESS_DENIED);
         }
-        Documents findDoc = docRepository.findById(reqUpdateDocDTO.getDocId()).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
+        //업데이트할 문서 찾기
+        Documents findDoc = docRepository.findById(reqUpdateDocDTO.getDocId())
+                .orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
         List<String> fileNames = new ArrayList<>();
 
-        docFileService.updateDocFile(reqUpdateDocDTO, reqUpdateDocDTO.getFileName(), member);
-        findDoc.updateDoc(reqUpdateDocDTO.getContent(), LocalDateTime.now());
-        List<DocFile> docFileList = docFileRepository.findByDocument(findDoc);
-        for (DocFile docFile : docFileList) {
-            fileNames.add(fileService.findFilePathByFile(docFile.getFile())); //여기서 file이 null
+        Files findFile = null;
+        if (reqUpdateDocDTO.getUpdateFile() != null) {
+            findFile = fileRepository.findByMemberAndName(member, reqUpdateDocDTO.getUpdateFile());
+
+            if (findFile == null) {
+                throw new BusinessException(CustomErrorCode.NOT_MEMBER_FILE);
+            }
         }
 
 
+        //업데이트할 문서에서 content랑 file을 변경하면 됨
+        LocalDateTime timestamp = LocalDateTime.now();
+        findDoc.updateDoc(reqUpdateDocDTO.getContent(), timestamp, findFile);
+
+        logRepository.save(DocLog.builder()
+                        .documentsId(findDoc)
+                        .timestamp(timestamp)
+                        .log(reqUpdateDocDTO.getContent())
+                        .files(findFile)
+                .build());
+
+        String fileName = findFile == null ? null : findFile.getName();
         return ReqUpdateDocDTO.builder()
                 .docId(findDoc.getId())
                 .content(findDoc.getContent())
-                .fileName(fileNames)
+                .updateFile(fileName)
                 .build();
     }
 
@@ -232,22 +251,35 @@ public List<DocDTO> findAllReverse(String sort) {
         }
         if (reqCreateDoc.getFileName() != null) {
             List<Files> memberFile = fileService.finByMember(member);
-            List<String> getFileName = new ArrayList<>();
-            for (Files fileName : memberFile) {
-                getFileName.add(fileName.getName());
-            }
-            for (String file : reqCreateDoc.getFileName()) {
-                if (!getFileName.contains(file)) {
-                    throw new BusinessException(NOT_MEMBER_FILE);
-                }
-            }
+
+//            List<String> getFileName = new ArrayList<>();
+            if (!memberFile.contains(reqCreateDoc.getFileName())) {
+                throw new BusinessException(NOT_MEMBER_FILE);
+            } //파일 한개 업로드 했는데 그게 해당유저가 올린게 아니라면 예외
+//            for (String file : reqCreateDoc.getFileName()) {
+//                if (!getFileName.contains(file)) {
+//                    throw new BusinessException(NOT_MEMBER_FILE);
+//                }
+//            }
         }
-        docRepository.save(Documents.builder()
+
+        Files findFile = fileRepository.findByName(reqCreateDoc.getFileName());
+        Documents newDoc = Documents.builder()
                 .title(reqCreateDoc.getTitle())
                 .member(member)
                 .content(reqCreateDoc.getContent())
                 .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now()).build());
+                .filesId(findFile)
+                .updateAt(LocalDateTime.now()).build();
+        docRepository.save(newDoc);
+
+        docLogRepository.save(DocLog.builder()
+                        .documentsId(newDoc)
+                        .timestamp(newDoc.getCreateAt())
+                        .log(newDoc.getContent())
+                        .files(fileRepository.findByName(reqCreateDoc.getFileName()))
+                .build());
+
 
     }
 
@@ -275,4 +307,29 @@ public List<DocDTO> findAllReverse(String sort) {
         }
         return resDocDTO;
     }
+
+    public List<ResponseDocDTO> getDocLogById(Long docId) {
+//        List<Documents> documents = docLogRepository.findAll();
+        Documents doc = docRepository.findById(docId).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_DOC));
+        List<DocLog> findDogLogs = docLogRepository.findByDocumentsId(doc);
+        List<ResponseDocDTO> resDocLog = new ArrayList<>();
+
+        for (DocLog docLog : findDogLogs) {
+            resDocLog.add(buildResDocDto(docLog, doc));
+        }
+        return resDocLog;
+    }
+
+    public ResponseDocDTO buildResDocDto(DocLog doclog, Documents documents) {
+        return ResponseDocDTO.builder()
+                .title(documents.getTitle())
+                .updateAt(doclog.getTimestamp())
+                .memberUsername(documents.getMember().getUsername())
+                .createAt(documents.getCreateAt())
+                .content(doclog.getLog())
+                .id(doclog.getId()).build();
+    }
+
+
+
 }

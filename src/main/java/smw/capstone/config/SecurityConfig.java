@@ -59,6 +59,11 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/api/board/popular")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/docs/recent")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/board/all")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/docs/log/**")).permitAll()
+//                                .requestMatchers(new AntPathRequestMatcher("/img-url")).permitAll()
+/*                                .requestMatchers(new AntPathRequestMatcher("/file")).permitAll() //test 후 security 적용
+                                .requestMatchers(new AntPathRequestMatcher("img-url/**")).permitAll() //test 후 security 적용*/
+
 
                                 .anyRequest().permitAll());
 

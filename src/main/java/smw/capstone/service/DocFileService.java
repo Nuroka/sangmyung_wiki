@@ -29,64 +29,6 @@ public class DocFileService {
     public final FileService fileService;
     public final MemberRepository memberRepository;
 
-    @Transactional
-    public void updateDocFile(ReqUpdateDocDTO reqUpdateDocDTO, List<String> updateFiles, Member member) {
-
-        List<Files> findMemberFiles = fileService.finByMember(member); //사용자가 등록한 파일 조회
-        List<String> memberFileName = new ArrayList<>();
-        for (Files file : findMemberFiles) {
-            memberFileName.add(file.getName());
-        }
-
-        for (String updateFile : updateFiles) {
-            if (!memberFileName.contains(updateFile)) {
-                throw new BusinessException(CustomErrorCode.NOT_MEMBER_FILE);
-            }
-
-        }
-        Documents updateDoc = docRepository.findByIdAndMember(reqUpdateDocDTO.getDocId(), member).orElseThrow(() -> new BusinessException(CustomErrorCode.NOT_EXIST_MEMBER_DOC)); //null예외처리
-        List<DocFile> docFileList = updateDoc.getDocFileList(); //회원이 등록한 문서와 파일
-        List<String> fileNameList = new ArrayList<>();
-        if (docFileList != null){
-            fileNameList = getFileNameList(docFileList); //DocFile에서 해당 파일 이름 추출
-
-        } else {
-            fileNameList = null;
-        }
-        //fileNameList가 null이면 모두 삭제
-        //아니면 존재하는 것 빼고 추가하기
-        //문서에 파일 삭제
-        if (fileNameList != null) {
-            if (updateFiles != null) {
-                for (String fileName : fileNameList) {
-                    if (!updateFiles.contains(fileName)) {
-                        //문서에서 파일 삭제 filename 삭제
-                        docFileRepository.deleteByDocumentAndFile(updateDoc, fileService.finByMemberAndFileName(member, fileName));
-                    }
-                }
-                for (String updateFile : updateFiles) {
-                    if (!fileNameList.contains(updateFile)) {
-                        //문서에 파일 추가
-                        DocFile newDocFile = buildDocFile(updateFile, updateDoc, member);
-                        saveDocFile(newDocFile);
-                    }
-                }
-            } else {
-                //docfile모두 삭제
-                deleteDocFileByDoc(updateDoc);
-            }
-        } else {
-            //docfile이 하나도 없었으므로 updateFiles모두 추가
-            List<DocFile> newDocFiles = new ArrayList<>();
-            for (String updateFile : updateFiles) {
-                DocFile newDocFile = buildDocFile(updateFile, updateDoc, member);
-                newDocFiles.add(newDocFile);
-            }
-            docFileRepository.saveAll(newDocFiles);
-        }
-
-    }
-
     private DocFile buildDocFile(String updateFile, Documents updateDoc, Member temp) {
         return DocFile.builder()
                 .document(updateDoc)
