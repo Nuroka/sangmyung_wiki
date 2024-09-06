@@ -15,11 +15,7 @@ export default function CreateDoc() {
       authInstance
         .get("/img-url")
         .then(function (res) {
-          if (res.status === 200) {
-            setFileList(res.data);
-          } else {
-            throw new Error();
-          }
+          setFileList(res.data);
         })
         .catch(function (e) {
           console.log(e);
@@ -55,7 +51,7 @@ export default function CreateDoc() {
     <>
       {error && <p>{error}</p>}
       <DocsEditForm onSubmit={handleSubmit} />
-      {fileList && <UserFile fileList={fileList} />}
+      <UserFile fileList={fileList} />
     </>
   );
 }

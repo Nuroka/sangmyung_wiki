@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { parseFileName } from "../../util/parse";
 import styles from "./UserFile.module.css";
 
 export default function UserFile({ fileList }) {
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [data, setData] = useState(fileList);
+
+  useEffect(() => {
+    setData(fileList);
+  }, [fileList]);
 
   const handleCopy = (file, index) => {
     navigator.clipboard.writeText(file).then(() => {
@@ -22,15 +27,15 @@ export default function UserFile({ fileList }) {
             <th className={`${styles.title} ${styles.copyColumn}`}></th>
           </tr>
         </thead>
-        {fileList.length === 0 && (
+        {data.length === 0 && (
           <p>
             <br />
             등록한 파일이 없습니다.
           </p>
         )}
-        {fileList.length > 0 && (
+        {data.length > 0 && (
           <tbody>
-            {fileList.map((file, index) => (
+            {data.map((file, index) => (
               <tr key={index} className={styles.tb}>
                 <td>&bull; {parseFileName(file)}</td>
                 <td className={styles.td}>

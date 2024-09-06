@@ -16,11 +16,7 @@ export default function EditDoc() {
       authInstance
         .get("/img-url")
         .then(function (res) {
-          if (res.status === 200) {
-            setFileList(res.data);
-          } else {
-            throw new Error();
-          }
+          setFileList(res.data);
         })
         .catch(function (e) {
           console.log(e);
@@ -50,7 +46,7 @@ export default function EditDoc() {
   return (
     <>
       <DocsEditForm onSubmit={handleSubmit} detail={state} edit={true} />
-      {fileList && <UserFile fileList={fileList} />}
+      <UserFile fileList={fileList} />
     </>
   );
 }
