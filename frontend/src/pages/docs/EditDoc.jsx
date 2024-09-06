@@ -9,15 +9,15 @@ export default function EditDoc() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const [fileList, setFileList] = useState();
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       authInstance
-        .get("/mypage")
+        .get("/img-url")
         .then(function (res) {
           if (res.status === 200) {
-            setFileList(res.data.filelist);
+            setFileList(res.data);
           } else {
             throw new Error();
           }

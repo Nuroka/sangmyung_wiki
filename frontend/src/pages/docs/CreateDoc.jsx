@@ -8,15 +8,15 @@ import { authInstance } from "../../util/api";
 export default function CreateDoc() {
   const navigate = useNavigate();
   const [error, setError] = useState();
-  const [fileList, setFileList] = useState();
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       authInstance
-        .get("/mypage")
+        .get("/img-url")
         .then(function (res) {
           if (res.status === 200) {
-            setFileList(res.data.filelist);
+            setFileList(res.data);
           } else {
             throw new Error();
           }

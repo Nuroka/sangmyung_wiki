@@ -25,7 +25,7 @@ export default function UserFile({ fileList }) {
         {fileList.length === 0 && (
           <p>
             <br />
-            등록된 파일이 없습니다.
+            등록한 파일이 없습니다.
           </p>
         )}
         {fileList.length > 0 && (
