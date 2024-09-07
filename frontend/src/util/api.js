@@ -13,7 +13,6 @@ const axiosAPI = (url, options = {}) => {
     ...options,
     headers: {
       ...options.headers,
-      "Content-Security-Policy": "upgrade-insecure-requests",
     },
   });
   return instance;
@@ -26,10 +25,8 @@ const axiosAuthAPI = (url, options = {}) => {
     ...options,
     headers: {
       ...options.headers,
-      "Content-Security-Policy": "upgrade-insecure-requests",
     },
   });
-  instance.defaults.withCredentials = true;
   return instance;
 };
 
