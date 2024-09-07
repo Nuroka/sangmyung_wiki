@@ -14,7 +14,7 @@ export default function LoginPage() {
     async function fetchData() {
       setError();
       authInstance
-        .post(url)
+        .post(url, {}, { withCredentials: true })
         .then(function (res) {
           if (res.status === 200) {
             setData(res.data);
