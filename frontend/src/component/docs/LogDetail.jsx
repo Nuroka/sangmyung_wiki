@@ -1,5 +1,6 @@
 import parse from "html-react-parser";
 import { useLocation } from "react-router-dom";
+import styles from "./Doc.module.css";
 
 export default function LogDetail() {
   const { state } = useLocation();
@@ -9,7 +10,7 @@ export default function LogDetail() {
       <br />
       <hr />
       <br />
-      {parse(state)}
+      <div className={styles.content}>{parse(state)}</div>
     </>
   );
 }
