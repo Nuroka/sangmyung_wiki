@@ -1,0 +1,83 @@
+.nav {
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  top: 35px;
+  width: 130px;
+  height: 50px;
+  line-height: 50px;
+  text-decoration-line: none;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.2vw;
+}
+
+.logo {
+  position: absolute;
+  display: inline-block;
+
+  top: 38px;
+  left: 47px;
+  width: 240px;
+  height: 46.75px;
+}
+
+.recent {
+  left: 38vw;
+}
+
+.recommend {
+  left: 47vw;
+}
+
+.board {
+  left: 56vw;
+}
+
+.recent:hover,
+.recent.active,
+.recommend:hover,
+.recommend.active,
+.board:hover,
+.board.active {
+  color: #004896;
+}
+
+.search {
+  position: absolute;
+  margin: 0;
+  display: inline-block;
+  top: 33px;
+  left: 65vw;
+  width: 27vw;
+  height: 51px;
+  border-radius: 50px;
+  border: none;
+  background-color: #efefef;
+  font-size: 2vmin;
+}
+
+.searchIcon {
+  position: absolute;
+  display: inline-block;
+  left: 90vw;
+  top: 38px;
+  height: 25px;
+  margin-top: 6px;
+}
+
+input {
+  padding-left: 21px;
+  font-family: "SUIT-Regular";
+}
+
+input::placeholder {
+  font-size: 1vw;
+}
+
+.user {
+  position: absolute;
+  display: inline-block;
+  left: 96vw;
+  top: 38px;
+}

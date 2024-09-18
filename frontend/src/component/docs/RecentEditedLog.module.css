@@ -1,0 +1,84 @@
+.recentTitle {
+  color: #004896;
+  font-size: 25px;
+}
+
+.btnDiv {
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.whiteBtn {
+  position: inherit;
+  background-color: white;
+  width: auto;
+  height: 2.5em;
+  color: black;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+  font-size: 2vmin;
+  font-family: "SUIT-Regular";
+}
+
+.table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.th {
+  width: 81px;
+  height: 55px;
+  left: 113px;
+  top: 314px;
+
+  font-family: "SUIT-Regular";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+
+  color: #004896;
+
+  padding: 10px;
+  border-bottom: 2px solid #004896;
+}
+
+.tb {
+  height: 58px;
+  border-bottom: 1px solid #004896;
+
+  font-family: "SUIT-Regular";
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.itemColumn {
+  width: 60%;
+}
+
+.editorColumn {
+  width: 20%;
+}
+
+.timeColumn {
+  width: 20%;
+}
+
+.pageBtn {
+  width: 86px;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 10px;
+  color: black;
+  font-family: "SUIT-Regular";
+}
+
+.pageBtn:hover,
+.pageBtn:disabled {
+  background: #706f6f3a;
+}

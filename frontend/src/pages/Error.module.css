@@ -1,0 +1,63 @@
+.errorBox {
+  position: relative;
+  width: 811px;
+  height: 381px;
+  left: 554px;
+  top: 263px;
+}
+
+.errorLogo {
+  position: relative;
+}
+
+.errorMsg {
+  position: relative;
+  margin-left: 20px;
+  color: #004896;
+}
+
+.errorMessage {
+  position: relative;
+  margin-top: 20px;
+
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 44px;
+
+  color: #004896;
+}
+
+.btn {
+  position: relative;
+  top: 300px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btnBox {
+  box-sizing: border-box;
+
+  position: relative;
+  width: 250px;
+  height: 98.42px;
+
+  background: #004896;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+
+  color: #ffffff;
+}
+
+.btnBox:hover {
+  background: #185fac;
+  border: 1px solid #185fac;
+}

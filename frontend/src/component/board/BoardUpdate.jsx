@@ -1,76 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styles from "../member/Login.module.css";
-import { authInstance } from '../../util/api';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "../Login.module.css";
+import { authInstance } from "../../util/api";
+import boardStyles from "./Board.module.css";
 
-const BoardUpdate = () => {
-  const navigate = useNavigate();
-  const { board_id } = useParams(); // /update/:board_id와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
-  const [board, setBoard] = useState({
-    board_id: 0,
-    //board_title: '',
-    //createdBy: '',
-    content: '',
-  });
+const BoardUpdate = ({ boardId, initialContent, memberId }) => {
+  const [content, setContent] = useState(initialContent);
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 가져오기
 
-  const { board_title, content } = board; //비구조화 할당
-
-  const onChange = (event) => {
-    const { value, name } = event.target; //event.target에서 name과 value만 가져오기
-    setBoard({
-      ...board,
-      [name]: value,
-    });
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+    console.log(content);
   };
 
-  const getBoard = async () => {
-    const resp = await (await authInstance.get(`/board/${board_id}`)).data;
-    setBoard(resp.data);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const updateBoard = async () => {
-    await authInstance.patch(`/board`, board).then((res) => {
-      alert('수정되었습니다.');
-      navigate('/board/' + board_id);
-    });
-  };
+    try {
+      const response = await authInstance.put("/board/edit", {
+        board_id: boardId,
+        content: content
+      });
+      console.log(response);
 
-  const backToDetail = () => {
-    navigate('/board/' + board_id);
+      if (response.status === 200) {
+        // navigate(`/board/one?id=${boardId}`); // navigate 함수 사용
+        window.alert("수정이 완료되었습니다");
+        // 이전 페이지로 돌아가기
+        window.location.href = `/board/one?id=${boardId}&member_id=${memberId}`;
+      } else {
+
+        console.error('게시글 수정 실패');
+      }
+    } catch (error) {
+      console.error('server response error', error);
+    }
   };
 
   useEffect(() => {
-    getBoard();
+    // getBoard 함수 실행
   }, []);
 
   return (
-    <div>
       <div>
-        {/* <span>제목</span>
-        <input type="text" name="board_title" value={board_title} onChange={onChange} /> */}
-      </div>
-      <br />
-      <div>
-        {/* <span>작성자</span>
-        <input type="text" name="createdBy" value={createdBy} readOnly={true} /> */}
-      </div>
-      <br />
-      <div>
-        <span>내용</span>
-        <textarea
-          name="content"
-          cols="30"
-          rows="10"
-          value={content}
-          onChange={onChange}
+        <div>
+        <textarea className={`${boardStyles.boardContent} ${boardStyles.subTitle}`}
+                  name="content"
+                  cols="60"
+                  rows="20"
+                  value={content}
+                  onChange={handleContentChange}
         ></textarea>
+        </div>
+        <br />
+        <div>
+          <button className={styles.link} onClick={handleSubmit}>
+            수정
+          </button>
+          {/* 취소 버튼은 필요하지 않은 경우 주석 처리 */}
+          {/* <button className={styles.link} onClick={backToDetail}>
+          취소
+        </button> */}
+        </div>
       </div>
-      <br />
-      <div>
-        <button className={styles.link} onClick={updateBoard}>수정</button>
-        <button className={styles.link} onClick={backToDetail}>취소</button>
-      </div>
-    </div>
   );
 };
 

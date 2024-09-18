@@ -1,0 +1,283 @@
+.tag {
+    border: none;
+    border-radius: 10px;
+    background: #004896;
+    color: #FFFFFF;
+    left: 28%;
+    margin-right: 9px;
+    width: 97px;
+    height: 45px;
+    text-decoration-line: none;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 400;
+    display: inline-block;
+}
+
+.bodyFont {
+    font-weight: 400;
+    font-family: "SUIT-Regular";
+    font-size: 2vmin;
+}
+
+.title{
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.titleInput {
+    height: 45px;
+    width: 50vw;
+}
+
+.font {
+    font-weight: 400;
+}
+
+.subTitle {
+    margin: 5px;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.createContainer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin: 5px;
+}
+
+.writer{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.createAt {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.boardContent {
+    resize: none;
+    width:55vw;
+    margin: 20px 0;
+    font-family: "SUIT-Regular";
+    font-weight: 400;
+    font-size: 2vmin;
+    padding: 30px 30px;
+    border-radius: 10px;
+}
+
+.boardBtn {
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 30vw;
+    margin-right: 30px;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+hr {
+    margin-left: 0;
+    width: 60vw;
+}
+
+.likeBtn {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
+.likeBtn svg {
+    cursor: pointer;
+    fill: gray;
+    margin-right: 8px;
+}
+
+path {
+    padding-top: 0;
+}
+
+.count {
+    margin-left: 10px;
+}
+
+.commentContainer {
+    height: 3.8vw;
+    width: 60vw;
+    border-radius: 10px;
+    line-height: 60px;
+    margin: 19px 0;
+    background: #FFFFFF;
+}
+
+
+.commentContainer hr {
+    width: 58vw;
+}
+
+.comment span:nth-of-type(2n+1) {
+    margin-left: 11px;
+}
+
+.comment span:nth-of-type(2n) {
+    margin-left: 41px;
+}
+
+.comment {
+    padding-left: 10px;
+}
+
+.countContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.addCommentInput {
+    margin: 5px 0;
+    width: 50vw;
+    resize: none;
+    border-radius: 10px;
+    border: none;
+}
+
+.addCommentBtn {
+    margin-top:5px;
+}
+
+.boardEditBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-left: 20vw;
+    margin-right: 1vw;
+}
+
+.boardList {
+    width: 60vw;
+    background-color: #004896;
+    border-radius: 10px;
+    padding:0;
+    margin-bottom: 10px;
+}
+
+.boardList button:hover {
+    background-color: #191970;
+}
+
+/*.boardList button:active {*/
+/*    background-color: #191970;*/
+/*}*/
+
+.visited {
+    background-color: #191970;
+}
+
+.boardTitlePreview {
+    margin-right: 10vw;
+    width: 200px;
+    display: inline-block;
+}
+
+.listName span:last-child {
+    margin-right:0;
+}
+
+.properties {
+    margin-right: 10vw;
+}
+
+ul {
+    list-style: none;
+    padding:0
+}
+
+.btnDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.updateComment {
+    height: 2.2vw;
+    width: 50vw;
+    font-size: 2vmin;
+    padding: 10px 30px;
+    font-family: "SUIT-Regular";
+    margin: 0;
+}
+
+.updateCommentBtn, .deleteCommentBtn {
+    font-size: 0.8rem;
+    width: auto;
+    height: auto;
+    background: transparent;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.updateCommentBtn:hover, .deleteCommentBtn:hover {
+    text-decoration: underline;
+}
+
+.commentListContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.commentUserID {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.parent_member_name{
+    font-size: 1rem;
+    margin: 5px 5px 5px 0;
+    font-weight: bold;
+}
+
+.commentText {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* .commentActions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+} */
+
+.replyContainer{
+    margin-left:20px;
+    margin-top:20px;
+}
+
+.line {
+    width: 58vw;
+    margin-top: 10px;
+    color:#ccc;
+}
+
+.hrSpacing {
+    margin: 6px 0;
+}
+
+.editCompleteBtn{
+    height: 50px;
+}

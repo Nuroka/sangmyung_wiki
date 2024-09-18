@@ -4,22 +4,36 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/api";
 
 import RootLayout from "./layout/RootLayout";
+import OutletLayout from "./layout/OutletLayout";
+
 import ErrorPage from "./pages/Error";
-import Home from "./pages/Home";
-import Fileload from "./pages/Fileload";
+import Fileload from "./pages/file/Fileload";
 import Login from "./pages/Login";
-import Community from "./pages/Community";
-import RecentUpdated from "./pages/RecentUpdated";
+import RecentEdited from "./pages/docs/RecentEdited";
+import FindAccount from "./pages/member/FindAccount";
+import FindID from "./pages/member/FindID";
+import FindPW from "./pages/member/FindPW";
+import MyPage from "./pages/member/MyPage";
+import UpdatePw from "./pages/member/UpdatePw";
+import Logout from "./pages/Logout";
+import CreateAccount from "./pages/member/CreateAccount";
+import DocsLog from "./pages/docs/DocsLog";
+import Doc from "./pages/docs/Doc";
+import EditDoc from "./pages/docs/EditDoc";
+import CreateDoc from "./pages/docs/CreateDoc";
+import Home from "./pages/Home";
+
 import BoardList from "./component/board/BoardList";
 import BoardDetail from "./component/board/BoardDetail";
 import BoardWrite from "./component/board/BoardWrite";
 import BoardUpdate from "./component/board/BoardUpdate";
-import FindId from "./pages/FindId";
-import MyPage from "./pages/MyPage";
-import UpdatePw from "./pages/UpdatePw";
-import CreateAccountEmailPage from "./pages/CreateAccountEmail";
-import CreateAccountIdPage from "./pages/CreateAccountid";
-import IdAuth from "./pages/IdAuth";
+
+import AuthRoute from "./util/AuthRoute";
+import UnauthRoute from "./util/UnauthRoute";
+import DefaultRoute from "./util/DefaultRoute";
+import MyDocs from "./pages/docs/MyDocs";
+import RandomDoc from "./pages/docs/RandomDoc";
+import LogDetail from "./component/docs/LogDetail";
 
 const router = createBrowserRouter([
   {
@@ -27,83 +41,78 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
       {
-        path: "file",
-        element: <Fileload />,
-      },
-      {
-        path: "board",
-        element: (
-          <>
-            <Community />
-            <BoardList />
-          </>
-        ),
-      },
-      {
-        path: "/board/one",
-        element: (
-          <>
-            <Community />
-            <BoardDetail />
-          </>
-        ),
-      },
-      {
-        path: "/write",
-        element: (
-          <>
-            <Community />
-            <BoardWrite />
-          </>
-        ),
-      },
-      {
-        path: "board/update/:idx",
-        element: (
-          <>
-            <Community />
-            <BoardUpdate />
-          </>
-        ),
-      },
-      {
-        path: "docs/edit",
-        element: <RecentUpdated />,
-      },
-      {
-        path: "user",
-        element: <Login />,
-      },
-      {
-        path: "findId",
+        path: "/",
+        element: <AuthRoute />, // 로그인 후 접근 가능
         children: [
           {
-            index: true,
-            element: <FindId />,
+            path: "/board",
+            element: <OutletLayout title="커뮤니티" />,
+            children: [
+              { index: true, element: <BoardList /> },
+              { path: "one", element: <BoardDetail /> },
+              { path: "edit/:id", element: <BoardUpdate /> },
+              { path: "write", element: <BoardWrite /> },
+            ],
           },
           {
-            path: "auth",
-            element: <IdAuth />,
+            path: "file",
+            element: <OutletLayout title="파일 올리기" />,
+            children: [{ index: true, element: <Fileload /> }],
+          },
+          { path: "mypage", element: <MyPage /> },
+          {
+            path: "member/update",
+            element: <OutletLayout title="비밀번호 변경" />,
+            children: [{ index: true, element: <UpdatePw /> }],
+          },
+          { path: "logout", element: <Logout /> },
+          { path: "docs/edit", element: <EditDoc /> },
+          { path: "docs/create", element: <CreateDoc /> },
+          { path: "mydocs", element: <MyDocs /> },
+        ],
+      },
+      {
+        path: "/",
+        element: <UnauthRoute />, // 로그인 시 접근 불가
+        errorElement: <ErrorPage />,
+        children: [
+          { path: "user", element: <Login /> },
+          {
+            path: "signin",
+            element: <OutletLayout title="계정 만들기" />,
+            children: [{ index: true, element: <CreateAccount /> }],
+          },
+          {
+            path: "findAccount",
+            element: <OutletLayout title="계정 / 비밀번호 찾기" />,
+            children: [{ index: true, element: <FindAccount /> }],
+          },
+          {
+            path: "findID",
+            element: <OutletLayout title="계정 찾기" />,
+            children: [{ index: true, element: <FindID /> }],
+          },
+          {
+            path: "findPW",
+            element: <OutletLayout title="비밀번호 찾기" />,
+            children: [{ index: true, element: <FindPW /> }],
           },
         ],
       },
       {
-        path: "mypage",
-        element: <MyPage />,
-      },
-      {
-        path: "member/update",
-        element: <UpdatePw />,
-      },
-      {
-        path: "createEmail",
-        element: <CreateAccountEmailPage />,
-      },
-      {
-        path: "createId",
-        element: <CreateAccountIdPage />,
+        path: "/",
+        element: <DefaultRoute />, // 로그인과 상관없이 접근 가능
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "docs/log", element: <DocsLog /> },
+          { path: "docs/log/detail", element: <LogDetail /> },
+          { path: "docs/recommend/random", element: <Doc /> },
+          { path: "docs/recommend", element: <RandomDoc /> },
+          { path: "docs/recent", element: <RecentEdited /> },
+          { path: "docs/:id", element: <Doc /> },
+        ],
       },
     ],
   },

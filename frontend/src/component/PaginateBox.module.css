@@ -1,0 +1,13 @@
+.pageBtn {
+  width: 86px;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 10px;
+  color: black;
+  font-family: "SUIT-Regular";
+}
+
+.pageBtn:hover,
+.pageBtn:disabled {
+  background: #706f6f3a;
+}

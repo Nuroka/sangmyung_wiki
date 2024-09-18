@@ -1,0 +1,30 @@
+.tr {
+  height: 70px;
+}
+
+.title {
+  padding-left: 20px;
+}
+
+.create {
+  text-align: center;
+}
+
+.delete {
+  display: flex;
+  justify-content: center;
+  margin-top: 11px;
+}
+
+.deleteBtn {
+  width: 82px;
+  height: 42px;
+  background-color: white;
+  color: black;
+  font-family: "SUIT-Regular";
+  font-size: 20px;
+}
+
+.deleteBtn:hover {
+  background-color: #706f6f3a;
+}

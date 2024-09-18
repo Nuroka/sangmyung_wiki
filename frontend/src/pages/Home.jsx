@@ -1,9 +1,5 @@
-import HomeContent from "../component/home/HomeConent";
+import { Navigate } from "react-router-dom";
 
-export default function Fileload() {
-  return (
-    <>
-      <HomeContent />
-    </>
-  );
+export default function Home() {
+  return <Navigate to={"/docs/1"} />;
 }

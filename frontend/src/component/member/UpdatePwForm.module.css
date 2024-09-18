@@ -1,0 +1,23 @@
+.form {
+  width: 30vw;
+  margin-bottom: 20px;
+  margin-right: 30px;
+}
+
+.form:focus {
+  outline: none;
+}
+
+.error {
+  border: 2px red solid; /* Error border color */
+}
+
+.btn {
+  margin-top: 10px;
+  margin-left: 23.5vw;
+}
+
+.span {
+  word-break: nowrap;
+  white-space: pre;
+}
