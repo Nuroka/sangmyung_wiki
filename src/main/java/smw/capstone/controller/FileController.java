@@ -93,8 +93,8 @@ public class FileController {
      * 문서 삭제
      */
     @PostMapping("/docs")
-    public ResponseEntity<?> deleteDoc(Long id, @CurrentUser Member member) {
-        docService.deleteDoc(id, member);
+    public ResponseEntity<?> deleteDoc(Long id) {
+        docService.deleteDoc(id);
         return ResponseEntity.ok().body("문서가 삭제 되었습니다.");
     }
 

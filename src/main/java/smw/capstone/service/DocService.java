@@ -157,15 +157,17 @@ public List<DocDTO> findAllReverse(String sort) {
     }
 
     @Transactional
-    public void deleteDoc(Long id, Member member) {
+    public void deleteDoc(Long id) {
         if (id == null) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
-
         }
         try {
-            Documents documents = docRepository.findByIdAndMember(id, member).orElseThrow(() -> new BusinessException(CustomErrorCode.ACCESS_DENIED));
+//            Documents documents = docRepository.findByIdAndMember(id, member).orElseThrow(() -> new BusinessException(CustomErrorCode.ACCESS_DENIED));
+            Documents documents = docRepository.findById(id).orElse(null);
 //            docRepository.deleteById(id);
-            docRepository.delete(documents);
+            if (documents != null) {
+                docRepository.delete(documents);
+            }
         } catch (NullPointerException e) {
             throw new BusinessException(CustomErrorCode.NOT_EXIST_DOC_ID);
         }
