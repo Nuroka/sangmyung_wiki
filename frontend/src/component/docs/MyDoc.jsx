@@ -18,12 +18,12 @@ export default function MyDoc({ doc, handleDelete }) {
       </td>
       <td className={styles.create}>{parseDate(doc.create_at)}</td>
       <td className={styles.delete}>
-        <button
+        {/* <button
           onClick={() => handleDelete(doc.id)}
           className={styles.deleteBtn}
         >
           삭제
-        </button>
+        </button> */}
       </td>
     </tr>
   );
