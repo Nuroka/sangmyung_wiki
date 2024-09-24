@@ -76,9 +76,9 @@ const Board = ({
                 <button className={`${styles.link} `} onClick={moveToUpdate}>
                   수정
                 </button>
-                <button className={`${styles.link}`} onClick={deleteBoard}>
+                {/* <button className={`${styles.link}`} onClick={deleteBoard}>
                   삭제
-                </button>
+                </button> */}
                 <button className={`${styles.link} `} onClick={moveToList}>
                   목록
                 </button>
