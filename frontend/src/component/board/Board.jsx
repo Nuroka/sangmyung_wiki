@@ -14,30 +14,38 @@ import CommentList from "./CommentList";
 import BoardCommentList from "./BoardCommentList";
 import AddComment from "./AddComment";
 
-
-const Board = ({ id, title, member_name, update_at, create_at, contents, likes, memberId, likeState,commentsCount}) => {
+const Board = ({
+  id,
+  title,
+  member_name,
+  update_at,
+  create_at,
+  contents,
+  likes,
+  memberId,
+  likeState,
+  commentsCount,
+}) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showUpdateForm, setShowUpdateForm] = useState(false); // 수정 폼을 보여줄지 여부를 관리하는 상태 추가
-    const [storeMemberId, setStoredMemberId] = useState(null);
+  const [storeMemberId, setStoredMemberId] = useState(null);
 
-    useEffect(() => {
-        const id = localStorage.getItem("id");
-        console.log(id);
-        setStoredMemberId(id);
-    }, []);
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    console.log(id);
+    setStoredMemberId(id);
+  }, []);
   const moveToUpdate = () => {
     setShowUpdateForm(true); // 수정 버튼을 클릭하면 수정 폼을 보여주도록 상태 변경
   };
 
   const deleteBoard = async () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
-      await authInstance
-          .delete(`board/delete`, { params: { id } })
-          .then((res) => {
-            alert("삭제되었습니다.");
-            navigate("/board");
-          });
+      await authInstance.delete(`/board/delete`, { params: { id } }).then((res) => {
+        alert("삭제되었습니다.");
+        navigate("/board");
+      });
     }
   };
 
