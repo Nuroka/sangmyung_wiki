@@ -10,6 +10,7 @@ import lombok.Getter;
 import smw.capstone.entity.Member;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Builder
@@ -19,14 +20,14 @@ public class ResponseDocDTO {
 
     private Long id;
 
-    private Long memberId;
+    private String memberUsername;
 
     private String title;
 
     private String content;
 
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
 }

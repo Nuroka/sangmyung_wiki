@@ -1,10 +1,21 @@
 package smw.capstone.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Comments {
 
     @Id
@@ -18,11 +29,23 @@ public class Comments {
 
     @JoinColumn(name = "Board_Id")
     @ManyToOne
-    private Board boad;
+    private Board board;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
+
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID")
+    private Comments parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<Comments> child = new ArrayList<>();
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
